@@ -83,6 +83,7 @@
 		1734AD681400E822CB11EA08 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
 		19C1CDBA3A9CD2DC43B08709 /* SupabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseService.swift; sourceTree = "<group>"; };
 		1B385598E03AB160E6C886A8 /* CohortApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CohortApplication.swift; sourceTree = "<group>"; };
+		06F75E69D7F34ED9BDBB3F7D /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		1D1A033072D67B24F6E025AE /* Secrets.xcconfig.example */ = {isa = PBXFileReference; path = Secrets.xcconfig.example; sourceTree = "<group>"; };
 		1EFD05EEEEB39FD7C945C77E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		278A6A974DEE25F2CBBEF5C4 /* Practice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Practice.swift; sourceTree = "<group>"; };
@@ -222,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				FD2272D49349E8E0BE2475E3 /* Config.swift */,
+				06F75E69D7F34ED9BDBB3F7D /* Secrets.xcconfig */,
 				1D1A033072D67B24F6E025AE /* Secrets.xcconfig.example */,
 			);
 			path = Config;
@@ -684,6 +686,7 @@
 		};
 		A4C88BBB84EFBD00FA100459 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06F75E69D7F34ED9BDBB3F7D /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = APieceOfWhole/APieceOfWhole.entitlements;
@@ -771,6 +774,7 @@
 		};
 		D86F2BFAD75D918EDAE9034F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06F75E69D7F34ED9BDBB3F7D /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = APieceOfWhole/APieceOfWhole.entitlements;

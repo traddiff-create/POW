@@ -19,6 +19,7 @@ struct POWTextField: View {
             Group {
                 if isSecure {
                     SecureField(placeholder, text: $text)
+                        .textContentType(.init(rawValue: ""))
                 } else if axis == .vertical {
                     TextField(placeholder, text: $text, axis: .vertical)
                         .lineLimit(3...8)
