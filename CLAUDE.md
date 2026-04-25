@@ -1,56 +1,103 @@
-# Piece of Whole (POW) — Claude Instructions
+# A Piece of Whole (POW) — Claude Instructions
 
 **Location:** `/Applications/Apps/Piece of Whole/` | **GitHub:** traddiff-create/POW | **Owner:** Rory Stone
 
 ## Stack
+
 | Layer | Technology |
 |-------|-----------|
-| iOS UI | Swift 6.2+, SwiftUI, @Observable, NavigationStack |
-| Android UI | Kotlin, Jetpack Compose, Material 3 Expressive |
-| Shared | Kotlin Multiplatform (KMP), Ktor, SQLDelight, Kotlin Serialization |
-| AI | OpenAI API (`$OPENAI_API_KEY`) + Claude API (`$ANTHROPIC_API_KEY`) |
+| iOS | Swift 6.2+, SwiftUI, @Observable, NavigationStack |
+| Backend | Supabase (Postgres + Auth + Edge Functions + Storage) |
+| Android | Kotlin, Jetpack Compose, Material 3 (scaffold only) |
+| Shared | Kotlin Multiplatform (KMP) scaffold — not wired to iOS yet |
+| AI | OpenAI API + Claude API |
 
-## Bundle IDs
-- iOS: `com.traddifftech.hackathon` *(placeholder — update before first build)*
-- Android: `com.hackathon.app` *(placeholder)*
+## Bundle IDs & App IDs
+- iOS Bundle: `com.traddifftech.apieceofwhole`
+- Apple Bundle ID registered: `8NNC4RKNGT` (registered 2026-04-25)
+- App Store Connect ID: pending — create via web UI (bundle is pre-registered)
+- SKU: `APIECEOFWHOLE2025`
 
-## Key Directories
+## Supabase Project
+- Project ref: `gtpeyindgjhegldrdrrb`
+- URL: `https://gtpeyindgjhegldrdrrb.supabase.co`
+- Credentials: `ios/APieceOfWhole/APieceOfWhole/Config/Secrets.xcconfig` (gitignored)
+- Migrations: `supabase/migrations/` (push via `supabase db push --linked`)
+
+## iOS Project (primary — all active development here)
 ```
-shared/src/commonMain/kotlin/com/hackathon/
-  models/       — Data models (source of truth — KMP)
-  repository/   — Data access interfaces
-  domain/       — Business logic, use cases
-  utils/        — Shared utilities
-
-ios/Hackathon/
-  App/          — @main entry point
-  Features/     — One folder per screen/feature
-  Core/Design/  — Colors, Typography, Tokens
-  Core/Components/ — Reusable SwiftUI views
-
-android/src/main/kotlin/com/hackathon/
-  ui/           — Compose screens and ViewModels
-  core/         — DI, navigation, theme
+ios/APieceOfWhole/
+  APieceOfWhole.xcodeproj    — Xcode project
+  APieceOfWhole/
+    App/          — @main entry, AppState, RootView
+    Config/       — Config.swift, Secrets.xcconfig (gitignored)
+    Core/
+      Auth/         — AuthService (Supabase auth)
+      Supabase/     — SupabaseClient, SupabaseService
+      Models/       — All data models (CheckIn, Practice, Profile, etc.)
+      Design/       — Colors, Typography, POW* components
+      StoreKit/     — PurchaseService
+    Features/
+      Auth/         — CreateAccountView, SignInView
+      Onboarding/   — Age confirm, agreements, profile setup
+      Tabs/         — MainTabView + Today, Practices, Circle, Journal, MyPiece tabs
+      Settings/     — SettingsView, Safety, Legal, Support, DeleteAccount
+      Manage/       — Admin + Facilitator dashboards
+      Public/       — Pre-auth navigation
 ```
 
-## Conventions
-- **KMP first:** all data models live in `shared/commonMain` — never duplicate in iOS or Android
-- **Swift:** strict concurrency (`-strict-concurrency=complete`), @Observable for state
-- **Compose:** state hoisting, no business logic in composables
-- **Parity rule:** any change to a KMP model requires updating BOTH platform UIs
+## Key Conventions
+- **Supabase-first:** iOS uses Supabase Swift SDK directly — no KMP data layer yet
+- **RLS:** every table has row-level security; `check_ins` policy requires `user_id` in INSERT payload
+- **Secrets:** `Secrets.xcconfig` is gitignored; use xcconfig variable expansion for URLs (`_FS = /`)
+- **Swift:** strict concurrency, @Observable for state, no singletons except SupabaseService
 - **Commits:** conventional commits (`feat/fix/refactor/docs/chore`)
 
-## Build Commands (fill in as project is created)
+## Build Commands
 ```bash
-# iOS — build
-xcodebuild -project ios/Hackathon/Hackathon.xcodeproj ...
+# iOS — build (simulator)
+DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer \
+xcodebuild -project "ios/APieceOfWhole/APieceOfWhole.xcodeproj" \
+  -scheme APieceOfWhole \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
+  build
 
-# Android — build
-cd android && ./gradlew assembleDebug
+# iOS — archive for App Store
+DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer \
+xcodebuild -project "ios/APieceOfWhole/APieceOfWhole.xcodeproj" \
+  -scheme APieceOfWhole \
+  -destination generic/platform=iOS \
+  -archivePath build/APieceOfWhole.xcarchive \
+  archive
 
-# KMP shared — build
-./gradlew :shared:build
+# Export + upload
+xcodebuild -exportArchive \
+  -archivePath build/APieceOfWhole.xcarchive \
+  -exportOptionsPlist scripts/ExportOptions.plist \
+  -exportPath build/export
+
+# Supabase — push migrations
+supabase db push --linked
+
+# Supabase — deploy edge functions
+supabase functions deploy verify-purchase
+supabase functions deploy record-entitlement
 ```
+
+## Supabase Schema Quick Reference
+| Table | Notes |
+|-------|-------|
+| `user_profiles` | Created by trigger on auth.users insert |
+| `practices` | RLS: `published = true` for read |
+| `civic_lessons` | RLS: `published = true` for read |
+| `check_ins` | INSERT requires `user_id` explicitly (RLS: `user_id = auth.uid()`) |
+| `cohorts` | `is_open = true` for public listing |
+| `enrollments` | Activated post-purchase by edge function |
+| `circle_shares` | Scoped to cohort; `hidden_at IS NULL` for reads |
+
+## StoreKit
+- Product ID: `apow.cohort.8week`
+- Edge function `verify-purchase` validates receipt → `record-entitlement` creates enrollment
 
 ## Related Skills
 `/pipeline` `/release` `/dharma-release` (reference for cross-platform release flow)

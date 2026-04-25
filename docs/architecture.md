@@ -3,92 +3,116 @@
 ## Overview
 
 ```
-┌─────────────────────┐     ┌─────────────────────┐
-│      iOS (Swift)    │     │   Android (Kotlin)   │
-│   SwiftUI + @Obs.   │     │  Compose + ViewModel │
-└────────┬────────────┘     └──────────┬───────────┘
-         │                             │
-         └──────────┬──────────────────┘
-                    │
-         ┌──────────▼──────────┐
-         │   shared (KMP)      │
-         │  commonMain/kotlin  │
-         │  models / repo /    │
-         │  domain / utils     │
-         └──────────┬──────────┘
-                    │
-         ┌──────────▼──────────┐
-         │  External Services  │
-         │  Ktor (HTTP)        │
-         │  SQLDelight (DB)    │
-         │  OpenAI API         │
-         │  Claude API         │
-         └─────────────────────┘
+┌─────────────────────────────────────┐
+│         iOS — SwiftUI               │
+│  @Observable AppState               │
+│  Feature views + POW components     │
+└──────────────┬──────────────────────┘
+               │
+               │  Supabase Swift SDK
+               │
+┌──────────────▼──────────────────────┐
+│         Supabase                    │
+│  Auth  │  Postgres + RLS            │
+│  Edge Functions (Deno/TypeScript)   │
+│  Storage (practice audio)           │
+└─────────────────────────────────────┘
+
+[KMP scaffold exists at shared/ — not yet wired to iOS]
 ```
 
 ## Tech Stack
 
-| Layer | iOS | Android | Shared |
-|-------|-----|---------|--------|
-| Language | Swift 6.2+ | Kotlin 2.x | Kotlin (KMP) |
-| UI | SwiftUI | Jetpack Compose | — |
-| State | @Observable | ViewModel + StateFlow | — |
-| Navigation | NavigationStack | NavHost | — |
-| Networking | Ktor (via KMP) | Ktor (via KMP) | Ktor Client |
-| Persistence | SQLDelight (via KMP) | SQLDelight (via KMP) | SQLDelight |
-| Serialization | — | — | Kotlin Serialization |
-| DI | Manual / Swift | Hilt or manual | — |
-| AI | — | — | OpenAI + Claude APIs |
+| Layer | Technology | Notes |
+|-------|-----------|-------|
+| iOS language | Swift 6.2+ | Strict concurrency |
+| iOS UI | SwiftUI | @Observable state, NavigationStack |
+| iOS state | @Observable + AppState | Single root state object |
+| Backend | Supabase | Auth, Postgres, Edge Functions, Storage |
+| Payments | StoreKit 2 | Product: `apow.cohort.8week` |
+| Android | Kotlin + Jetpack Compose | Scaffold only — not feature-complete |
+| Shared | Kotlin Multiplatform | Scaffold only — iOS uses Supabase SDK directly |
 
-## State Management
+## iOS State Management
 
-### iOS (@Observable pattern — matches DharmaGit)
 ```swift
-@Observable
-final class HomeViewModel {
-    var items: [Item] = []
-    private let repository: ItemRepository
-
-    func load() async { ... }
+// AppState — single @Observable root, injected via .environment(appState)
+@Observable final class AppState {
+    var session: Session?           // Supabase auth session
+    var profile: Profile?           // user_profiles row
+    var activeMembership: CohortMembership?
+    var phase: AppPhase = .loading  // loading | auth | onboarding | main
 }
-```
 
-### Android (ViewModel + StateFlow)
-```kotlin
-class HomeViewModel(private val repository: ItemRepository) : ViewModel() {
-    val uiState: StateFlow<HomeUiState> = ...
-}
+// Views observe via @Environment(AppState.self)
+// No ViewModels — state lives in AppState or local @State
 ```
 
 ## Data Flow
 
 ```
 User Action
-    → ViewModel (iOS @Observable / Android ViewModel)
-    → Domain UseCase (KMP commonMain)
-    → Repository interface (KMP commonMain)
-    → Repository impl (platform-specific or KMP)
-    → Data source (SQLDelight / Ktor)
+    → SwiftUI view (local @State or @Environment(AppState.self))
+    → SupabaseService.shared.<method>()
+    → Supabase REST API / Realtime
+    → Postgres (RLS enforced)
+    → Decoded into model struct (Codable)
+    → AppState updated → view re-renders
 ```
 
-## KMP Module Layout
+## Supabase Auth Flow
 
 ```
-shared/src/
-├── commonMain/kotlin/com/hackathon/
-│   ├── models/         # Data classes, enums (no platform deps)
-│   ├── repository/     # Interfaces only
-│   ├── domain/         # Use cases — pure business logic
-│   └── utils/          # Extensions, helpers
-├── androidMain/        # Android-specific implementations
-└── iosMain/            # iOS-specific implementations
+App launch
+    → SupabaseClient.shared.auth.session
+    → nil → show Auth screens
+    → session → check user_profiles.onboarding_step
+        → not complete → Onboarding flow
+        → complete → MainTabView
 ```
 
-## iOS Xcframework
-The KMP shared module compiles to `shared.xcframework` for iOS consumption.
-Build: `./gradlew :shared:assembleXCFramework`
+## Feature Structure (iOS)
 
-## AI Integration
-- `OPENAI_API_KEY` — ChatGPT (GPT-4o) for user-facing AI features
-- `ANTHROPIC_API_KEY` — Claude for internal tooling / content generation
-- Both keys are environment variables — never hardcoded
+```
+Features/
+├── Auth/           CreateAccountView, SignInView
+├── Onboarding/     AgeConfirmView, AgreementsView, ProfileSetupView
+├── Public/         PublicNavigationView (pre-auth landing)
+├── Tabs/
+│   ├── Today/      TodayView, CheckInFormView
+│   ├── Practices/  PracticeLibraryView, PracticeDetailView
+│   ├── Circle/     CircleView, CirclePostView
+│   ├── Journal/    JournalView, JournalEntryView
+│   └── MyPiece/    MyPieceView
+├── Settings/       SettingsView, Safety, Legal, Support, DeleteAccount
+└── Manage/         AdminDashboardView, FacilitatorDashboardView
+```
+
+## Supabase Schema Summary
+
+| Table | Access | Notes |
+|-------|--------|-------|
+| `user_profiles` | Own row only | Created by trigger on auth.users insert |
+| `practices` | `published = true` | Admin can write |
+| `civic_lessons` | `published = true` | Admin can write |
+| `check_ins` | Own rows | INSERT must include `user_id` |
+| `cohorts` | `is_open = true` | Admin can write |
+| `enrollments` | Own row | Created by edge function post-purchase |
+| `circle_shares` | Cohort members | `hidden_at IS NULL` filter |
+| `circle_comments` | Same as shares | — |
+| `purchases` | Own rows | Created by StoreKit flow |
+
+## Edge Functions
+
+| Function | Trigger | Purpose |
+|----------|---------|---------|
+| `verify-purchase` | Client POST after StoreKit | Validates Apple receipt |
+| `record-entitlement` | Called by verify-purchase | Creates enrollment row |
+
+## Secrets
+
+| Secret | Location | Used by |
+|--------|----------|---------|
+| `SUPABASE_URL` | Secrets.xcconfig (gitignored) | iOS via Info.plist |
+| `SUPABASE_ANON_KEY` | Secrets.xcconfig (gitignored) | iOS via Info.plist |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase secrets store | Edge functions only |

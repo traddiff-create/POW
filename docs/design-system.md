@@ -1,87 +1,66 @@
-# Design System
+# Design System — A Piece of Whole
 
-## iOS — SwiftUI (iOS 18+ / iOS 26 Preview)
+## Color Tokens (`Core/Design/Colors.swift`)
 
-### UI Framework
-- **SwiftUI** — declarative, @Observable state, NavigationStack
-- **Liquid Glass** (iOS 26) — frosted glass material for overlays, sheets, navigation bars
-- **SF Symbols 6** — system iconography, variable color, animations
-- **Dynamic Type** — all text must scale with user font size preference
-- **Dark Mode** — all color tokens must have light + dark variants
+| Token | Hex / Value | Usage |
+|-------|------------|-------|
+| `powBackground` | `#F9F7F4` | App background (warm off-white) |
+| `powSurface` | `#FFFFFF` | Cards, input fields |
+| `powForeground` | `#2C2A28` | Primary text |
+| `powMuted` | `#2C2A28` @ 55% | Labels, secondary text |
+| `powBorder` | `#2C2A28` @ 12% | Strokes, dividers |
+| `powSage` | `#7A9E7E` | Primary accent — focused fields, selected states |
+| `powSageLight` | `#7A9E7E` @ 12% | Sage tint backgrounds |
+| `powStone` | `#C4A882` | Warm secondary accent |
+| `powError` | `#C0392B` | Error states |
 
-### Color Tokens (fill in with brand colors)
+## Typography Scale (`Core/Design/Typography.swift`)
+
+| Token | Size / Weight | Usage |
+|-------|-------------|-------|
+| `.powLargeTitle` | 32pt semibold | Hero headings |
+| `.powTitle` | 24pt semibold | Section headers |
+| `.powTitle2` | 20pt semibold | Card titles, nav titles |
+| `.powHeadline` | 17pt semibold | Emphasized body |
+| `.powBody` | 17pt regular | Body text |
+| `.powCallout` | 15pt regular | Secondary body, subtitles |
+| `.powCaption` | 13pt regular | Field labels, footnotes |
+| `.powLabel` | 11pt medium uppercaseSmallCaps | Metadata tags |
+
+## Spacing Grid
+Base unit: 4pt. Common values: 4, 8, 12, 16, 24, 32, 48.
+
+## Component Library (`Core/Design/Components/`)
+
+### POWTextField
 ```swift
-// Core/Design/Colors.swift
-extension Color {
-    static let appPrimary   = Color("Primary")     // #XXXXXX
-    static let appSecondary = Color("Secondary")   // #XXXXXX
-    static let appBackground = Color("Background") // #XXXXXX
-    static let appSurface   = Color("Surface")     // #XXXXXX
-    static let appOnPrimary = Color("OnPrimary")   // #XXXXXX
-}
+POWTextField(label: "Email", text: $email, placeholder: "you@example.com")
+POWTextField(label: "Password", text: $password, isSecure: true)
+POWTextField(label: "Note", text: $note, axis: .vertical)   // multiline
 ```
+- Sage border on focus (1.5pt), muted border at rest (1pt)
+- Suppresses iOS password autofill system sheet via `.textContentType(.init(rawValue: ""))`
 
-### Typography Scale
+### POWButton
 ```swift
-// Core/Design/Typography.swift
-// Use .font(.largeTitle), .font(.headline), .font(.body) — never hardcode pt sizes
+POWButton(title: "Save", isLoading: isLoading) { /* action */ }
 ```
+- Full-width, sage background, loading state built-in
 
-### Spacing Grid
-- Base unit: 4pt
-- Common: 4, 8, 12, 16, 24, 32, 48
+### POWCard
+```swift
+POWCard { /* content */ }
+```
+- White surface, rounded corners, subtle shadow
 
-### iOS UI Patterns
+## iOS UI Patterns
 - `NavigationStack` + `.navigationDestination` for push navigation
-- `.sheet` / `.fullScreenCover` for modal flows
-- `ScrollView` + `LazyVStack` for lists (prefer over `List` for custom styling)
-- `.task` modifier for async data loading
-- `.searchable` for search UI
+- `.sheet` for modal flows (check-in, new post)
+- `.task` modifier for async data loading on appear
+- `ScrollView` + `VStack` for custom-styled lists (not `List`)
+- Error displayed inline as red caption text below failed action
 
----
-
-## Android — Jetpack Compose + Material 3 Expressive
-
-### UI Framework
-- **Jetpack Compose** — declarative UI
-- **Material 3 Expressive** (2025) — updated motion, typography, adaptive color
-- **Dynamic Color** — system-generated palette from wallpaper (Android 12+)
-- **Adaptive Layouts** — support phone, tablet, foldable with `WindowSizeClass`
-
-### Color Tokens
-```kotlin
-// core/theme/Color.kt
-val Primary = Color(0xFFXXXXXX)
-val Secondary = Color(0xFFXXXXXX)
-val Background = Color(0xFFXXXXXX)
-val Surface = Color(0xFFXXXXXX)
-// Use MaterialTheme.colorScheme.* everywhere — never hardcode
-```
-
-### Typography
-```kotlin
-// Use MaterialTheme.typography.* — headlineLarge, bodyMedium, labelSmall, etc.
-```
-
-### Spacing
-- Same 4dp base grid as iOS for consistency
-
-### Android UI Patterns
-- `NavHost` + `composable()` for navigation
-- `ModalBottomSheet` for bottom sheets
-- `LazyColumn` / `LazyRow` for scrollable lists
-- `ViewModel` + `collectAsStateWithLifecycle()` for state
-- `Scaffold` with `TopAppBar` for standard screen layout
-
----
-
-## Shared Brand Tokens
-
-| Token | Value | Notes |
-|-------|-------|-------|
-| Primary | TBD | Main brand color |
-| Secondary | TBD | Accent |
-| Background | TBD | Screen background |
-| Border radius | 12pt / 12dp | Cards, sheets |
-| Animation duration | 300ms | Standard transitions |
-| Shadow elevation | 2dp | Cards |
+## Accessibility
+- All POW* components support Dynamic Type via `.font(.powBody)` etc.
+- Focus state exposed via `@FocusState` on all text inputs
+- Color contrast: sage `#7A9E7E` on white passes WCAG AA for large text

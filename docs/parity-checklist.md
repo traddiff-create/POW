@@ -6,46 +6,71 @@ Track feature parity between platforms. Update status as features are built.
 
 ---
 
-## Core Features
-
-| Feature | iOS | Android | KMP Shared | Notes |
-|---------|-----|---------|-----------|-------|
-| Onboarding flow | [ ] | [ ] | [ ] | |
-| Home screen | [ ] | [ ] | [ ] | |
-| Detail screen | [ ] | [ ] | [ ] | |
-| Settings screen | [ ] | [ ] | [ ] | |
-| Push notifications | [ ] | [ ] | N/A | Platform-specific setup |
-| Deep linking | [ ] | [ ] | N/A | |
-| Dark mode | [ ] | [ ] | N/A | |
-| Accessibility (VoiceOver / TalkBack) | [ ] | [ ] | N/A | |
-
-## Data Layer (KMP)
-
-| Model / Repo | commonMain | iOS binding | Android binding | Notes |
-|-------------|-----------|-------------|-----------------|-------|
-| Item model | [ ] | [ ] | [ ] | |
-| ItemRepository | [ ] | [ ] | [ ] | |
-| Main use case | [ ] | [ ] | [ ] | |
-
-## AI Features
+## Auth & Onboarding
 
 | Feature | iOS | Android | Notes |
 |---------|-----|---------|-------|
-| OpenAI integration | [ ] | [ ] | Via KMP Ktor |
-| Claude integration | [ ] | [ ] | Via KMP Ktor |
+| Create account | [x] | [ ] | |
+| Sign in / sign out | [x] | [ ] | |
+| Age confirmation step | [x] | [ ] | |
+| Agreements step | [x] | [ ] | |
+| Profile setup step | [x] | [ ] | |
+| Onboarding completion → main tabs | [x] | [ ] | |
 
-## Release Readiness
+## Core Tabs
 
-| Item | iOS | Android |
-|------|-----|---------|
-| App icon (all sizes) | [ ] | [ ] |
-| Launch screen | [ ] | [ ] |
-| Privacy manifest / policy | [ ] | [ ] |
-| App Store metadata | [ ] | [ ] |
-| Screenshots | [ ] | [ ] |
-| In-app purchases (if any) | N/A | N/A |
+| Feature | iOS | Android | Notes |
+|---------|-----|---------|-------|
+| Today tab (home) | [x] | [ ] | |
+| Daily check-in form | [x] | [ ] | mood, body, stress, capacity, note |
+| Practice Library tab | [x] | [ ] | |
+| Practice detail view | [x] | [ ] | |
+| Circle tab | [x] | [ ] | |
+| Circle post submission | [x] | [ ] | |
+| Journal tab | [x] | [ ] | |
+| Journal entry create/edit | [x] | [ ] | |
+| My Piece tab | [x] | [ ] | values, gifts, capacity, contribution |
 
----
+## Settings
 
-## Drift Detection Rule
-Any change to a model in `shared/commonMain` must be reflected in both platforms before the PR merges. Run `scripts/check-parity.sh` to scan for mismatches.
+| Feature | iOS | Android | Notes |
+|---------|-----|---------|-------|
+| Settings screen | [x] | [ ] | |
+| Safety resources view | [x] | [ ] | |
+| Legal / privacy view | [x] | [ ] | |
+| Support contact | [x] | [ ] | |
+| Delete account | [x] | [ ] | |
+
+## Admin / Manage
+
+| Feature | iOS | Android | Notes |
+|---------|-----|---------|-------|
+| Admin dashboard | [x] | [N/A] | iOS-only admin surface |
+| Facilitator dashboard | [x] | [N/A] | |
+| Admin applications review | [x] | [N/A] | |
+| Admin content management | [x] | [N/A] | |
+| Admin notifications | [x] | [N/A] | |
+
+## Supabase / Backend
+
+| Feature | iOS | Android | Notes |
+|---------|-----|---------|-------|
+| Auth (Supabase) | [x] | [ ] | |
+| user_profiles read/write | [x] | [ ] | |
+| check_ins CRUD | [x] | [ ] | |
+| practices fetch | [x] | [ ] | |
+| civic_lessons fetch | [x] | [ ] | |
+| circle_shares CRUD | [x] | [ ] | |
+| journal_entries CRUD | [x] | [ ] | |
+| enrollments read | [x] | [ ] | |
+| StoreKit purchase → enrollment | [x] | [ ] | Android uses Play Billing |
+
+## Platform Features
+
+| Feature | iOS | Android | Notes |
+|---------|-----|---------|-------|
+| Dark mode | [ ] | [ ] | Color tokens in place; system support TBD |
+| Push notifications | [ ] | [ ] | |
+| Deep linking | [ ] | [ ] | |
+| Dynamic Type / accessibility | [ ] | [ ] | Font tokens in place |
+| Offline / cached data | [ ] | [ ] | No SQLDelight wired yet |

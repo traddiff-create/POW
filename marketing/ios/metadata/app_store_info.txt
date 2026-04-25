@@ -1,0 +1,31 @@
+# App Store Connect — A Piece of Whole
+
+## Registration Status
+- Bundle ID: com.traddifftech.apieceofwhole (registered 2026-04-25, ID: 8NNC4RKNGT)
+- App Store Connect ID: PENDING — create at https://appstoreconnect.apple.com/apps/new
+- SKU: APIECEOFWHOLE2025
+- Primary Locale: en-US
+- Platform: iOS 18+
+
+## To create the app record
+1. Go to appstoreconnect.apple.com → My Apps → + (New App)
+2. Platform: iOS
+3. Name: A Piece of Whole
+4. Primary Language: English (U.S.)
+5. Bundle ID: com.traddifftech.apieceofwhole (will appear — registered via API)
+6. SKU: APIECEOFWHOLE2025
+7. User Access: Full Access
+
+## Pricing
+- Base price: Paid (see StoreKit product: apow.cohort.8week)
+- Cohort access is unlocked via in-app purchase
+
+## Categories
+- Primary: Health & Fitness
+- Secondary: Education
+
+## Age Rating
+- 4+ (no objectionable content; somatic wellness curriculum)
+
+## Privacy Policy URL
+https://apieceofwhole.com/privacy
