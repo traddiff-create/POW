@@ -26,6 +26,7 @@
 		45255D28D88B5F5D93B13BF9 /* AdminContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6826C741D1F55189B38CB7B4 /* AdminContentView.swift */; };
 		4810782C29B5DD58FAE418E4 /* CheckInFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAEE59EB698B93957C546F4 /* CheckInFormView.swift */; };
 		4C2476356BF3A42786E6C839 /* PracticeLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5CE30C747832B9D9E689BB /* PracticeLibraryView.swift */; };
+		52CAB9289BBFCA5FB72E16CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 201BEFD0F3D16DAE87BAACDA /* Assets.xcassets */; };
 		53501670DEF64D8B72BF9AD9 /* CohortListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1628D4C1256176E61A7D55E7 /* CohortListView.swift */; };
 		577AF60ADD96B867BFB8E245 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = CD414A3A7711ABD7C9B9E5E1 /* Supabase */; };
 		5EF9713FA97367DEEC94B2B7 /* PublicNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC45012646B944A819C88C6 /* PublicNavigationView.swift */; };
@@ -83,9 +84,9 @@
 		1734AD681400E822CB11EA08 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
 		19C1CDBA3A9CD2DC43B08709 /* SupabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseService.swift; sourceTree = "<group>"; };
 		1B385598E03AB160E6C886A8 /* CohortApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CohortApplication.swift; sourceTree = "<group>"; };
-		06F75E69D7F34ED9BDBB3F7D /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		1D1A033072D67B24F6E025AE /* Secrets.xcconfig.example */ = {isa = PBXFileReference; path = Secrets.xcconfig.example; sourceTree = "<group>"; };
 		1EFD05EEEEB39FD7C945C77E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		201BEFD0F3D16DAE87BAACDA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		278A6A974DEE25F2CBBEF5C4 /* Practice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Practice.swift; sourceTree = "<group>"; };
 		285F95883ED6C9C2B7734658 /* SpiralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiralView.swift; sourceTree = "<group>"; };
 		299806D42DF4DC7310C10052 /* POWButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POWButton.swift; sourceTree = "<group>"; };
@@ -223,7 +224,6 @@
 			isa = PBXGroup;
 			children = (
 				FD2272D49349E8E0BE2475E3 /* Config.swift */,
-				06F75E69D7F34ED9BDBB3F7D /* Secrets.xcconfig */,
 				1D1A033072D67B24F6E025AE /* Secrets.xcconfig.example */,
 			);
 			path = Config;
@@ -371,6 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				AA7BCE219828BDB668B69899 /* APieceOfWhole.entitlements */,
+				201BEFD0F3D16DAE87BAACDA /* Assets.xcassets */,
 				97B8D8BCB695FB9545BAE388 /* Info.plist */,
 				3D776136C8C2A0435F2CB8C5 /* App */,
 				319100818FBEBF40F66616D1 /* Config */,
@@ -544,6 +545,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52CAB9289BBFCA5FB72E16CF /* Assets.xcassets in Resources */,
 				BFC39BD533E1562AED6CB480 /* Secrets.xcconfig.example in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -686,7 +688,6 @@
 		};
 		A4C88BBB84EFBD00FA100459 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 06F75E69D7F34ED9BDBB3F7D /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = APieceOfWhole/APieceOfWhole.entitlements;
@@ -774,7 +775,6 @@
 		};
 		D86F2BFAD75D918EDAE9034F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 06F75E69D7F34ED9BDBB3F7D /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = APieceOfWhole/APieceOfWhole.entitlements;
