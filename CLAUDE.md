@@ -1,6 +1,6 @@
-# Hackathon — Claude Instructions
+# Piece of Whole (POW) — Claude Instructions
 
-**Location:** `/Applications/Apps/Hackathon/` | **Owner:** Rory Stone
+**Location:** `/Applications/Apps/Piece of Whole/` | **GitHub:** traddiff-create/POW | **Owner:** Rory Stone
 
 ## Stack
 | Layer | Technology |

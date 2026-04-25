@@ -1,4 +1,4 @@
-# Hackathon
+# Piece of Whole (POW)
 
 > iOS-first app with Android parity via Kotlin Multiplatform (KMP)
 
@@ -11,7 +11,7 @@
 
 ## Project Structure
 ```
-Hackathon/
+Piece of Whole/
 ├── shared/          # KMP — models, repositories, domain logic
 ├── ios/             # Native SwiftUI app
 ├── android/         # Native Compose app
