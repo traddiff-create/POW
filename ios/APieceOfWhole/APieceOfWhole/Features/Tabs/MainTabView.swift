@@ -53,5 +53,20 @@ struct MainTabView: View {
             }
         }
         .tint(Color.powSage)
+        .onOpenURL { url in
+            guard url.scheme == "apow", url.host == "tab" else { return }
+            switch url.pathComponents.last {
+            case "today":    selectedTab = .today
+            case "spiral":   selectedTab = .spiral
+            case "practice": selectedTab = .practice
+            case "journal":  selectedTab = .journal
+            case "circle":   selectedTab = .circle
+            case "mypiece":  selectedTab = .myPiece
+            case "civic":    selectedTab = .civic
+            case "settings": selectedTab = .settings
+            case "manage":   selectedTab = .manage
+            default: break
+            }
+        }
     }
 }
