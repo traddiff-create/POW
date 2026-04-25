@@ -1,0 +1,463 @@
+{
+  "_source": "DharmaGit/ios/Y/Audio/",
+  "_version": "2026-04-24",
+  "_description": "Complete audio library from Dharma Wellness, tagged for A Piece of Whole layers. Source files live in DharmaGit repo.",
+  "_source_base": "DharmaGit/ios/Y/Audio/",
+  "learn": {
+    "_description": "Guided audio lessons — the educational content library",
+    "files": [
+      {
+        "id": "hrv-nervous-system",
+        "filename": "hrv_nervous_system.m4a",
+        "path": "Learn/hrv_nervous_system.m4a",
+        "layers": [1],
+        "type": "education",
+        "topic": "HRV and the autonomic nervous system",
+        "use_cases": ["science_foundation", "self_regulation_education", "onboarding"],
+        "tags": ["hrv", "nervous_system", "science", "foundation"]
+      },
+      {
+        "id": "resonance-breathing",
+        "filename": "resonance_breathing.m4a",
+        "path": "Learn/resonance_breathing.m4a",
+        "layers": [1],
+        "type": "guided_practice",
+        "topic": "Resonance frequency breathing (HRV coherence)",
+        "use_cases": ["coherent_breathing", "stress_reduction", "hrv_training"],
+        "tags": ["breathing", "hrv", "coherence", "practice"]
+      },
+      {
+        "id": "box-breathing",
+        "filename": "box_breathing.m4a",
+        "path": "Learn/box_breathing.m4a",
+        "layers": [1],
+        "type": "guided_practice",
+        "topic": "Box breathing (4-4-4-4 pattern)",
+        "use_cases": ["acute_stress", "nervous_system_reset", "beginner_friendly"],
+        "tags": ["breathing", "box", "military", "beginner"]
+      },
+      {
+        "id": "alternate-nostril",
+        "filename": "alternate_nostril.m4a",
+        "path": "Learn/alternate_nostril.m4a",
+        "layers": [1],
+        "type": "guided_practice",
+        "topic": "Nadi Shodhana (alternate nostril breathing)",
+        "use_cases": ["balance", "focus", "pre_meditation"],
+        "tags": ["pranayama", "yogic", "breathing", "balance"]
+      },
+      {
+        "id": "body-scan",
+        "filename": "body_scan.m4a",
+        "path": "Learn/body_scan.m4a",
+        "layers": [1],
+        "type": "guided_practice",
+        "topic": "MBSR body scan meditation",
+        "use_cases": ["somatic_awareness", "trauma_informed", "relaxation"],
+        "tags": ["somatic", "mbsr", "body", "relaxation"]
+      },
+      {
+        "id": "loving-kindness",
+        "filename": "loving_kindness.m4a",
+        "path": "Learn/loving_kindness.m4a",
+        "layers": [1, 2],
+        "type": "guided_practice",
+        "topic": "Metta / loving-kindness meditation",
+        "use_cases": ["self_compassion", "relational_repair", "co_regulation_prep"],
+        "tags": ["metta", "compassion", "heart", "relational"]
+      },
+      {
+        "id": "co-regulation",
+        "filename": "co_regulation.m4a",
+        "path": "Learn/co_regulation.m4a",
+        "layers": [2],
+        "type": "education",
+        "topic": "Co-regulation — the science of nervous system synchrony between people",
+        "use_cases": ["partner_practice", "relational_healing", "clinical_education"],
+        "tags": ["co_regulation", "nervous_system", "relational", "pairs", "layer2_featured"]
+      },
+      {
+        "id": "synchronized-breathing",
+        "filename": "synchronized_breathing.m4a",
+        "path": "Learn/synchronized_breathing.m4a",
+        "layers": [2],
+        "type": "guided_practice",
+        "topic": "Partner synchronized breathing — breathing in unison with another person",
+        "use_cases": ["partner_practice", "couple_therapy", "group_practice"],
+        "tags": ["synchronized", "partner", "breathing", "co_regulation", "layer2_featured"]
+      },
+      {
+        "id": "breath-as-anchor",
+        "filename": "breath_as_anchor.m4a",
+        "path": "Learn/breath_as_anchor.m4a",
+        "layers": [1],
+        "type": "education",
+        "topic": "Using breath as an anchor for present-moment awareness",
+        "use_cases": ["mindfulness_foundation", "anxiety", "grounding"],
+        "tags": ["anchor", "mindfulness", "grounding", "foundation"]
+      },
+      {
+        "id": "davidson-four-pillars",
+        "filename": "davidson_four_pillars.m4a",
+        "path": "Learn/davidson_four_pillars.m4a",
+        "layers": [1],
+        "type": "education",
+        "topic": "Richard Davidson's 4 pillars of wellbeing (awareness, connection, insight, purpose)",
+        "use_cases": ["wellbeing_framework", "science_foundation", "layer4_bridge"],
+        "tags": ["davidson", "neuroscience", "pillars", "wellbeing", "purpose"]
+      },
+      {
+        "id": "four-pillars-cycle",
+        "filename": "four_pillars_cycle.m4a",
+        "path": "Learn/four_pillars_cycle.m4a",
+        "layers": [1, 4],
+        "type": "guided_practice",
+        "topic": "Cycling through Davidson's 4 pillars as a daily practice",
+        "use_cases": ["daily_practice", "purpose", "identity"],
+        "tags": ["davidson", "pillars", "purpose", "identity", "practice"]
+      },
+      {
+        "id": "open-awareness",
+        "filename": "open_awareness.m4a",
+        "path": "Learn/open_awareness.m4a",
+        "layers": [1],
+        "type": "guided_practice",
+        "topic": "Open awareness / choiceless awareness meditation",
+        "use_cases": ["advanced_practice", "expanded_consciousness", "non_dual"],
+        "tags": ["awareness", "choiceless", "advanced", "non_dual"]
+      },
+      {
+        "id": "morning-entrance",
+        "filename": "morning_entrance.m4a",
+        "path": "Learn/morning_entrance.m4a",
+        "layers": [1],
+        "type": "guided_practice",
+        "topic": "Morning intention-setting and centering practice",
+        "use_cases": ["morning_routine", "intention", "grounding"],
+        "tags": ["morning", "intention", "ritual", "centering"]
+      },
+      {
+        "id": "evening-return",
+        "filename": "evening_return.m4a",
+        "path": "Learn/evening_return.m4a",
+        "layers": [1],
+        "type": "guided_practice",
+        "topic": "Evening reflection and return to center",
+        "use_cases": ["evening_routine", "reflection", "completion"],
+        "tags": ["evening", "reflection", "ritual", "completion"]
+      },
+      {
+        "id": "finding-your-seat",
+        "filename": "finding_your_seat.m4a",
+        "path": "Learn/finding_your_seat.m4a",
+        "layers": [1],
+        "type": "guided_practice",
+        "topic": "Establishing a stable, grounded meditation posture",
+        "use_cases": ["beginner_foundation", "somatic", "posture"],
+        "tags": ["posture", "grounding", "beginner", "foundation"]
+      },
+      {
+        "id": "dose-response",
+        "filename": "dose_response.m4a",
+        "path": "Learn/dose_response.m4a",
+        "layers": [1],
+        "type": "education",
+        "topic": "The dose-response relationship in meditation practice — how much, how often",
+        "use_cases": ["habit_building", "science_foundation", "motivation"],
+        "tags": ["dose_response", "science", "habit", "consistency"]
+      },
+      {
+        "id": "leaves-on-stream",
+        "filename": "leaves_on_stream.m4a",
+        "path": "Learn/leaves_on_stream.m4a",
+        "layers": [1],
+        "type": "guided_practice",
+        "topic": "ACT cognitive defusion — placing thoughts on leaves floating downstream",
+        "use_cases": ["cognitive_defusion", "act_technique", "thought_distancing"],
+        "tags": ["act", "defusion", "thoughts", "acceptance", "clinical"]
+      },
+      {
+        "id": "hu-tone",
+        "filename": "hu_tone.m4a",
+        "path": "Learn/hu_tone.m4a",
+        "layers": [1],
+        "type": "guided_practice",
+        "topic": "Hu mantra toning — the ancient Sufi sound current practice",
+        "use_cases": ["mantra", "sound_healing", "spiritual_practice"],
+        "tags": ["hu", "mantra", "sufi", "toning", "sound_current"]
+      }
+    ]
+  },
+  "sleep": {
+    "_description": "Ambient soundscapes for sleep and deep relaxation",
+    "files": [
+      {
+        "id": "forest-camp",
+        "filename": "Forest Camp.mp3",
+        "path": "Sleep/Forest Camp.mp3",
+        "layers": [1],
+        "type": "ambient",
+        "use_cases": ["sleep", "relaxation", "background"],
+        "tags": ["nature", "forest", "ambient"]
+      },
+      {
+        "id": "water-bubbles",
+        "filename": "Water Bubbles.mp3",
+        "path": "Sleep/Water Bubbles.mp3",
+        "layers": [1],
+        "type": "ambient",
+        "use_cases": ["sleep", "relaxation", "background"],
+        "tags": ["water", "ambient", "soothing"]
+      },
+      {
+        "id": "binaural-beats-4hz",
+        "filename": "Binaural Beats 4hz.mp3",
+        "path": "Sleep/Binaural Beats 4hz.mp3",
+        "layers": [1],
+        "type": "binaural",
+        "frequency_hz": 4,
+        "brainwave_state": "theta",
+        "use_cases": ["deep_meditation", "sleep", "theta_state"],
+        "tags": ["binaural", "theta", "sleep", "brainwave"],
+        "note": "Requires stereo headphones for full effect"
+      },
+      {
+        "id": "flowing-water",
+        "filename": "Flowing Water.mp3",
+        "path": "Sleep/Flowing Water.mp3",
+        "layers": [1],
+        "type": "ambient",
+        "use_cases": ["sleep", "relaxation"],
+        "tags": ["water", "ambient", "flow"]
+      },
+      {
+        "id": "brown-noise",
+        "filename": "Brown Noise.mp3",
+        "path": "Sleep/Brown Noise.mp3",
+        "layers": [1],
+        "type": "noise",
+        "use_cases": ["sleep", "focus", "noise_masking"],
+        "tags": ["brown_noise", "sleep", "focus"]
+      },
+      {
+        "id": "white-noise",
+        "filename": "White Noise.mp3",
+        "path": "Sleep/White Noise.mp3",
+        "layers": [1],
+        "type": "noise",
+        "use_cases": ["sleep", "focus", "noise_masking"],
+        "tags": ["white_noise", "sleep", "focus"]
+      }
+    ]
+  },
+  "meditation_ambient": {
+    "_description": "Ambient sounds for active meditation sessions",
+    "files": [
+      {
+        "id": "med-silence",
+        "filename": "Silence.m4a",
+        "path": "Med/Silence.m4a",
+        "layers": [1],
+        "type": "silence",
+        "use_cases": ["silent_meditation", "default"],
+        "tags": ["silence", "default"]
+      },
+      {
+        "id": "med-sound-bowls",
+        "filename": "Sound Bowls.mp3",
+        "path": "Med/Sound Bowls.mp3",
+        "layers": [1],
+        "type": "instrumental",
+        "use_cases": ["meditation", "healing", "sound_bath"],
+        "tags": ["sound_bowls", "tibetan", "healing"]
+      },
+      {
+        "id": "med-gong-session",
+        "filename": "Gong Session.m4a",
+        "path": "Med/Gong Session.m4a",
+        "layers": [1],
+        "type": "instrumental",
+        "use_cases": ["opening_closing", "ceremony", "group_practice"],
+        "tags": ["gong", "ceremony", "sound"]
+      },
+      {
+        "id": "med-vipassana",
+        "filename": "Vipassanā.m4a",
+        "path": "Med/Vipassanā.m4a",
+        "layers": [1],
+        "type": "ambient",
+        "use_cases": ["insight_meditation", "vipassana_tradition"],
+        "tags": ["vipassana", "insight", "tradition"]
+      },
+      {
+        "id": "med-walking",
+        "filename": "Walking Meditation.m4a",
+        "path": "Med/Walking Meditation.m4a",
+        "layers": [1, 3],
+        "type": "guided_ambient",
+        "use_cases": ["walking_meditation", "community_walk", "movement"],
+        "tags": ["walking", "movement", "outdoor"]
+      },
+      {
+        "id": "med-rain",
+        "filename": "Rain.m4a",
+        "path": "Med/Rain.m4a",
+        "layers": [1],
+        "type": "ambient",
+        "use_cases": ["relaxation", "focus", "background"],
+        "tags": ["rain", "nature", "ambient"]
+      },
+      {
+        "id": "med-stream",
+        "filename": "Stream.m4a",
+        "path": "Med/Stream.m4a",
+        "layers": [1],
+        "type": "ambient",
+        "use_cases": ["relaxation", "background"],
+        "tags": ["stream", "water", "nature"]
+      },
+      {
+        "id": "med-ocean",
+        "filename": "Ocean.m4a",
+        "path": "Med/Ocean.m4a",
+        "layers": [1],
+        "type": "ambient",
+        "use_cases": ["relaxation", "depth", "expansive"],
+        "tags": ["ocean", "waves", "nature"]
+      },
+      {
+        "id": "med-fire",
+        "filename": "Fire.m4a",
+        "path": "Med/Fire.m4a",
+        "layers": [1],
+        "type": "ambient",
+        "use_cases": ["trataka_companion", "focus", "warmth"],
+        "tags": ["fire", "crackling", "warmth"]
+      },
+      {
+        "id": "med-metronome",
+        "filename": "Metronome.m4a",
+        "path": "Med/Metronome.m4a",
+        "layers": [1],
+        "type": "rhythmic",
+        "use_cases": ["breath_pacing", "timing", "structured_practice"],
+        "tags": ["metronome", "rhythm", "pacing"]
+      },
+      {
+        "id": "med-binaural",
+        "filename": "Binaural Beaths 4hz.m4a",
+        "path": "Med/Binaural Beaths 4hz.m4a",
+        "layers": [1],
+        "type": "binaural",
+        "frequency_hz": 4,
+        "brainwave_state": "theta",
+        "use_cases": ["deep_meditation", "theta_entrainment"],
+        "tags": ["binaural", "theta", "deep_meditation"],
+        "note": "Requires stereo headphones for full effect"
+      },
+      {
+        "id": "med-flowing-water",
+        "filename": "Flowing Water.m4a",
+        "path": "Med/Flowing Water.m4a",
+        "layers": [1],
+        "type": "ambient",
+        "use_cases": ["relaxation", "background"],
+        "tags": ["water", "flow", "ambient"]
+      },
+      {
+        "id": "med-forest-camp",
+        "filename": "Forest Camp.m4a",
+        "path": "Med/Forest Camp.m4a",
+        "layers": [1],
+        "type": "ambient",
+        "use_cases": ["relaxation", "nature"],
+        "tags": ["forest", "nature", "ambient"]
+      },
+      {
+        "id": "med-brown-noise",
+        "filename": "Brown Noise.m4a",
+        "path": "Med/Brown Noise.m4a",
+        "layers": [1],
+        "type": "noise",
+        "use_cases": ["focus", "sleep", "noise_masking"],
+        "tags": ["brown_noise", "focus"]
+      },
+      {
+        "id": "med-water-bubbles",
+        "filename": "Water Bubbles.m4a",
+        "path": "Med/Water Bubbles.m4a",
+        "layers": [1],
+        "type": "ambient",
+        "use_cases": ["relaxation", "soothing"],
+        "tags": ["water", "bubbles", "ambient"]
+      },
+      {
+        "id": "med-white-noise",
+        "filename": "White Noise.m4a",
+        "path": "Med/White Noise.m4a",
+        "layers": [1],
+        "type": "noise",
+        "use_cases": ["focus", "noise_masking"],
+        "tags": ["white_noise", "focus"]
+      }
+    ]
+  },
+  "session_tones": {
+    "_description": "Session end / transition tones",
+    "files": [
+      {
+        "id": "chime",
+        "filename": "Chime.m4a",
+        "path": "End/Chime.m4a",
+        "use_cases": ["session_end", "transition", "gentle_alert"],
+        "tags": ["chime", "gentle", "closing"]
+      },
+      {
+        "id": "chime-three",
+        "filename": "Chime_original_3chimes.m4a",
+        "path": "End/Chime_original_3chimes.m4a",
+        "use_cases": ["session_end", "triple_close", "ceremony"],
+        "tags": ["chime", "triple", "closing", "ceremony"]
+      },
+      {
+        "id": "gong",
+        "filename": "Gong.m4a",
+        "path": "End/Gong.m4a",
+        "use_cases": ["session_end", "ceremonial", "group_practice"],
+        "tags": ["gong", "closing", "ceremony"]
+      },
+      {
+        "id": "bong",
+        "filename": "Bong.m4a",
+        "path": "End/Bong.m4a",
+        "use_cases": ["session_end", "deep_tone"],
+        "tags": ["bong", "deep", "closing"]
+      }
+    ]
+  },
+  "layer_map": {
+    "layer_1_self_regulation": {
+      "featured": ["hrv-nervous-system", "resonance-breathing", "box-breathing", "body-scan", "breath-as-anchor"],
+      "full_set": "all learn/ files except co-regulation and synchronized-breathing"
+    },
+    "layer_2_co_regulation": {
+      "featured": ["co-regulation", "synchronized-breathing", "loving-kindness"],
+      "note": "These are the three audio files that map most directly to the co-regulation layer"
+    },
+    "layer_3_community": {
+      "featured": ["med-walking", "med-gong-session"],
+      "note": "Group-friendly audio — gong for opening/closing circles, walking for community walks"
+    },
+    "layer_4_agency": {
+      "featured": ["davidson-four-pillars", "four-pillars-cycle"],
+      "note": "Purpose and identity work — Davidson's fourth pillar is 'purpose'"
+    }
+  },
+  "totals": {
+    "learn_guides": 18,
+    "sleep_soundscapes": 6,
+    "meditation_ambient": 16,
+    "session_tones": 4,
+    "total_files": 44
+  }
+}
