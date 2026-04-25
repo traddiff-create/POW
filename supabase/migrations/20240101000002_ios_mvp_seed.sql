@@ -5,7 +5,7 @@
 -- PRACTICES (8 weeks × 1 somatic practice per week)
 -- =====================================================================
 
-INSERT INTO practices (title, body, week_number, duration_minutes, layer, published) VALUES
+INSERT INTO practices (title, body_text, week_number, duration_minutes, category, published) VALUES
 
 ('5-Minute Grounding and Body Awareness',
 'Find a comfortable seat or lie down. Begin by placing both feet flat on the floor.
@@ -109,7 +109,7 @@ Write one paragraph. Don''t edit it for beauty. Let it be true.',
 -- CIVIC LESSONS (5 modules)
 -- =====================================================================
 
-INSERT INTO civic_lessons (title, body, reflection_prompt, suggested_action, integration_question, estimated_minutes, order_index, published) VALUES
+INSERT INTO civic_lessons (title, body_text, reflection_prompt, suggested_action, integration_question, estimated_minutes, order_index, published) VALUES
 
 ('What Local Civic Life Is',
 'Most people believe civic life means voting every four years. This module reframes that.

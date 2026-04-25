@@ -75,12 +75,13 @@ CREATE TABLE IF NOT EXISTS circle_members (
 CREATE TABLE IF NOT EXISTS practices (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   title text NOT NULL,
-  body text,
+  body_text text,
   transcript text,
   audio_path text,
+  has_audio boolean NOT NULL DEFAULT false,
   week_number int,
   duration_minutes int,
-  layer text CHECK (layer IN ('self_regulation','co_regulation','community','agency','civic_engagement')),
+  category text CHECK (category IN ('self_regulation','co_regulation','community','agency','civic_engagement')),
   emotional_intensity int CHECK (emotional_intensity BETWEEN 1 AND 5),
   published boolean DEFAULT false,
   created_at timestamptz DEFAULT now()
@@ -90,7 +91,8 @@ CREATE TABLE IF NOT EXISTS practices (
 CREATE TABLE IF NOT EXISTS civic_lessons (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   title text NOT NULL,
-  body text,
+  body_text text,
+  category text,
   reflection_prompt text,
   suggested_action text,
   integration_question text,
@@ -116,7 +118,7 @@ CREATE TABLE IF NOT EXISTS circle_shares (
 
 -- add FK from journal_entries to circle_shares now that it exists
 ALTER TABLE journal_entries
-  ADD CONSTRAINT IF NOT EXISTS fk_journal_shared_post
+  ADD CONSTRAINT fk_journal_shared_post
     FOREIGN KEY (shared_post_id) REFERENCES circle_shares(id);
 
 -- circle_comments
@@ -164,6 +166,7 @@ CREATE TABLE IF NOT EXISTS enrollments (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id uuid NOT NULL REFERENCES user_profiles(id) ON DELETE CASCADE,
   cohort_id uuid NOT NULL REFERENCES cohorts(id) ON DELETE CASCADE,
+  payment_id text,
   status text DEFAULT 'active' CHECK (status IN ('pending_payment','active','removed','completed')),
   enrolled_at timestamptz DEFAULT now(),
   UNIQUE(user_id, cohort_id)
@@ -186,6 +189,7 @@ CREATE TABLE IF NOT EXISTS cohort_curriculum (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   cohort_id uuid NOT NULL REFERENCES cohorts(id) ON DELETE CASCADE,
   week_number int NOT NULL,
+  title text NOT NULL DEFAULT '',
   theme text,
   layer text CHECK (layer IN ('self_regulation','co_regulation','community','agency','civic_engagement')),
   practice_id uuid REFERENCES practices(id),
