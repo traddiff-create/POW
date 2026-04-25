@@ -74,7 +74,7 @@ export async function PATCH(
       to: applicantEmail,
       name: applicantName,
       cohortName,
-      stripePaymentLink: `${process.env.NEXT_PUBLIC_APP_URL}/auth/login`,
+      stripePaymentLink: `${process.env.NEXT_PUBLIC_APP_URL}/pay?a=${id}`,
     });
   } else if (action === "reject") {
     await sendRejectionEmail({

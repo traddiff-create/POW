@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { createServiceClient } from "@/lib/supabase/server";
-import { sendPaymentConfirmation } from "@/lib/resend";
+import { sendPaymentConfirmation, sendSignInLink } from "@/lib/resend";
 
 export async function POST(request: NextRequest) {
   const body = await request.text();
@@ -96,6 +96,19 @@ export async function POST(request: NextRequest) {
       name: applicantName,
       cohortName,
     });
+
+    const { data: linkData } = await supabase.auth.admin.generateLink({
+      type: "magiclink",
+      email: applicantEmail,
+      options: { redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/home` },
+    });
+    if (linkData?.properties?.action_link) {
+      await sendSignInLink({
+        to: applicantEmail,
+        name: applicantName,
+        link: linkData.properties.action_link,
+      });
+    }
   }
 
   if (event.type === "checkout.session.async_payment_failed") {

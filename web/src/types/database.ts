@@ -26,10 +26,11 @@ export interface Database {
           description: string | null;
           start_date: string | null;
           max_participants: number | null;
+          price_cents: number;
           is_open: boolean;
           created_at: string;
         };
-        Insert: { name: string; slug?: string | null; description?: string | null; start_date?: string | null; max_participants?: number | null; is_open?: boolean };
+        Insert: { name: string; slug?: string | null; description?: string | null; start_date?: string | null; max_participants?: number | null; price_cents?: number; is_open?: boolean };
         Update: Partial<Database["public"]["Tables"]["cohorts"]["Insert"]>;
         Relationships: never[];
       };

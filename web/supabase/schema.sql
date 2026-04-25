@@ -35,6 +35,7 @@ create table cohorts (
   description text,
   start_date date,
   max_participants int default 12,
+  price_cents int not null default 0,
   is_open boolean not null default false,
   created_at timestamptz not null default now()
 );

@@ -118,3 +118,22 @@ export async function sendPaymentConfirmation(opts: {
     `,
   });
 }
+
+export async function sendSignInLink(opts: {
+  to: string;
+  name: string;
+  link: string;
+}) {
+  return resend.emails.send({
+    from: FROM,
+    to: opts.to,
+    subject: "Your sign-in link for A Piece of Whole",
+    html: `
+      <p>Hi ${opts.name},</p>
+      <p>Here's your sign-in link. It's valid for 24 hours.</p>
+      <p><a href="${opts.link}">Sign in to your cohort →</a></p>
+      <p>If you didn't expect this email, you can ignore it.</p>
+      <p>With care,<br/>A Piece of Whole</p>
+    `,
+  });
+}
