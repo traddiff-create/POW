@@ -21,7 +21,7 @@ export default async function JournalEntryPage({ params }: { params: Promise<{ i
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 px-6 py-12 max-w-2xl mx-auto w-full">
-        <p className="text-xs text-[#2C2A28]/40 mb-6">
+        <p className="text-xs text-foreground/40 mb-6">
           {new Date(entry.created_at).toLocaleDateString("en-US", {
             weekday: "long", year: "numeric", month: "long", day: "numeric",
           })}

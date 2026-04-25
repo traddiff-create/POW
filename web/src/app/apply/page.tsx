@@ -25,8 +25,8 @@ export default async function ApplyPage({
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 px-6 py-16">
         <div className="max-w-xl mx-auto">
-          <h1 className="text-3xl mb-2" style={{ fontFamily: "Georgia, serif" }}>Apply to Join</h1>
-          <p className="text-[#2C2A28]/60 mb-12">
+          <h1 className="text-3xl mb-2">Apply to Join</h1>
+          <p className="text-foreground/60 mb-12">
             Applications are reviewed by a human within 48 hours.
           </p>
           <ApplyForm cohorts={openCohorts} defaultCohortId={defaultCohortId} />

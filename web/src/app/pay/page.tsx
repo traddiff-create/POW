@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { createServiceClient } from "@/lib/supabase/server";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { Footer } from "@/components/Footer";
 
 export default async function PayPage({
@@ -38,7 +38,7 @@ export default async function PayPage({
     return <InvalidLink />;
   }
 
-  const session = await stripe.checkout.sessions.create({
+  const session = await getStripe().checkout.sessions.create({
     mode: "payment",
     customer_email: application.applicant_email,
     line_items: [
@@ -64,10 +64,10 @@ function InvalidLink() {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 flex items-center justify-center px-6">
         <div className="text-center max-w-sm">
-          <h1 className="text-2xl mb-4" style={{ fontFamily: "Georgia, serif" }}>
+          <h1 className="text-2xl mb-4">
             This link is no longer valid.
           </h1>
-          <p className="text-[#2C2A28]/60 text-sm">
+          <p className="text-foreground/60 text-sm">
             Your application may not be approved yet, or this link has expired.
             Check your email for the most recent message from us.
           </p>

@@ -30,26 +30,26 @@ export default async function PracticePage({ params }: { params: Promise<{ id: s
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 px-6 py-12 max-w-2xl mx-auto w-full space-y-6">
-        <Link href="/practices" className="text-sm text-[#2C2A28]/40 hover:text-[#2C2A28]/70">
+        <Link href="/practices" className="text-sm text-foreground/40 hover:text-foreground/70">
           ← Practices
         </Link>
 
         <div>
           {practice.week_number && (
-            <p className="text-xs text-[#7A9E7E] uppercase tracking-wide mb-2">Week {practice.week_number}</p>
+            <p className="text-xs text-sage uppercase tracking-wide mb-2">Week {practice.week_number}</p>
           )}
-          <h1 className="text-2xl leading-snug" style={{ fontFamily: "Georgia, serif" }}>
+          <h1 className="text-2xl leading-snug">
             {practice.title}
           </h1>
           {practice.duration_minutes && (
-            <p className="text-sm text-[#2C2A28]/50 mt-1">{practice.duration_minutes} minutes</p>
+            <p className="text-sm text-foreground/50 mt-1">{practice.duration_minutes} minutes</p>
           )}
         </div>
 
         {audioUrl && <AudioPlayer signedUrl={audioUrl} />}
 
         {practice.body_text && (
-          <div className="text-[#2C2A28]/80 leading-relaxed whitespace-pre-wrap text-sm">
+          <div className="text-foreground/80 leading-relaxed whitespace-pre-wrap text-sm">
             {practice.body_text}
           </div>
         )}

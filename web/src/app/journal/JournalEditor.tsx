@@ -51,7 +51,7 @@ export function JournalEditor({ entryId, initialTitle, initialBody }: Props) {
       <div className="flex items-center justify-between gap-4 mb-2">
         <button
           onClick={() => router.back()}
-          className="text-sm text-[#2C2A28]/40 hover:text-[#2C2A28]/70 transition-colors"
+          className="text-sm text-foreground/40 hover:text-foreground/70 transition-colors"
         >
           ← Back
         </button>
@@ -60,7 +60,7 @@ export function JournalEditor({ entryId, initialTitle, initialBody }: Props) {
             <button
               onClick={deleteEntry}
               disabled={deleting}
-              className="text-sm text-[#C0392B] hover:opacity-70 transition-opacity"
+              className="text-sm text-error hover:opacity-70 transition-opacity"
             >
               {deleting ? "Deleting…" : "Delete"}
             </button>
@@ -68,7 +68,7 @@ export function JournalEditor({ entryId, initialTitle, initialBody }: Props) {
           <button
             onClick={save}
             disabled={saving || !body.trim()}
-            className="text-sm bg-[#2C2A28] text-[#F9F7F4] px-4 py-2 hover:opacity-80 transition-opacity disabled:opacity-50"
+            className="text-sm bg-foreground text-background px-4 py-2 hover:opacity-80 transition-opacity disabled:opacity-50"
           >
             {saving ? "Saving…" : "Save"}
           </button>
@@ -80,8 +80,7 @@ export function JournalEditor({ entryId, initialTitle, initialBody }: Props) {
         placeholder="Title (optional)"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="w-full text-xl border-none outline-none bg-transparent placeholder-[#2C2A28]/30"
-        style={{ fontFamily: "Georgia, serif" }}
+        className="w-full text-xl font-serif border-none outline-none bg-transparent placeholder-foreground/30"
       />
 
       <textarea
@@ -89,7 +88,7 @@ export function JournalEditor({ entryId, initialTitle, initialBody }: Props) {
         value={body}
         onChange={(e) => setBody(e.target.value)}
         rows={20}
-        className="w-full border-none outline-none bg-transparent resize-none text-[#2C2A28]/80 leading-relaxed placeholder-[#2C2A28]/30"
+        className="w-full border-none outline-none bg-transparent resize-none text-foreground/80 leading-relaxed placeholder-foreground/30"
       />
     </div>
   );

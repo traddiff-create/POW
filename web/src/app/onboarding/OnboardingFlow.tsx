@@ -63,26 +63,25 @@ export function OnboardingFlow() {
           {STEPS.map((_, i) => (
             <div
               key={i}
-              className="h-0.5 flex-1 transition-colors duration-300"
-              style={{ backgroundColor: i <= step ? "#7A9E7E" : "#2C2A28" + "1A" }}
+              className={`h-0.5 flex-1 transition-colors duration-300 ${i <= step ? "bg-sage" : "bg-foreground/10"}`}
             />
           ))}
         </div>
 
         <h1
           className="text-2xl mb-4 leading-snug"
-          style={{ fontFamily: "Georgia, serif" }}
+         
         >
           {current.title}
         </h1>
-        <p className="text-[#2C2A28]/70 text-base leading-relaxed mb-10">
+        <p className="text-foreground/70 text-base leading-relaxed mb-10">
           {current.body}
         </p>
 
         <button
           onClick={advance}
           disabled={loading}
-          className="w-full bg-[#2C2A28] text-[#F9F7F4] py-3 text-sm hover:opacity-80 transition-opacity disabled:opacity-50"
+          className="w-full bg-foreground text-background py-3 text-sm hover:opacity-80 transition-opacity disabled:opacity-50"
         >
           {loading ? "One moment…" : isLast ? "Enter the circle →" : "Continue →"}
         </button>
@@ -90,7 +89,7 @@ export function OnboardingFlow() {
         {step > 0 && (
           <button
             onClick={() => setStep((s) => s - 1)}
-            className="w-full text-center text-sm text-[#2C2A28]/40 mt-4 hover:text-[#2C2A28]/70 transition-colors"
+            className="w-full text-center text-sm text-foreground/40 mt-4 hover:text-foreground/70 transition-colors"
           >
             ← Back
           </button>

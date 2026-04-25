@@ -40,8 +40,8 @@ export default async function AdminApplicationsPage() {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 px-6 py-12 max-w-2xl mx-auto w-full space-y-10">
         <div>
-          <a href="/admin" className="text-sm text-[#2C2A28]/40 hover:text-[#2C2A28]/70">← Admin</a>
-          <h1 className="text-2xl mt-2" style={{ fontFamily: "Georgia, serif" }}>Applications</h1>
+          <a href="/admin" className="text-sm text-foreground/40 hover:text-foreground/70">← Admin</a>
+          <h1 className="text-2xl mt-2">Applications</h1>
         </div>
 
         <section>
@@ -53,7 +53,7 @@ export default async function AdminApplicationsPage() {
               ))}
             </ul>
           ) : (
-            <p className="text-[#2C2A28]/50 text-sm">No pending applications.</p>
+            <p className="text-foreground/50 text-sm">No pending applications.</p>
           )}
         </section>
 

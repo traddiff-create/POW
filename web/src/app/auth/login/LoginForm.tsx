@@ -31,13 +31,13 @@ export function LoginForm({ next }: { next?: string }) {
   if (sent) {
     return (
       <div className="text-center">
-        <p className="text-[#2C2A28]/80 mb-2">Check your email.</p>
-        <p className="text-sm text-[#2C2A28]/60">
+        <p className="text-foreground/80 mb-2">Check your email.</p>
+        <p className="text-sm text-foreground/60">
           We sent a link to <strong>{email}</strong>. It expires in 1 hour.
         </p>
         <button
           onClick={() => setSent(false)}
-          className="text-sm text-[#7A9E7E] underline mt-4"
+          className="text-sm text-sage underline mt-4"
         >
           Resend link
         </button>
@@ -55,15 +55,15 @@ export function LoginForm({ next }: { next?: string }) {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full border border-[#2C2A28]/20 px-4 py-3 bg-white focus:outline-none focus:border-[#7A9E7E]"
+          className="w-full border border-foreground/20 px-4 py-3 bg-white focus:outline-none focus:border-sage"
           placeholder="you@example.com"
         />
       </div>
-      {error && <p className="text-[#C0392B] text-sm">{error}</p>}
+      {error && <p className="text-error text-sm">{error}</p>}
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-[#7A9E7E] text-white py-3 text-sm hover:opacity-90 transition-opacity disabled:opacity-50"
+        className="w-full bg-sage text-white py-3 text-sm hover:opacity-90 transition-opacity disabled:opacity-50"
       >
         {loading ? "Sending…" : "Send magic link"}
       </button>

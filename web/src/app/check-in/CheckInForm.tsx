@@ -53,11 +53,11 @@ export function CheckInForm({ weekNumber }: Props) {
   if (done) {
     return (
       <div className="text-center py-12">
-        <p className="text-2xl mb-3" style={{ fontFamily: "Georgia, serif" }}>Thank you.</p>
-        <p className="text-[#2C2A28]/60 text-sm mb-8">Your check-in for Week {weekNumber} is saved.</p>
+        <p className="text-2xl mb-3 font-serif">Thank you.</p>
+        <p className="text-foreground/60 text-sm mb-8">Your check-in for Week {weekNumber} is saved.</p>
         <button
           onClick={() => router.push("/home")}
-          className="text-sm text-[#7A9E7E] underline"
+          className="text-sm text-sage underline"
         >
           Return home →
         </button>
@@ -75,14 +75,14 @@ export function CheckInForm({ weekNumber }: Props) {
               key={n}
               type="button"
               onClick={() => setMood(n)}
-              className="flex-1 flex flex-col items-center gap-1 py-3 border transition-colors"
-              style={{
-                borderColor: mood === n ? "#7A9E7E" : "#2C2A28" + "1A",
-                backgroundColor: mood === n ? "#7A9E7E" + "1A" : "transparent",
-              }}
+              className={`flex-1 flex flex-col items-center gap-1 py-3 border transition-colors ${
+                mood === n
+                  ? "border-sage bg-sage/10"
+                  : "border-foreground/10 bg-transparent"
+              }`}
             >
               <span className="text-lg font-medium">{n}</span>
-              <span className="text-[10px] text-[#2C2A28]/60 leading-tight text-center">
+              <span className="text-[10px] text-foreground/60 leading-tight text-center">
                 {MOOD_LABELS[n]}
               </span>
             </button>
@@ -98,11 +98,11 @@ export function CheckInForm({ weekNumber }: Props) {
               key={s}
               type="button"
               onClick={() => setSensation(sensation === s ? "" : s)}
-              className="px-3 py-1.5 text-sm border transition-colors"
-              style={{
-                borderColor: sensation === s ? "#7A9E7E" : "#2C2A28" + "1A",
-                backgroundColor: sensation === s ? "#7A9E7E" + "1A" : "transparent",
-              }}
+              className={`px-3 py-1.5 text-sm border transition-colors ${
+                sensation === s
+                  ? "border-sage bg-sage/10"
+                  : "border-foreground/10 bg-transparent"
+              }`}
             >
               {s}
             </button>
@@ -112,7 +112,7 @@ export function CheckInForm({ weekNumber }: Props) {
 
       <div>
         <label className="block text-sm font-medium mb-2" htmlFor="one-word">
-          One word for where you are right now <span className="text-[#C0392B]">*</span>
+          One word for where you are right now <span className="text-error">*</span>
         </label>
         <input
           id="one-word"
@@ -122,13 +122,13 @@ export function CheckInForm({ weekNumber }: Props) {
           value={oneWord}
           onChange={(e) => setOneWord(e.target.value)}
           placeholder="e.g. hopeful, scattered, present…"
-          className="w-full border border-[#2C2A28]/20 px-4 py-3 bg-white focus:outline-none focus:border-[#7A9E7E]"
+          className="w-full border border-foreground/20 px-4 py-3 bg-white focus:outline-none focus:border-sage"
         />
       </div>
 
       <div>
         <label className="block text-sm font-medium mb-2" htmlFor="note">
-          Anything else you want to note? <span className="text-[#2C2A28]/40 font-normal">(private, optional)</span>
+          Anything else you want to note? <span className="text-foreground/40 font-normal">(private, optional)</span>
         </label>
         <textarea
           id="note"
@@ -136,14 +136,14 @@ export function CheckInForm({ weekNumber }: Props) {
           value={note}
           onChange={(e) => setNote(e.target.value)}
           placeholder="This stays with you."
-          className="w-full border border-[#2C2A28]/20 px-4 py-3 bg-white focus:outline-none focus:border-[#7A9E7E] resize-none"
+          className="w-full border border-foreground/20 px-4 py-3 bg-white focus:outline-none focus:border-sage resize-none"
         />
       </div>
 
       <button
         type="submit"
         disabled={loading || !oneWord.trim()}
-        className="w-full bg-[#2C2A28] text-[#F9F7F4] py-3 text-sm hover:opacity-80 transition-opacity disabled:opacity-50"
+        className="w-full bg-foreground text-background py-3 text-sm hover:opacity-80 transition-opacity disabled:opacity-50"
       >
         {loading ? "Saving…" : "Save check-in"}
       </button>

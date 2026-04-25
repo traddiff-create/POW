@@ -19,8 +19,8 @@ export default async function AdminReportsPage() {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 px-6 py-12 max-w-2xl mx-auto w-full space-y-8">
         <div>
-          <a href="/admin" className="text-sm text-[#2C2A28]/40 hover:text-[#2C2A28]/70">← Admin</a>
-          <h1 className="text-2xl mt-2" style={{ fontFamily: "Georgia, serif" }}>Content reports</h1>
+          <a href="/admin" className="text-sm text-foreground/40 hover:text-foreground/70">← Admin</a>
+          <h1 className="text-2xl mt-2">Content reports</h1>
         </div>
 
         {reports && reports.length > 0 ? (
@@ -35,18 +35,18 @@ export default async function AdminReportsPage() {
                 user_profiles: { display_name: string } | null;
               };
               return (
-                <li key={r.id} className="border border-[#2C2A28]/10 p-5">
+                <li key={r.id} className="border border-foreground/10 p-5">
                   <div className="flex items-baseline justify-between gap-4 mb-2">
-                    <span className="text-xs font-medium uppercase tracking-wide text-[#C0392B]">
+                    <span className="text-xs font-medium uppercase tracking-wide text-error">
                       {r.status}
                     </span>
-                    <span className="text-xs text-[#2C2A28]/40">
+                    <span className="text-xs text-foreground/40">
                       {new Date(r.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
                     </span>
                   </div>
-                  <p className="text-sm text-[#2C2A28]/70">{r.reason ?? "No reason provided."}</p>
+                  <p className="text-sm text-foreground/70">{r.reason ?? "No reason provided."}</p>
                   {r.user_profiles?.display_name && (
-                    <p className="text-xs text-[#2C2A28]/40 mt-1">
+                    <p className="text-xs text-foreground/40 mt-1">
                       Reported by: {r.user_profiles.display_name}
                     </p>
                   )}
@@ -55,7 +55,7 @@ export default async function AdminReportsPage() {
             })}
           </ul>
         ) : (
-          <p className="text-[#2C2A28]/50 text-sm">No reports.</p>
+          <p className="text-foreground/50 text-sm">No reports.</p>
         )}
       </main>
       <CrisisBanner />

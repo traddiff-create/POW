@@ -1,5 +1,11 @@
 import type { Metadata, Viewport } from "next";
+import { DM_Sans } from "next/font/google";
 import "./globals.css";
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm-sans",
+});
 
 export const metadata: Metadata = {
   title: "A Piece of Whole",
@@ -13,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#7A9E7E",
+  themeColor: "#F9F7F4",
   width: "device-width",
   initialScale: 1,
 };
@@ -24,8 +30,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
-      <body className="min-h-full flex flex-col bg-[#F9F7F4] text-[#2C2A28]">
+    <html lang="en" className={`h-full ${dmSans.variable}`}>
+      <body className="min-h-full flex flex-col bg-background text-foreground">
         {children}
       </body>
     </html>

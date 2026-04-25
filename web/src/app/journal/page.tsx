@@ -18,16 +18,16 @@ export default async function JournalPage() {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 px-6 py-12 max-w-2xl mx-auto w-full">
         <div className="flex items-baseline justify-between mb-8">
-          <h1 className="text-2xl" style={{ fontFamily: "Georgia, serif" }}>Journal</h1>
+          <h1 className="text-2xl">Journal</h1>
           <Link
             href="/journal/new"
-            className="text-sm bg-[#2C2A28] text-[#F9F7F4] px-4 py-2 hover:opacity-80 transition-opacity"
+            className="text-sm bg-foreground text-background px-4 py-2 hover:opacity-80 transition-opacity"
           >
             New entry
           </Link>
         </div>
 
-        <p className="text-xs text-[#2C2A28]/40 mb-6 uppercase tracking-wide">
+        <p className="text-xs text-foreground/40 mb-6 uppercase tracking-wide">
           Private — only visible to you
         </p>
 
@@ -37,13 +37,13 @@ export default async function JournalPage() {
               <li key={entry.id}>
                 <Link
                   href={`/journal/${entry.id}`}
-                  className="block border border-[#2C2A28]/10 p-4 hover:border-[#7A9E7E]/40 transition-colors"
+                  className="block border border-foreground/10 p-4 hover:border-sage/40 transition-colors"
                 >
                   <div className="flex items-baseline justify-between gap-4">
                     <p className="text-sm font-medium truncate">
                       {entry.title || "Untitled"}
                     </p>
-                    <p className="text-xs text-[#2C2A28]/40 shrink-0">
+                    <p className="text-xs text-foreground/40 shrink-0">
                       {new Date(entry.created_at).toLocaleDateString("en-US", {
                         month: "short",
                         day: "numeric",
@@ -51,18 +51,18 @@ export default async function JournalPage() {
                     </p>
                   </div>
                   {entry.week_number && (
-                    <p className="text-xs text-[#7A9E7E] mt-1">Week {entry.week_number}</p>
+                    <p className="text-xs text-sage mt-1">Week {entry.week_number}</p>
                   )}
                 </Link>
               </li>
             ))}
           </ul>
         ) : (
-          <div className="border border-[#2C2A28]/10 p-8 text-center">
-            <p className="text-[#2C2A28]/50 text-sm mb-4">
+          <div className="border border-foreground/10 p-8 text-center">
+            <p className="text-foreground/50 text-sm mb-4">
               Your journal is empty. This is your private space.
             </p>
-            <Link href="/journal/new" className="text-sm text-[#7A9E7E] underline">
+            <Link href="/journal/new" className="text-sm text-sage underline">
               Write your first entry →
             </Link>
           </div>

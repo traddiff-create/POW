@@ -34,28 +34,26 @@ export default async function MyPiecePage() {
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 px-6 py-12 max-w-2xl mx-auto w-full space-y-10">
-        <h1 className="text-2xl" style={{ fontFamily: "Georgia, serif" }}>My piece</h1>
+        <h1 className="text-2xl">My piece</h1>
 
         {cohort ? (
-          <section className="border border-[#2C2A28]/10 p-6 space-y-4">
+          <section className="border border-foreground/10 p-6 space-y-4">
             <div>
-              <p className="text-xs text-[#2C2A28]/40 uppercase tracking-wide mb-1">Cohort</p>
+              <p className="text-xs text-foreground/40 uppercase tracking-wide mb-1">Cohort</p>
               <p className="font-medium">{cohort.name}</p>
             </div>
             {weekNumber && (
               <div>
-                <p className="text-xs text-[#2C2A28]/40 uppercase tracking-wide mb-2">Check-ins</p>
+                <p className="text-xs text-foreground/40 uppercase tracking-wide mb-2">Check-ins</p>
                 <div className="flex gap-2">
                   {Array.from({ length: 8 }, (_, i) => i + 1).map((w) => (
                     <div
                       key={w}
-                      className="w-8 h-8 flex items-center justify-center text-xs border"
-                      style={{
-                        borderColor: checkedWeeks.has(w) ? "#7A9E7E" : "#2C2A28" + "1A",
-                        backgroundColor: checkedWeeks.has(w) ? "#7A9E7E" + "1A" : "transparent",
-                        color: w === weekNumber ? "#2C2A28" : "#2C2A28" + "80",
-                        fontWeight: w === weekNumber ? 600 : 400,
-                      }}
+                      className={`w-8 h-8 flex items-center justify-center text-xs border ${
+                        checkedWeeks.has(w)
+                          ? "border-sage bg-sage/10"
+                          : "border-foreground/10 bg-transparent"
+                      } ${w === weekNumber ? "text-foreground font-semibold" : "text-foreground/50 font-normal"}`}
                     >
                       {w}
                     </div>
@@ -65,29 +63,29 @@ export default async function MyPiecePage() {
             )}
           </section>
         ) : (
-          <section className="border border-[#2C2A28]/10 p-6">
-            <p className="text-[#2C2A28]/50 text-sm">You&apos;re not enrolled in a cohort yet.</p>
-            <Link href="/cohorts" className="text-sm text-[#7A9E7E] underline mt-2 block">
+          <section className="border border-foreground/10 p-6">
+            <p className="text-foreground/50 text-sm">You&apos;re not enrolled in a cohort yet.</p>
+            <Link href="/cohorts" className="text-sm text-sage underline mt-2 block">
               Browse cohorts →
             </Link>
           </section>
         )}
 
         <section className="grid grid-cols-2 gap-4">
-          <div className="border border-[#2C2A28]/10 p-4 text-center">
+          <div className="border border-foreground/10 p-4 text-center">
             <p className="text-3xl font-light mb-1">{journalCount}</p>
-            <p className="text-xs text-[#2C2A28]/50 uppercase tracking-wide">Journal entries</p>
+            <p className="text-xs text-foreground/50 uppercase tracking-wide">Journal entries</p>
           </div>
-          <div className="border border-[#2C2A28]/10 p-4 text-center">
+          <div className="border border-foreground/10 p-4 text-center">
             <p className="text-3xl font-light mb-1">{shareCount}</p>
-            <p className="text-xs text-[#2C2A28]/50 uppercase tracking-wide">Circle shares</p>
+            <p className="text-xs text-foreground/50 uppercase tracking-wide">Circle shares</p>
           </div>
         </section>
 
         <nav className="text-sm space-y-2">
-          <Link href="/journal" className="block text-[#7A9E7E] underline">Journal →</Link>
-          <Link href="/practices" className="block text-[#7A9E7E] underline">Practices →</Link>
-          <Link href="/circle" className="block text-[#7A9E7E] underline">Circle →</Link>
+          <Link href="/journal" className="block text-sage underline">Journal →</Link>
+          <Link href="/practices" className="block text-sage underline">Practices →</Link>
+          <Link href="/circle" className="block text-sage underline">Circle →</Link>
         </nav>
       </main>
       <CrisisBanner />

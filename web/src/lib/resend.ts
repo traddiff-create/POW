@@ -1,6 +1,10 @@
 import { Resend } from "resend";
 
-export const resend = new Resend(process.env.RESEND_API_KEY!);
+let _resend: Resend | null = null;
+function getResend() {
+  if (!_resend) _resend = new Resend(process.env.RESEND_API_KEY!);
+  return _resend;
+}
 
 const FROM = process.env.RESEND_FROM_EMAIL ?? "hello@apieceofwhole.com";
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
@@ -13,7 +17,7 @@ export async function sendApplicationReceived(opts: {
   motivationExcerpt: string;
   applicationId: string;
 }) {
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to: opts.adminEmail,
     subject: `New Application — ${opts.applicantName}`,
@@ -29,7 +33,7 @@ export async function sendApplicantConfirmation(opts: {
   to: string;
   name: string;
 }) {
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to: opts.to,
     subject: "Your application has been received",
@@ -47,7 +51,7 @@ export async function sendApprovalEmail(opts: {
   cohortName: string;
   stripePaymentLink: string;
 }) {
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to: opts.to,
     subject: "You're in — here's your next step",
@@ -69,7 +73,7 @@ export async function sendRejectionEmail(opts: {
   cohortName: string;
   adminNote?: string;
 }) {
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to: opts.to,
     subject: "Your application to A Piece of Whole",
@@ -88,7 +92,7 @@ export async function sendWaitlistEmail(opts: {
   name: string;
   cohortName: string;
 }) {
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to: opts.to,
     subject: "You're on the waitlist",
@@ -106,7 +110,7 @@ export async function sendPaymentConfirmation(opts: {
   name: string;
   cohortName: string;
 }) {
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to: opts.to,
     subject: `Welcome — you're enrolled in ${opts.cohortName}`,
@@ -124,7 +128,7 @@ export async function sendSignInLink(opts: {
   name: string;
   link: string;
 }) {
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to: opts.to,
     subject: "Your sign-in link for A Piece of Whole",

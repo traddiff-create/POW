@@ -36,8 +36,8 @@ export default async function FacilitatorCohortPage({ params }: { params: Promis
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 px-6 py-12 max-w-2xl mx-auto w-full space-y-8">
         <div>
-          <p className="text-xs text-[#2C2A28]/40 mb-1">Facilitator view</p>
-          <h1 className="text-2xl" style={{ fontFamily: "Georgia, serif" }}>{cohort.name}</h1>
+          <p className="text-xs text-foreground/40 mb-1">Facilitator view</p>
+          <h1 className="text-2xl">{cohort.name}</h1>
         </div>
 
         <section>
@@ -55,23 +55,23 @@ export default async function FacilitatorCohortPage({ params }: { params: Promis
                 };
                 const name = s.is_anonymous ? "Anonymous" : s.user_profiles?.display_name ?? "Member";
                 return (
-                  <li key={s.id} className="border border-[#2C2A28]/10 p-5">
+                  <li key={s.id} className="border border-foreground/10 p-5">
                     <div className="flex items-baseline justify-between gap-4 mb-2">
-                      <span className="text-xs text-[#7A9E7E]">
+                      <span className="text-xs text-sage">
                         {name}
                         {s.week_number ? ` · Week ${s.week_number}` : ""}
                       </span>
-                      <span className="text-xs text-[#2C2A28]/40">
+                      <span className="text-xs text-foreground/40">
                         {new Date(s.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
                       </span>
                     </div>
-                    <p className="text-sm text-[#2C2A28]/80 leading-relaxed whitespace-pre-wrap">{s.content}</p>
+                    <p className="text-sm text-foreground/80 leading-relaxed whitespace-pre-wrap">{s.content}</p>
                   </li>
                 );
               })}
             </ul>
           ) : (
-            <p className="text-[#2C2A28]/50 text-sm">No shares yet in this cohort.</p>
+            <p className="text-foreground/50 text-sm">No shares yet in this cohort.</p>
           )}
         </section>
       </main>

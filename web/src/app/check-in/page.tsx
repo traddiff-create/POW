@@ -35,17 +35,17 @@ export default async function CheckInPage() {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 px-6 py-12 max-w-lg mx-auto w-full">
         <div className="mb-8">
-          <p className="text-xs text-[#7A9E7E] uppercase tracking-wide mb-1">Week {weekNumber}</p>
-          <h1 className="text-2xl" style={{ fontFamily: "Georgia, serif" }}>
+          <p className="text-xs text-sage uppercase tracking-wide mb-1">Week {weekNumber}</p>
+          <h1 className="text-2xl">
             How are you this week?
           </h1>
-          <p className="text-[#2C2A28]/50 text-sm mt-1">This check-in is private — only you can see it.</p>
+          <p className="text-foreground/50 text-sm mt-1">This check-in is private — only you can see it.</p>
         </div>
 
         {existing ? (
-          <div className="text-center py-12 border border-[#2C2A28]/10 p-6">
-            <p className="text-[#7A9E7E] text-sm mb-4">✓ You&apos;ve already checked in this week.</p>
-            <a href="/home" className="text-sm text-[#2C2A28]/60 underline">Return home →</a>
+          <div className="text-center py-12 border border-foreground/10 p-6">
+            <p className="text-sage text-sm mb-4">✓ You&apos;ve already checked in this week.</p>
+            <a href="/home" className="text-sm text-foreground/60 underline">Return home →</a>
           </div>
         ) : (
           <CheckInForm weekNumber={weekNumber} />

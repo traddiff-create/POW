@@ -45,12 +45,12 @@ export function AudioPlayer({ signedUrl }: { signedUrl: string }) {
   }
 
   return (
-    <div className="border border-[#2C2A28]/10 p-4 space-y-3">
+    <div className="border border-foreground/10 p-4 space-y-3">
       <audio ref={audioRef} src={signedUrl} preload="metadata" />
       <div className="flex items-center gap-4">
         <button
           onClick={toggle}
-          className="w-10 h-10 flex items-center justify-center bg-[#2C2A28] text-[#F9F7F4] hover:opacity-80 transition-opacity"
+          className="w-10 h-10 flex items-center justify-center bg-foreground text-background hover:opacity-80 transition-opacity"
           aria-label={playing ? "Pause" : "Play"}
         >
           {playing ? "❚❚" : "▶"}
@@ -62,9 +62,9 @@ export function AudioPlayer({ signedUrl }: { signedUrl: string }) {
             max={duration || 0}
             value={progress}
             onChange={seek}
-            className="w-full accent-[#7A9E7E]"
+            className="w-full accent-sage"
           />
-          <div className="flex justify-between text-xs text-[#2C2A28]/40">
+          <div className="flex justify-between text-xs text-foreground/40">
             <span>{fmt(progress)}</span>
             <span>{fmt(duration)}</span>
           </div>

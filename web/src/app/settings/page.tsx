@@ -17,7 +17,7 @@ export default async function SettingsPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 px-6 py-12 max-w-lg mx-auto w-full">
-        <h1 className="text-2xl mb-8" style={{ fontFamily: "Georgia, serif" }}>Settings</h1>
+        <h1 className="text-2xl mb-8">Settings</h1>
         <SettingsForm
           initialName={profile?.display_name ?? ""}
           userId={user.id}

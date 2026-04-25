@@ -6,14 +6,14 @@ export default function PayCancelPage() {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 flex items-center justify-center px-6">
         <div className="text-center max-w-md">
-          <h1 className="text-2xl mb-4" style={{ fontFamily: "Georgia, serif" }}>
+          <h1 className="text-2xl mb-4">
             Payment cancelled.
           </h1>
-          <p className="text-[#2C2A28]/70 mb-6">
+          <p className="text-foreground/70 mb-6">
             No charge was made. Your spot is still being held — you can use your
             original email link to try again.
           </p>
-          <p className="text-sm text-[#2C2A28]/50">
+          <p className="text-sm text-foreground/50">
             Questions?{" "}
             <Link href="mailto:hello@apieceofwhole.com" className="underline">
               Reply to your approval email

@@ -27,9 +27,9 @@ export default async function CohortDetailPage({ params }: { params: Promise<{ s
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 px-6 py-16 max-w-2xl mx-auto w-full space-y-10">
         <div>
-          <h1 className="text-3xl mb-3" style={{ fontFamily: "Georgia, serif" }}>{cohort.name}</h1>
+          <h1 className="text-3xl mb-3">{cohort.name}</h1>
           {cohort.start_date && (
-            <p className="text-[#2C2A28]/50 text-sm">
+            <p className="text-foreground/50 text-sm">
               Starts {new Date(cohort.start_date).toLocaleDateString("en-US", {
                 month: "long", day: "numeric", year: "numeric",
               })}
@@ -38,20 +38,20 @@ export default async function CohortDetailPage({ params }: { params: Promise<{ s
         </div>
 
         {cohort.description && (
-          <p className="text-[#2C2A28]/70 leading-relaxed">{cohort.description}</p>
+          <p className="text-foreground/70 leading-relaxed">{cohort.description}</p>
         )}
 
         {curriculum.length > 0 && (
           <section>
-            <h2 className="text-lg mb-4" style={{ fontFamily: "Georgia, serif" }}>8 weeks</h2>
+            <h2 className="text-lg mb-4">8 weeks</h2>
             <ul className="space-y-3">
               {curriculum.map((week) => (
-                <li key={week.week_number} className="flex gap-4 border border-[#2C2A28]/10 p-4">
-                  <span className="text-xs text-[#7A9E7E] w-14 shrink-0 pt-0.5">Week {week.week_number}</span>
+                <li key={week.week_number} className="flex gap-4 border border-foreground/10 p-4">
+                  <span className="text-xs text-sage w-14 shrink-0 pt-0.5">Week {week.week_number}</span>
                   <div>
                     <p className="text-sm font-medium">{week.title}</p>
                     {week.theme && (
-                      <p className="text-xs text-[#2C2A28]/50 mt-0.5">{week.theme}</p>
+                      <p className="text-xs text-foreground/50 mt-0.5">{week.theme}</p>
                     )}
                   </div>
                 </li>
@@ -63,7 +63,7 @@ export default async function CohortDetailPage({ params }: { params: Promise<{ s
         {cohort.is_open && (
           <Link
             href={`/apply?cohort=${cohort.slug ?? cohort.id}`}
-            className="inline-block bg-[#2C2A28] text-[#F9F7F4] px-6 py-3 text-sm hover:opacity-80 transition-opacity"
+            className="inline-block bg-foreground text-background px-6 py-3 text-sm hover:opacity-80 transition-opacity"
           >
             Apply for this cohort →
           </Link>

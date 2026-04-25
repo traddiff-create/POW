@@ -30,16 +30,16 @@ export default async function CirclePage() {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 px-6 py-12 max-w-2xl mx-auto w-full space-y-8">
         <div className="flex items-baseline justify-between">
-          <h1 className="text-2xl" style={{ fontFamily: "Georgia, serif" }}>Your circle</h1>
+          <h1 className="text-2xl">Your circle</h1>
           <Link
             href="/circle/share"
-            className="text-sm text-[#7A9E7E] underline"
+            className="text-sm text-sage underline"
           >
             Share a reflection →
           </Link>
         </div>
 
-        <p className="text-xs text-[#2C2A28]/40 uppercase tracking-wide -mt-4">
+        <p className="text-xs text-foreground/40 uppercase tracking-wide -mt-4">
           Visible to everyone in your cohort
         </p>
 
@@ -60,19 +60,19 @@ export default async function CirclePage() {
                 ? "Anonymous"
                 : s.user_profiles?.display_name ?? "A circle member";
               return (
-                <li key={s.id} className="border border-[#2C2A28]/10 p-5">
+                <li key={s.id} className="border border-foreground/10 p-5">
                   <div className="flex items-baseline justify-between gap-4 mb-3">
-                    <span className="text-xs text-[#7A9E7E]">
+                    <span className="text-xs text-sage">
                       {isOwn ? "You" : name}
                       {s.week_number ? ` · Week ${s.week_number}` : ""}
                     </span>
-                    <span className="text-xs text-[#2C2A28]/40 shrink-0">
+                    <span className="text-xs text-foreground/40 shrink-0">
                       {new Date(s.created_at).toLocaleDateString("en-US", {
                         month: "short", day: "numeric",
                       })}
                     </span>
                   </div>
-                  <p className="text-[#2C2A28]/80 text-sm leading-relaxed whitespace-pre-wrap">
+                  <p className="text-foreground/80 text-sm leading-relaxed whitespace-pre-wrap">
                     {s.content}
                   </p>
                 </li>
@@ -80,11 +80,11 @@ export default async function CirclePage() {
             })}
           </ul>
         ) : (
-          <div className="border border-[#2C2A28]/10 p-8 text-center">
-            <p className="text-[#2C2A28]/50 text-sm mb-4">
+          <div className="border border-foreground/10 p-8 text-center">
+            <p className="text-foreground/50 text-sm mb-4">
               Your circle is quiet. Be the first to share.
             </p>
-            <Link href="/circle/share" className="text-sm text-[#7A9E7E] underline">
+            <Link href="/circle/share" className="text-sm text-sage underline">
               Share a reflection →
             </Link>
           </div>

@@ -34,8 +34,8 @@ export default async function SharePage() {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 px-6 py-12 max-w-lg mx-auto w-full">
         <div className="mb-8">
-          <p className="text-xs text-[#7A9E7E] uppercase tracking-wide mb-1">Week {weekNumber}</p>
-          <h1 className="text-2xl" style={{ fontFamily: "Georgia, serif" }}>
+          <p className="text-xs text-sage uppercase tracking-wide mb-1">Week {weekNumber}</p>
+          <h1 className="text-2xl">
             Share with your circle
           </h1>
         </div>

@@ -26,7 +26,7 @@ export default async function FacilitatorPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 px-6 py-12 max-w-2xl mx-auto w-full space-y-8">
-        <h1 className="text-2xl" style={{ fontFamily: "Georgia, serif" }}>Facilitator dashboard</h1>
+        <h1 className="text-2xl">Facilitator dashboard</h1>
 
         <section>
           <h2 className="font-medium mb-3">Your cohorts</h2>
@@ -41,18 +41,18 @@ export default async function FacilitatorPage() {
                   <li key={c.id}>
                     <Link
                       href={`/facilitator/cohort/${c.id}`}
-                      className="block border border-[#2C2A28]/10 p-4 hover:border-[#7A9E7E]/40 transition-colors"
+                      className="block border border-foreground/10 p-4 hover:border-sage/40 transition-colors"
                     >
                       <div className="flex items-center justify-between gap-4">
                         <div>
                           <p className="text-sm font-medium">{c.name}</p>
                           {c.start_date && (
-                            <p className="text-xs text-[#2C2A28]/50 mt-0.5">
+                            <p className="text-xs text-foreground/50 mt-0.5">
                               Started {new Date(c.start_date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                             </p>
                           )}
                         </div>
-                        <span className="text-xs text-[#2C2A28]/40 shrink-0">
+                        <span className="text-xs text-foreground/40 shrink-0">
                           View circle →
                         </span>
                       </div>
@@ -62,7 +62,7 @@ export default async function FacilitatorPage() {
               })}
             </ul>
           ) : (
-            <p className="text-[#2C2A28]/50 text-sm">No cohorts assigned.</p>
+            <p className="text-foreground/50 text-sm">No cohorts assigned.</p>
           )}
         </section>
       </main>

@@ -64,51 +64,51 @@ export default async function HomePage() {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 px-6 py-12 max-w-2xl mx-auto w-full space-y-10">
         <div>
-          <p className="text-[#2C2A28]/50 text-sm mb-1">
+          <p className="text-foreground/50 text-sm mb-1">
             {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
           </p>
-          <h1 className="text-3xl" style={{ fontFamily: "Georgia, serif" }}>
+          <h1 className="text-3xl">
             {greeting}, {firstName}.
           </h1>
         </div>
 
         {currentWeek && (
-          <section className="border border-[#2C2A28]/10 p-6">
-            <p className="text-xs text-[#7A9E7E] uppercase tracking-wide mb-2">Week {weekNumber}</p>
-            <h2 className="text-xl mb-1" style={{ fontFamily: "Georgia, serif" }}>{currentWeek.title}</h2>
-            <p className="text-[#2C2A28]/60 text-sm mb-4">{currentWeek.theme}</p>
+          <section className="border border-foreground/10 p-6">
+            <p className="text-xs text-sage uppercase tracking-wide mb-2">Week {weekNumber}</p>
+            <h2 className="text-xl mb-1">{currentWeek.title}</h2>
+            <p className="text-foreground/60 text-sm mb-4">{currentWeek.theme}</p>
             {currentWeek.circle_prompt && (
-              <blockquote className="border-l-2 border-[#C4A882] pl-4 text-[#2C2A28]/70 italic text-sm mb-4">
+              <blockquote className="border-l-2 border-stone pl-4 text-foreground/70 italic text-sm mb-4">
                 {currentWeek.circle_prompt}
               </blockquote>
             )}
-            <Link href="/practices" className="text-sm text-[#7A9E7E] underline">
+            <Link href="/practices" className="text-sm text-sage underline">
               This week&apos;s practice →
             </Link>
           </section>
         )}
 
-        <section className="border border-[#2C2A28]/10 p-6">
+        <section className="border border-foreground/10 p-6">
           <h2 className="font-medium mb-3">Weekly check-in</h2>
           {checkIn ? (
-            <p className="text-[#7A9E7E] text-sm">✓ Check-in complete for this week.</p>
+            <p className="text-sage text-sm">✓ Check-in complete for this week.</p>
           ) : (
             <Link
               href="/check-in"
-              className="inline-block bg-[#2C2A28] text-[#F9F7F4] px-5 py-2.5 text-sm hover:opacity-80 transition-opacity"
+              className="inline-block bg-foreground text-background px-5 py-2.5 text-sm hover:opacity-80 transition-opacity"
             >
               How are you this week?
             </Link>
           )}
         </section>
 
-        <section className="border border-[#2C2A28]/10 p-6">
+        <section className="border border-foreground/10 p-6">
           <h2 className="font-medium mb-3">Your circle</h2>
-          <Link href="/circle" className="text-sm text-[#7A9E7E] underline">View circle →</Link>
+          <Link href="/circle" className="text-sm text-sage underline">View circle →</Link>
         </section>
 
-        <nav className="pt-4 border-t border-[#2C2A28]/10">
-          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-[#7A9E7E]">
+        <nav className="pt-4 border-t border-foreground/10">
+          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-sage">
             <li><Link href="/practices" className="underline">Practices</Link></li>
             <li><Link href="/journal" className="underline">Journal</Link></li>
             <li><Link href="/civic" className="underline">Civic</Link></li>

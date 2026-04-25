@@ -19,27 +19,27 @@ export default async function AdminMembersPage() {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 px-6 py-12 max-w-2xl mx-auto w-full space-y-8">
         <div>
-          <a href="/admin" className="text-sm text-[#2C2A28]/40 hover:text-[#2C2A28]/70">← Admin</a>
-          <h1 className="text-2xl mt-2" style={{ fontFamily: "Georgia, serif" }}>Members</h1>
+          <a href="/admin" className="text-sm text-foreground/40 hover:text-foreground/70">← Admin</a>
+          <h1 className="text-2xl mt-2">Members</h1>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-[#2C2A28]/10">
-                <th className="text-left py-2 pr-4 text-xs text-[#2C2A28]/40 uppercase tracking-wide font-normal">Name</th>
-                <th className="text-left py-2 pr-4 text-xs text-[#2C2A28]/40 uppercase tracking-wide font-normal">Role</th>
-                <th className="text-left py-2 text-xs text-[#2C2A28]/40 uppercase tracking-wide font-normal">Joined</th>
+              <tr className="border-b border-foreground/10">
+                <th className="text-left py-2 pr-4 text-xs text-foreground/40 uppercase tracking-wide font-normal">Name</th>
+                <th className="text-left py-2 pr-4 text-xs text-foreground/40 uppercase tracking-wide font-normal">Role</th>
+                <th className="text-left py-2 text-xs text-foreground/40 uppercase tracking-wide font-normal">Joined</th>
               </tr>
             </thead>
             <tbody>
               {(members ?? []).map((m) => (
-                <tr key={m.id} className="border-b border-[#2C2A28]/05">
-                  <td className="py-3 pr-4 text-[#2C2A28]">{m.display_name ?? "—"}</td>
+                <tr key={m.id} className="border-b border-foreground/05">
+                  <td className="py-3 pr-4 text-foreground">{m.display_name ?? "—"}</td>
                   <td className="py-3 pr-4">
-                    <span className="text-xs text-[#2C2A28]/50">{m.role ?? "participant"}</span>
+                    <span className="text-xs text-foreground/50">{m.role ?? "participant"}</span>
                   </td>
-                  <td className="py-3 text-xs text-[#2C2A28]/50">
+                  <td className="py-3 text-xs text-foreground/50">
                     {new Date(m.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                   </td>
                 </tr>
@@ -47,7 +47,7 @@ export default async function AdminMembersPage() {
             </tbody>
           </table>
           {(!members || members.length === 0) && (
-            <p className="text-[#2C2A28]/50 text-sm py-4">No members yet.</p>
+            <p className="text-foreground/50 text-sm py-4">No members yet.</p>
           )}
         </div>
       </main>

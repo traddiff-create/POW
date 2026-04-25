@@ -64,8 +64,8 @@ export function ApplyForm({ cohorts, defaultCohortId }: { cohorts: Cohort[]; def
   if (submitted) {
     return (
       <div className="text-center py-12">
-        <h2 className="text-2xl mb-4" style={{ fontFamily: "Georgia, serif" }}>Thank you.</h2>
-        <p className="text-[#2C2A28]/70 max-w-md mx-auto">
+        <h2 className="text-2xl mb-4">Thank you.</h2>
+        <p className="text-foreground/70 max-w-md mx-auto">
           Your application has been received. A human will review it and you&apos;ll hear from us within 48 hours.
         </p>
       </div>
@@ -75,19 +75,19 @@ export function ApplyForm({ cohorts, defaultCohortId }: { cohorts: Cohort[]; def
   if (crisis === "yes") {
     return (
       <div className="text-center py-12 max-w-lg mx-auto">
-        <h2 className="text-2xl mb-4" style={{ fontFamily: "Georgia, serif" }}>We&apos;re glad you reached out.</h2>
-        <p className="text-[#2C2A28]/70 mb-6">
+        <h2 className="text-2xl mb-4">We&apos;re glad you reached out.</h2>
+        <p className="text-foreground/70 mb-6">
           Right now, the most important thing is your safety. Please reach out to one of these resources — they are free, confidential, and available now.
         </p>
-        <div className="text-left space-y-3 bg-[#2C2A28]/5 p-6">
+        <div className="text-left space-y-3 bg-foreground/5 p-6">
           <p><strong>988 Suicide and Crisis Lifeline:</strong> Call or text 988</p>
           <p><strong>Crisis Text Line:</strong> Text HOME to 741741</p>
           <p><strong>NAMI Helpline:</strong> 1-800-950-6264</p>
         </div>
-        <p className="text-sm text-[#2C2A28]/60 mt-6">
+        <p className="text-sm text-foreground/60 mt-6">
           <Link href="/crisis" className="underline">See all crisis resources →</Link>
         </p>
-        <p className="text-sm text-[#2C2A28]/60 mt-4">
+        <p className="text-sm text-foreground/60 mt-4">
           We hope you&apos;ll apply to a future cohort when you&apos;re in a more stable place.
         </p>
       </div>
@@ -101,10 +101,10 @@ export function ApplyForm({ cohorts, defaultCohortId }: { cohorts: Cohort[]; def
         <input
           id="name"
           type="text"
-          className="w-full border border-[#2C2A28]/20 px-4 py-3 bg-white focus:outline-none focus:border-[#7A9E7E]"
+          className="w-full border border-foreground/20 px-4 py-3 bg-white focus:outline-none focus:border-sage"
           {...register("name")}
         />
-        {errors.name && <p className="text-[#C0392B] text-sm mt-1">{errors.name.message}</p>}
+        {errors.name && <p className="text-error text-sm mt-1">{errors.name.message}</p>}
       </div>
 
       <div>
@@ -112,17 +112,17 @@ export function ApplyForm({ cohorts, defaultCohortId }: { cohorts: Cohort[]; def
         <input
           id="email"
           type="email"
-          className="w-full border border-[#2C2A28]/20 px-4 py-3 bg-white focus:outline-none focus:border-[#7A9E7E]"
+          className="w-full border border-foreground/20 px-4 py-3 bg-white focus:outline-none focus:border-sage"
           {...register("email")}
         />
-        {errors.email && <p className="text-[#C0392B] text-sm mt-1">{errors.email.message}</p>}
+        {errors.email && <p className="text-error text-sm mt-1">{errors.email.message}</p>}
       </div>
 
       <div>
         <label className="block text-sm font-medium mb-1" htmlFor="cohort_id">Which cohort?</label>
         <select
           id="cohort_id"
-          className="w-full border border-[#2C2A28]/20 px-4 py-3 bg-white focus:outline-none focus:border-[#7A9E7E]"
+          className="w-full border border-foreground/20 px-4 py-3 bg-white focus:outline-none focus:border-sage"
           {...register("cohort_id")}
         >
           <option value="">Select a cohort</option>
@@ -130,20 +130,20 @@ export function ApplyForm({ cohorts, defaultCohortId }: { cohorts: Cohort[]; def
             <option key={c.id} value={c.id}>{c.name}</option>
           ))}
         </select>
-        {errors.cohort_id && <p className="text-[#C0392B] text-sm mt-1">{errors.cohort_id.message}</p>}
+        {errors.cohort_id && <p className="text-error text-sm mt-1">{errors.cohort_id.message}</p>}
       </div>
 
       <div>
         <label className="block text-sm font-medium mb-1" htmlFor="motivation">
-          Why are you applying? <span className="text-[#2C2A28]/50 font-normal">(at least 100 characters — a human will read this)</span>
+          Why are you applying? <span className="text-foreground/50 font-normal">(at least 100 characters — a human will read this)</span>
         </label>
         <textarea
           id="motivation"
           rows={6}
-          className="w-full border border-[#2C2A28]/20 px-4 py-3 bg-white focus:outline-none focus:border-[#7A9E7E] resize-none"
+          className="w-full border border-foreground/20 px-4 py-3 bg-white focus:outline-none focus:border-sage resize-none"
           {...register("motivation")}
         />
-        {errors.motivation && <p className="text-[#C0392B] text-sm mt-1">{errors.motivation.message}</p>}
+        {errors.motivation && <p className="text-error text-sm mt-1">{errors.motivation.message}</p>}
       </div>
 
       <div>
@@ -153,53 +153,53 @@ export function ApplyForm({ cohorts, defaultCohortId }: { cohorts: Cohort[]; def
           </legend>
           <div className="space-y-2">
             <label className="flex items-center gap-3 cursor-pointer">
-              <input type="radio" value="no" {...register("crisis")} className="accent-[#7A9E7E]" />
+              <input type="radio" value="no" {...register("crisis")} className="accent-sage" />
               No
             </label>
             <label className="flex items-center gap-3 cursor-pointer">
-              <input type="radio" value="yes" {...register("crisis")} className="accent-[#7A9E7E]" />
+              <input type="radio" value="yes" {...register("crisis")} className="accent-sage" />
               Yes
             </label>
           </div>
-          {errors.crisis && <p className="text-[#C0392B] text-sm mt-1">{errors.crisis.message}</p>}
+          {errors.crisis && <p className="text-error text-sm mt-1">{errors.crisis.message}</p>}
         </fieldset>
       </div>
 
       <div className="space-y-3">
         <label className="flex items-start gap-3 cursor-pointer">
-          <input type="checkbox" {...register("age_confirmed")} className="mt-0.5 accent-[#7A9E7E]" />
+          <input type="checkbox" {...register("age_confirmed")} className="mt-0.5 accent-sage" />
           <span className="text-sm">I confirm I am 18 years of age or older</span>
         </label>
-        {errors.age_confirmed && <p className="text-[#C0392B] text-sm">{errors.age_confirmed.message}</p>}
+        {errors.age_confirmed && <p className="text-error text-sm">{errors.age_confirmed.message}</p>}
 
         <label className="flex items-start gap-3 cursor-pointer">
-          <input type="checkbox" {...register("disclaimer_confirmed")} className="mt-0.5 accent-[#7A9E7E]" />
+          <input type="checkbox" {...register("disclaimer_confirmed")} className="mt-0.5 accent-sage" />
           <span className="text-sm">
             I understand that A Piece of Whole is not therapy, not medical advice, and not a substitute for professional mental health treatment.{" "}
             <Link href="/disclaimer" className="underline" target="_blank">Learn more</Link>
           </span>
         </label>
-        {errors.disclaimer_confirmed && <p className="text-[#C0392B] text-sm">{errors.disclaimer_confirmed.message}</p>}
+        {errors.disclaimer_confirmed && <p className="text-error text-sm">{errors.disclaimer_confirmed.message}</p>}
       </div>
 
       <div>
         <label className="block text-sm font-medium mb-1" htmlFor="how_heard">
-          How did you hear about us? <span className="text-[#2C2A28]/50 font-normal">(optional)</span>
+          How did you hear about us? <span className="text-foreground/50 font-normal">(optional)</span>
         </label>
         <input
           id="how_heard"
           type="text"
-          className="w-full border border-[#2C2A28]/20 px-4 py-3 bg-white focus:outline-none focus:border-[#7A9E7E]"
+          className="w-full border border-foreground/20 px-4 py-3 bg-white focus:outline-none focus:border-sage"
           {...register("how_heard")}
         />
       </div>
 
-      {error && <p className="text-[#C0392B] text-sm">{error}</p>}
+      {error && <p className="text-error text-sm">{error}</p>}
 
       <button
         type="submit"
         disabled={submitting}
-        className="w-full bg-[#7A9E7E] text-white py-4 text-base hover:opacity-90 transition-opacity disabled:opacity-50"
+        className="w-full bg-sage text-white py-4 text-base hover:opacity-90 transition-opacity disabled:opacity-50"
       >
         {submitting ? "Submitting…" : "Submit Application"}
       </button>

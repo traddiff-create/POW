@@ -50,53 +50,53 @@ export function SettingsForm({ initialName, userId }: Props) {
             onChange={(e) => setDisplayName(e.target.value)}
             required
             maxLength={60}
-            className="w-full border border-[#2C2A28]/20 px-4 py-3 bg-white focus:outline-none focus:border-[#7A9E7E]"
+            className="w-full border border-foreground/20 px-4 py-3 bg-white focus:outline-none focus:border-sage"
           />
         </div>
         <button
           type="submit"
           disabled={saving || !displayName.trim()}
-          className="bg-[#2C2A28] text-[#F9F7F4] px-5 py-2.5 text-sm hover:opacity-80 transition-opacity disabled:opacity-50"
+          className="bg-foreground text-background px-5 py-2.5 text-sm hover:opacity-80 transition-opacity disabled:opacity-50"
         >
           {saving ? "Saving…" : saved ? "Saved ✓" : "Save"}
         </button>
       </form>
 
-      <div className="space-y-3 border-t border-[#2C2A28]/10 pt-8">
+      <div className="space-y-3 border-t border-foreground/10 pt-8">
         <h2 className="font-medium">Account</h2>
         <button
           onClick={signOut}
-          className="block text-sm text-[#2C2A28]/60 underline hover:text-[#2C2A28] transition-colors"
+          className="block text-sm text-foreground/60 underline hover:text-foreground transition-colors"
         >
           Sign out
         </button>
       </div>
 
-      <div className="space-y-3 border-t border-[#2C2A28]/10 pt-8">
-        <h2 className="font-medium text-[#C0392B]">Danger zone</h2>
+      <div className="space-y-3 border-t border-foreground/10 pt-8">
+        <h2 className="font-medium text-error">Danger zone</h2>
         {!confirmDelete ? (
           <button
             onClick={() => setConfirmDelete(true)}
-            className="text-sm text-[#C0392B] underline"
+            className="text-sm text-error underline"
           >
             Delete my account
           </button>
         ) : (
           <div className="space-y-3">
-            <p className="text-sm text-[#2C2A28]/70">
+            <p className="text-sm text-foreground/70">
               This will sign you out and anonymize your data. Journal entries and check-ins will be removed.
               This cannot be undone.
             </p>
             <div className="flex gap-3">
               <button
                 onClick={deleteAccount}
-                className="text-sm bg-[#C0392B] text-white px-4 py-2 hover:opacity-80 transition-opacity"
+                className="text-sm bg-error text-white px-4 py-2 hover:opacity-80 transition-opacity"
               >
                 Yes, delete my account
               </button>
               <button
                 onClick={() => setConfirmDelete(false)}
-                className="text-sm text-[#2C2A28]/60 underline"
+                className="text-sm text-foreground/60 underline"
               >
                 Cancel
               </button>

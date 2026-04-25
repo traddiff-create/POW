@@ -39,15 +39,15 @@ export function ShareForm({ cohortId, weekNumber, circlePrompt }: Props) {
   if (done) {
     return (
       <div className="text-center py-12">
-        <p className="text-2xl mb-3" style={{ fontFamily: "Georgia, serif" }}>
+        <p className="text-2xl mb-3 font-serif">
           Your reflection is in the circle.
         </p>
-        <p className="text-[#2C2A28]/60 text-sm mb-8">
+        <p className="text-foreground/60 text-sm mb-8">
           {isAnonymous ? "Shared anonymously." : "Shared with your circle."}
         </p>
         <button
           onClick={() => router.push("/circle")}
-          className="text-sm text-[#7A9E7E] underline"
+          className="text-sm text-sage underline"
         >
           View circle →
         </button>
@@ -58,7 +58,7 @@ export function ShareForm({ cohortId, weekNumber, circlePrompt }: Props) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {circlePrompt && (
-        <blockquote className="border-l-2 border-[#C4A882] pl-4 text-[#2C2A28]/70 italic text-sm">
+        <blockquote className="border-l-2 border-stone pl-4 text-foreground/70 italic text-sm">
           {circlePrompt}
         </blockquote>
       )}
@@ -75,9 +75,9 @@ export function ShareForm({ cohortId, weekNumber, circlePrompt }: Props) {
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="What wants to be said?"
-          className="w-full border border-[#2C2A28]/20 px-4 py-3 bg-white focus:outline-none focus:border-[#7A9E7E] resize-none leading-relaxed"
+          className="w-full border border-foreground/20 px-4 py-3 bg-white focus:outline-none focus:border-sage resize-none leading-relaxed"
         />
-        <p className="text-xs text-[#2C2A28]/40 mt-1">
+        <p className="text-xs text-foreground/40 mt-1">
           {content.trim().length < 20
             ? `At least ${20 - content.trim().length} more characters`
             : ""}
@@ -91,10 +91,10 @@ export function ShareForm({ cohortId, weekNumber, circlePrompt }: Props) {
           onChange={(e) => setIsAnonymous(e.target.checked)}
           className="w-4 h-4"
         />
-        <span className="text-sm text-[#2C2A28]/70">Share anonymously</span>
+        <span className="text-sm text-foreground/70">Share anonymously</span>
       </label>
 
-      <div className="border border-[#2C2A28]/10 p-4 text-xs text-[#2C2A28]/50 leading-relaxed">
+      <div className="border border-foreground/10 p-4 text-xs text-foreground/50 leading-relaxed">
         Once shared, your reflection is visible to all members of your cohort circle and your facilitator.
         You cannot edit it after posting. Use discretion — only share what you&apos;re ready to hold openly.
       </div>
@@ -102,7 +102,7 @@ export function ShareForm({ cohortId, weekNumber, circlePrompt }: Props) {
       <button
         type="submit"
         disabled={loading || content.trim().length < 20}
-        className="w-full bg-[#2C2A28] text-[#F9F7F4] py-3 text-sm hover:opacity-80 transition-opacity disabled:opacity-50"
+        className="w-full bg-foreground text-background py-3 text-sm hover:opacity-80 transition-opacity disabled:opacity-50"
       >
         {loading ? "Sharing…" : "Share with circle"}
       </button>

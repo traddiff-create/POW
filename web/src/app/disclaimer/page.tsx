@@ -4,11 +4,11 @@ export default function DisclaimerPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 px-6 py-16 max-w-2xl mx-auto">
-        <p className="text-sm text-[#C0392B] mb-8 border border-[#C0392B] px-4 py-3">
+        <p className="text-sm text-error mb-8 border border-error px-4 py-3">
           DRAFT — FOR ATTORNEY REVIEW BEFORE LAUNCH
         </p>
-        <h1 className="text-3xl mb-6" style={{ fontFamily: "Georgia, serif" }}>Not Therapy Disclaimer</h1>
-        <div className="space-y-4 text-[#2C2A28]/80 leading-relaxed">
+        <h1 className="text-3xl mb-6">Not Therapy Disclaimer</h1>
+        <div className="space-y-4 text-foreground/80 leading-relaxed">
           <p>
             A Piece of Whole is a community-based practice and educational program. It is <strong>not therapy</strong>, not mental health treatment, not medical advice, and not a substitute for professional mental health care.
           </p>
