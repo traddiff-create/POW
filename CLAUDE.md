@@ -15,7 +15,7 @@
 ## Bundle IDs & App IDs
 - iOS Bundle: `com.traddifftech.apieceofwhole`
 - Apple Bundle ID registered: `8NNC4RKNGT` (registered 2026-04-25)
-- App Store Connect ID: pending — create via web UI (bundle is pre-registered)
+- App Store Connect ID: `6763727066` ✅ (created 2026-04-25)
 - SKU: `APIECEOFWHOLE2025`
 
 ## Supabase Project
