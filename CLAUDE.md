@@ -99,5 +99,30 @@ supabase functions deploy record-entitlement
 - Product ID: `apow.cohort.8week`
 - Edge function `verify-purchase` validates receipt → `record-entitlement` creates enrollment
 
+## Shared Content Resources
+
+All platform-agnostic content lives in `shared/content/`. These are the source-of-truth knowledge assets extracted from Dharma Wellness and Alexandria.
+
+| File | What it contains |
+|------|-----------------|
+| `shared/content/meditation-techniques.json` | 11 Dharma meditation techniques — layer tags, duration, tradition, evidence level, use-case tags. Source: `DharmaGit/ios/Y/MeditationGuides/guides.md` |
+| `shared/content/audio-library.json` | 44 audio files (18 learn guides, 6 sleep, 16 med ambient, 4 tones) — layer assignments, type, use-case tags. Source: `DharmaGit/ios/Y/Audio/` |
+| `shared/content/alexandria-integration.md` | How to query the Alexandria knowledge library (CLI, REST API on :8642, MCP server) — includes layer-to-subject mapping for Walter Russell, Neville Goddard, breathwork research, and co-regulation theory |
+
+### Layer → Content Map
+
+| Layer | Techniques | Audio | Alexandria |
+|-------|-----------|-------|-----------|
+| 1 — Self Regulation | All 11 techniques (focus, relaxation, movement) | All Learn/ + Sleep/ + Med/ files | "Health & Wellness", "Breathwork", "MBSR", "Somatic" subjects |
+| 2 — Co-Regulation | Loving-Kindness (bridges L1+L2) | `co_regulation.m4a`, `synchronized_breathing.m4a` | "Co-Regulation", "Relational Health" subjects |
+| 3 — Community | Walking Meditation (bridges L1+L3) | `med-walking`, `med-gong-session` | "Community", "Group Practice" subjects |
+| 4 — Agency | Guided Visualization (bridges L1+L4) | `davidson_four_pillars.m4a`, `four_pillars_cycle.m4a` | Walter Russell (44 entries), Neville Goddard (165 files) |
+| 5 — Civic | — | — | PoP SD: 100+ USCIS questions, 108 SD legislators, founding docs |
+
+### Alexandria Access
+- **Local CLI:** `alexandria search "query"` at `/Applications/Apps/Alexandria/`
+- **REST API:** `http://localhost:8642/api/search?q=...` (run `alexandria dashboard`)
+- **MCP:** `AlexandriaMCP` Swift target — 11 tools (`alexandria_search`, `alexandria_browse`, `alexandria_related`, etc.)
+
 ## Related Skills
 `/pipeline` `/release` `/dharma-release` (reference for cross-platform release flow)
