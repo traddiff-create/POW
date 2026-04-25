@@ -1,0 +1,18 @@
+import SwiftUI
+
+struct ManageTabView: View {
+    @Environment(AppState.self) var appState
+
+    var body: some View {
+        ZStack {
+            Color.powBackground.ignoresSafeArea()
+            if appState.role == .admin {
+                AdminDashboardView()
+            } else {
+                FacilitatorDashboardView()
+            }
+        }
+        .navigationTitle("Manage")
+        .navigationBarTitleDisplayMode(.large)
+    }
+}

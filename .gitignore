@@ -1,0 +1,43 @@
+# Xcode
+*.xcuserstate
+xcuserdata/
+*.xcworkspace/xcuserdata/
+DerivedData/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+build/
+
+# Secrets — never commit
+ios/APieceOfWhole/APieceOfWhole/Config/Secrets.xcconfig
+
+# macOS
+.DS_Store
+**/.DS_Store
+.AppleDouble
+.LSOverride
+
+# SPM
+.build/
+/.swiftpm
+.package.resolved
+
+# Node / web
+node_modules/
+.next/
+.env
+.env.local
+.env.production
+.env*.local
+
+# Supabase
+supabase/.env
+supabase/functions/.env
+
+# Android
+android/.gradle/
+android/build/
+android/local.properties
+*.apk
+*.aab

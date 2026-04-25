@@ -1,0 +1,8 @@
+import Foundation
+import Supabase
+
+extension SupabaseClient {
+    static let shared: SupabaseClient = {
+        SupabaseClient(supabaseURL: Config.supabaseURL, supabaseKey: Config.supabaseAnonKey)
+    }()
+}
