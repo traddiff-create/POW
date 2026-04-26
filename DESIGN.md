@@ -9,7 +9,6 @@ colors:
   surface: "#FFFFFF"
   foreground: "#2C2A28"
   muted: "#888684"
-  border: "#E0DEDC"
   primary-container: "#EAECE6"
   error: "#C0392B"
   on-primary: "#2C2A28"
@@ -86,6 +85,14 @@ components:
   error-text:
     textColor: "{colors.error}"
     typography: "{typography.caption}"
+  caption:
+    textColor: "{colors.muted}"
+    typography: "{typography.caption}"
+  selected-state:
+    backgroundColor: "{colors.primary-container}"
+    textColor: "{colors.foreground}"
+    rounded: "{rounded.sm}"
+    padding: 12px
   page:
     backgroundColor: "{colors.background}"
     textColor: "{colors.foreground}"
