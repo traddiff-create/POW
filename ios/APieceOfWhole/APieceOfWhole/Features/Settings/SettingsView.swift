@@ -149,7 +149,7 @@ struct GuestAccountUpgradeView: View {
                                 .foregroundStyle(Color.powError)
                                 .frame(maxWidth: .infinity, alignment: .leading)
 
-                            if error == AuthInputError.emailAlreadyExists.localizedDescription {
+                            if error == (AuthInputError.emailAlreadyExists.errorDescription ?? "") {
                                 NavigationLink(destination: SignInView()) {
                                     Label("Sign In Instead", systemImage: "rectangle.portrait.and.arrow.right")
                                         .font(.powCallout)
@@ -185,7 +185,7 @@ struct GuestAccountUpgradeView: View {
             try await appState.upgradeGuestAccount(email: email, password: password, confirmPassword: confirmPassword)
             dismiss()
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .settings)
         }
         isSaving = false
     }
@@ -228,7 +228,7 @@ struct ProfileEditView: View {
             try await appState.updateDisplayName(displayName)
             dismiss()
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .settings)
         }
         isSaving = false
     }

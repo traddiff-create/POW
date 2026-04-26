@@ -232,7 +232,7 @@ Deno.serve(async (req) => {
   } catch (err) {
     logError("verify-purchase error", err);
     if (err instanceof MissingEnvError) {
-      return errorResponse(req, 503, `Server misconfigured: missing ${err.name}`);
+      return errorResponse(req, 503, "Purchase verification is temporarily unavailable");
     }
     return errorResponse(req, 500, "Internal server error");
   }

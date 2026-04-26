@@ -99,7 +99,7 @@ struct AgeConfirmView: View {
             try await appState.confirmAdult()
             onContinue()
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .onboarding)
         }
         isLoading = false
     }
@@ -171,7 +171,7 @@ struct AgreementsView: View {
             try await appState.acceptAgreements()
             onContinue()
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .onboarding)
         }
         isLoading = false
     }
@@ -267,7 +267,7 @@ struct ProfileSetupView: View {
             try await appState.completeOnboarding(displayName: displayName)
             onComplete()
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .onboarding)
         }
         isLoading = false
     }

@@ -75,7 +75,7 @@ struct SignInView: View {
         do {
             try await appState.signIn(email: email, password: password)
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .signIn)
         }
         isLoading = false
     }
@@ -86,7 +86,7 @@ struct SignInView: View {
         do {
             try await appState.signInWithApple(credential: payload)
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .appleSignIn)
         }
         isAppleSigningIn = false
     }

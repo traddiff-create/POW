@@ -96,7 +96,7 @@ struct ShareConfirmationView: View {
             await onShared()
             dismiss()
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .journal)
         }
         isLoading = false
     }

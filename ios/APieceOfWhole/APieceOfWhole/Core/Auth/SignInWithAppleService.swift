@@ -31,8 +31,8 @@ enum SignInWithAppleError: LocalizedError {
             return "Apple did not return an identity token. Please try again."
         case .invalidIdentityTokenEncoding:
             return "Apple's identity token was malformed. Please try again."
-        case .underlying(let error):
-            return error.localizedDescription
+        case .underlying:
+            return "Could not complete Sign in with Apple. Please try again."
         }
     }
 }

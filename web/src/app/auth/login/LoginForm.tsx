@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { hasPublicSupabaseConfig } from "@/lib/supabase/config";
 
 export function LoginForm({ next }: { next?: string }) {
   const [email, setEmail] = useState("");
@@ -9,21 +10,37 @@ export function LoginForm({ next }: { next?: string }) {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  if (!hasPublicSupabaseConfig()) {
+    return (
+      <div className="text-center">
+        <p className="text-foreground/80 mb-2">Login is disabled in demo mode.</p>
+        <p className="text-sm text-foreground/60">
+          A Piece of Whole is currently previewing public content only. Sign-in
+          will return when the cohort is open.
+        </p>
+      </div>
+    );
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    const supabase = createClient();
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=${next ?? "/home"}`,
-      },
-    });
-    if (error) {
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback?next=${next ?? "/home"}`,
+        },
+      });
+      if (error) {
+        setError("Something went wrong. Please try again.");
+      } else {
+        setSent(true);
+      }
+    } catch {
       setError("Something went wrong. Please try again.");
-    } else {
-      setSent(true);
     }
     setLoading(false);
   }
@@ -63,7 +80,7 @@ export function LoginForm({ next }: { next?: string }) {
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-sage text-white py-3 text-sm hover:opacity-90 transition-opacity disabled:opacity-50"
+        className="w-full bg-sage text-foreground py-3 text-sm hover:opacity-90 transition-opacity disabled:opacity-50"
       >
         {loading ? "Sending…" : "Send magic link"}
       </button>

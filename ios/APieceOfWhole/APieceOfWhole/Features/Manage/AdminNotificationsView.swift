@@ -83,7 +83,7 @@ struct AdminNotificationsView: View {
             notifBody = ""
             specificUserID = ""
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .management)
         }
         isSending = false
     }

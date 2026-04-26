@@ -108,7 +108,7 @@ struct CheckInFormView: View {
             await onComplete()
             dismiss()
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .checkIn)
         }
         isLoading = false
     }

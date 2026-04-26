@@ -24,7 +24,15 @@ interface Cohort {
   name: string;
 }
 
-export function ApplyForm({ cohorts, defaultCohortId }: { cohorts: Cohort[]; defaultCohortId?: string }) {
+export function ApplyForm({
+  cohorts,
+  defaultCohortId,
+  isDemoMode = false,
+}: {
+  cohorts: Cohort[];
+  defaultCohortId?: string;
+  isDemoMode?: boolean;
+}) {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -38,6 +46,10 @@ export function ApplyForm({ cohorts, defaultCohortId }: { cohorts: Cohort[]; def
 
   async function onSubmit(values: FormValues) {
     if (values.crisis === "yes") return;
+    if (isDemoMode) {
+      setError("Applications are disabled in this local demo.");
+      return;
+    }
     setSubmitting(true);
     setError(null);
     try {
@@ -96,6 +108,12 @@ export function ApplyForm({ cohorts, defaultCohortId }: { cohorts: Cohort[]; def
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 max-w-xl mx-auto">
+      {isDemoMode && (
+        <div className="border border-foreground/10 bg-foreground/5 p-4 text-sm text-foreground/70">
+          Applications are disabled in this local demo.
+        </div>
+      )}
+
       <div>
         <label className="block text-sm font-medium mb-1" htmlFor="name">Full name</label>
         <input
@@ -198,10 +216,10 @@ export function ApplyForm({ cohorts, defaultCohortId }: { cohorts: Cohort[]; def
 
       <button
         type="submit"
-        disabled={submitting}
-        className="w-full bg-sage text-white py-4 text-base hover:opacity-90 transition-opacity disabled:opacity-50"
+        disabled={submitting || isDemoMode}
+        className="w-full bg-sage text-foreground py-4 text-base hover:opacity-90 transition-opacity disabled:opacity-50"
       >
-        {submitting ? "Submitting…" : "Submit Application"}
+        {isDemoMode ? "Applications Disabled" : submitting ? "Submitting…" : "Submit Application"}
       </button>
     </form>
   );

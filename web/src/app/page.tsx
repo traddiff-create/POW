@@ -1,20 +1,9 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
-import { createServiceClient } from "@/lib/supabase/server";
-
-async function getOpenCohorts() {
-  const supabase = await createServiceClient();
-  const { data } = await supabase
-    .from("cohorts")
-    .select("id, name, slug, start_date, max_participants, is_open")
-    .eq("is_open", true)
-    .order("start_date")
-    .limit(3);
-  return data ?? [];
-}
+import { getOpenCohorts } from "@/lib/public-data";
 
 export default async function LandingPage() {
-  const cohorts = await getOpenCohorts();
+  const cohorts = await getOpenCohorts({ limit: 3 });
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -30,7 +19,7 @@ export default async function LandingPage() {
           </p>
           <Link
             href="/apply"
-            className="inline-block bg-sage text-white px-8 py-4 text-base hover:opacity-90 transition-opacity"
+            className="inline-block bg-sage text-foreground px-8 py-4 text-base hover:opacity-90 transition-opacity"
           >
             Apply to Join
           </Link>

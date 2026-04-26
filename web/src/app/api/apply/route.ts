@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { createServiceClient } from "@/lib/supabase/server";
+import {
+  hasPublicSupabaseConfig,
+  hasServiceSupabaseConfig,
+} from "@/lib/supabase/config";
 import { sendApplicationReceived, sendApplicantConfirmation } from "@/lib/resend";
 
 const schema = z.object({
@@ -12,6 +16,13 @@ const schema = z.object({
 });
 
 export async function POST(request: NextRequest) {
+  if (!hasPublicSupabaseConfig() || !hasServiceSupabaseConfig()) {
+    return NextResponse.json(
+      { error: "Applications are temporarily unavailable" },
+      { status: 503 }
+    );
+  }
+
   let body: unknown;
   try {
     body = await request.json();

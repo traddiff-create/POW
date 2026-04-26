@@ -69,7 +69,7 @@ struct WelcomeView: View {
                                 Task { await signInWithApple(payload) }
                             },
                             onError: { error in
-                                appleError = error.errorDescription
+                                appleError = AppPublicError.message(for: error, context: .appleSignIn)
                             },
                             label: .continue
                         )
@@ -92,7 +92,7 @@ struct WelcomeView: View {
                         POWButton(title: "Continue with Email", style: .ghost) {
                             onCreateAccount()
                         }
-                        .accessibilityIdentifier("welcome.applyToJoinButton")
+                        .accessibilityIdentifier("welcome.createAccountButton")
 
                         POWButton(title: "Sign In with Email", style: .ghost) {
                             onSignIn()
@@ -137,7 +137,7 @@ struct WelcomeView: View {
         do {
             try await appState.continueAsGuest()
         } catch {
-            guestError = "Guest access is not available yet. Please enable anonymous sign-ins in Supabase Auth settings or sign in with an account."
+            guestError = AppPublicError.message(for: error, context: .guest)
         }
         isContinuingAsGuest = false
     }
@@ -148,7 +148,7 @@ struct WelcomeView: View {
         do {
             try await appState.signInWithApple(credential: payload)
         } catch {
-            appleError = error.localizedDescription
+            appleError = AppPublicError.message(for: error, context: .appleSignIn)
         }
         isAppleSigningIn = false
     }

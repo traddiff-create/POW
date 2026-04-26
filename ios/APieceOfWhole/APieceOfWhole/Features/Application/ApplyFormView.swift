@@ -137,7 +137,7 @@ struct ApplyFormView: View {
             )
             path.append(application)
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .application)
         }
         isLoading = false
     }

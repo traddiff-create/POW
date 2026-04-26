@@ -139,7 +139,7 @@ struct PracticeLibraryView: View {
         do {
             practices = try await SupabaseService.shared.fetchPractices()
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .practice)
         }
         isLoading = false
     }

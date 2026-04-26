@@ -85,7 +85,7 @@ struct PaymentScreenView: View {
             let productID = cohort?.storeKitProductID ?? Config.storeKitProductID
             _ = try await purchaseService.loadProduct(id: productID)
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .payment)
         }
         isLoadingProduct = false
     }
@@ -99,7 +99,7 @@ struct PaymentScreenView: View {
         } catch PurchaseError.cancelled {
             // user cancelled — no error shown
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .payment)
         }
     }
 
@@ -110,7 +110,7 @@ struct PaymentScreenView: View {
             await appState.refreshMembership()
             dismiss()
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .restorePurchase)
         }
     }
 }

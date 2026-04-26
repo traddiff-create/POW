@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { CrisisBanner } from "@/components/CrisisBanner";
-import { createClient } from "@/lib/supabase/server";
+import {
+  getLearningResources,
+  type PublicLearningResource,
+} from "@/lib/public-data";
 
 const LAYER_LABELS: Record<string, string> = {
   self_regulation: "Self-Regulation",
@@ -10,29 +13,8 @@ const LAYER_LABELS: Record<string, string> = {
   civic_engagement: "Civic Engagement",
 };
 
-type LearningResourceMetadata = {
-  id: string;
-  title: string;
-  subtitle: string | null;
-  summary: string | null;
-  content_status: string;
-  file_type: string;
-  layers: string[];
-  subjects: string[];
-  tags: string[];
-  reading_minutes: number | null;
-  sort_order: number | null;
-};
-
 export default async function LearnPage() {
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from("learning_resource_metadata")
-    .select("id, title, subtitle, summary, content_status, file_type, layers, subjects, tags, reading_minutes, sort_order")
-    .order("sort_order", { ascending: true, nullsFirst: false })
-    .order("title", { ascending: true });
-
-  const resources = (data ?? []) as LearningResourceMetadata[];
+  const resources = await getLearningResources();
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -66,7 +48,7 @@ export default async function LearnPage() {
   );
 }
 
-function ResourceCard({ resource }: { resource: LearningResourceMetadata }) {
+function ResourceCard({ resource }: { resource: PublicLearningResource }) {
   return (
     <li className="border border-foreground/10 p-5">
       <div className="flex items-start justify-between gap-4">

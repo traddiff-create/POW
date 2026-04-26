@@ -1,13 +1,52 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import {
+  getPublicSupabaseConfig,
+  hasPublicSupabaseConfig,
+} from "@/lib/supabase/config";
 import type { Database } from "@/types/database";
 
+const protectedPrefixes = [
+  "/home",
+  "/check-in",
+  "/practices",
+  "/journal",
+  "/circle",
+  "/civic",
+  "/my-piece",
+  "/settings",
+  "/facilitator",
+  "/admin",
+  "/onboarding",
+];
+
+function isProtectedPath(pathname: string) {
+  return protectedPrefixes.some((prefix) => pathname.startsWith(prefix));
+}
+
 export async function updateSession(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  if (!hasPublicSupabaseConfig()) {
+    if (isProtectedPath(pathname)) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/auth/login";
+      url.searchParams.set("next", pathname);
+      return NextResponse.redirect(url);
+    }
+    return NextResponse.next({ request });
+  }
+
   let supabaseResponse = NextResponse.next({ request });
+  const config = getPublicSupabaseConfig();
+
+  if (!config) {
+    return supabaseResponse;
+  }
 
   const supabase = createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    config.url,
+    config.anonKey,
     {
       cookies: {
         getAll() {
@@ -30,27 +69,7 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const { pathname } = request.nextUrl;
-
-  const protectedPrefixes = [
-    "/home",
-    "/check-in",
-    "/practices",
-    "/journal",
-    "/circle",
-    "/civic",
-    "/my-piece",
-    "/settings",
-    "/facilitator",
-    "/admin",
-    "/onboarding",
-  ];
-
-  const isProtected = protectedPrefixes.some((prefix) =>
-    pathname.startsWith(prefix)
-  );
-
-  if (isProtected && !user) {
+  if (isProtectedPath(pathname) && !user) {
     const url = request.nextUrl.clone();
     url.pathname = "/auth/login";
     url.searchParams.set("next", pathname);

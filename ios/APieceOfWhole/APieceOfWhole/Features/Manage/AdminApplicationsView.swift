@@ -203,7 +203,7 @@ struct ApplicationReviewView: View {
             )
             await onUpdate()
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .management)
         }
         isUpdating = false
     }

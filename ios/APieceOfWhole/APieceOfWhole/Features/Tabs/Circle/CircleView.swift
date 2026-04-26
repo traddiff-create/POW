@@ -105,7 +105,7 @@ struct CircleView: View {
         do {
             posts = try await SupabaseService.shared.fetchCirclePosts(cohortID: cohortID)
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .circle)
         }
         isLoading = false
     }
@@ -218,7 +218,7 @@ struct NewCirclePostView: View {
             await onPost()
             dismiss()
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .circle)
         }
         isLoading = false
     }

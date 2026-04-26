@@ -162,7 +162,7 @@ struct LearnView: View {
         do {
             resources = try await SupabaseService.shared.fetchLearningResources()
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .learn)
         }
         isLoading = false
     }
@@ -385,7 +385,7 @@ struct LearnResourceDetailView: View {
         do {
             loadedResource = try await SupabaseService.shared.fetchLearningResource(id: resource.id)
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .learn)
         }
         isLoading = false
     }
@@ -504,7 +504,7 @@ struct LearnReflectionView: View {
             onSaved(entry)
             dismiss()
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .journal)
         }
         isLoading = false
     }
