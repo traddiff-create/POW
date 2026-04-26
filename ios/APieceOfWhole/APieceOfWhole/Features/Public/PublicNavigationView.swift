@@ -92,7 +92,7 @@ struct WelcomeView: View {
                         POWButton(title: "Continue with Email", style: .ghost) {
                             onCreateAccount()
                         }
-                        .accessibilityIdentifier("welcome.applyToJoinButton")
+                        .accessibilityIdentifier("welcome.createAccountButton")
 
                         POWButton(title: "Sign In with Email", style: .ghost) {
                             onSignIn()
@@ -137,7 +137,7 @@ struct WelcomeView: View {
         do {
             try await appState.continueAsGuest()
         } catch {
-            guestError = "Guest access is not available yet. Please enable anonymous sign-ins in Supabase Auth settings or sign in with an account."
+            guestError = AppPublicError.message(for: error, context: .guest)
         }
         isContinuingAsGuest = false
     }

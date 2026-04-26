@@ -14,8 +14,13 @@ final class AuthService {
     private init() {}
 
     func restoreSession() async throws -> Session? {
-        session = try await client.auth.session
-        return session
+        do {
+            session = try await client.auth.session
+            return session
+        } catch AuthError.sessionMissing {
+            session = nil
+            return nil
+        }
     }
 
     func createAccount(email: String, password: String) async throws -> SignUpOutcome {

@@ -72,6 +72,7 @@ enum AppPublicErrorContext: String {
     case myPiece
     case management
     case checkIn
+    case guest
     case general
 }
 
@@ -169,6 +170,8 @@ enum AppPublicError {
             return "Could not complete that management action. Please try again."
         case .checkIn:
             return "Could not save your check-in. Please try again."
+        case .guest:
+            return "Guest access is unavailable right now. Please sign in or create an account."
         case .general:
             return "Something went wrong. Please try again."
         }
