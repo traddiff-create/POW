@@ -37,17 +37,18 @@ struct WelcomeView: View {
                 Spacer()
 
                 VStack(spacing: 24) {
-                    VStack(spacing: 12) {
-                        Text("A Piece of Whole")
-                            .font(.powLargeTitle)
+                    HereWordmark()
+                        .accessibilityIdentifier("welcome.title")
+
+                    VStack(spacing: 10) {
+                        Text("\"\(POWPhilosophy.batesonQuote)\"")
+                            .font(.powTitle2)
                             .foregroundStyle(Color.powForeground)
                             .multilineTextAlignment(.center)
-                            .accessibilityIdentifier("welcome.title")
 
-                        Text(POWPhilosophy.signatureLine)
-                            .font(.powTitle2)
-                            .foregroundStyle(Color.powSage)
-                            .multilineTextAlignment(.center)
+                        Text(POWPhilosophy.batesonAttribution)
+                            .font(.powCaption)
+                            .foregroundStyle(Color.powMuted)
 
                         Text(POWPhilosophy.welcomeCopy)
                             .font(.powBody)
@@ -89,10 +90,10 @@ struct WelcomeView: View {
                         }
                         .accessibilityIdentifier("welcome.guestButton")
 
-                        POWButton(title: "Continue with Email", style: .ghost) {
+                        POWButton(title: "Apply to Join", style: .ghost) {
                             onCreateAccount()
                         }
-                        .accessibilityIdentifier("welcome.createAccountButton")
+                        .accessibilityIdentifier("welcome.applyToJoinButton")
 
                         POWButton(title: "Sign In with Email", style: .ghost) {
                             onSignIn()
@@ -151,5 +152,29 @@ struct WelcomeView: View {
             appleError = AppPublicError.message(for: error, context: .appleSignIn)
         }
         isAppleSigningIn = false
+    }
+}
+
+private struct HereWordmark: View {
+    var body: some View {
+        VStack(spacing: 8) {
+            Text("Here")
+                .font(.system(size: 54, weight: .semibold, design: .serif))
+                .foregroundStyle(Color.powForeground)
+                .tracking(0)
+
+            HStack(spacing: 8) {
+                legDot(.selfFoundation)
+                legDot(.together)
+                legDot(.community)
+            }
+        }
+    }
+
+    private func legDot(_ leg: HereLeg) -> some View {
+        Circle()
+            .fill(leg == .together ? Color.powStone : Color.powSage)
+            .frame(width: 7, height: 7)
+            .accessibilityHidden(true)
     }
 }

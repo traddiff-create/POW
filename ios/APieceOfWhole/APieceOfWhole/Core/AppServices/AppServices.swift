@@ -70,6 +70,7 @@ enum AppPublicErrorContext: String {
     case journal
     case learn
     case myPiece
+    case here
     case management
     case checkIn
     case guest
@@ -166,6 +167,8 @@ enum AppPublicError {
             return "Could not load the Learn library. Please try again."
         case .myPiece:
             return "Could not save My Piece. Please try again."
+        case .here:
+            return "Could not save this Here practice. Please try again."
         case .management:
             return "Could not complete that management action. Please try again."
         case .checkIn:

@@ -32,7 +32,7 @@ struct SafetyView: View {
                 Label("Important Notice", systemImage: "exclamationmark.triangle")
                     .font(.powLabel)
                     .foregroundStyle(Color.powForeground)
-                Text("A Piece of Whole is a community support app, not a clinical service.")
+                Text("Here is a community support app, not a clinical service.")
                     .font(.powBody)
                     .foregroundStyle(Color.powForeground)
                 Text("This app is not therapy, not medical care, not crisis intervention, and not a substitute for professional mental health treatment. Participation in this program does not create a therapeutic relationship.")

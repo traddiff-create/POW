@@ -15,11 +15,17 @@ struct POWBelief: Identifiable, Sendable {
 }
 
 enum POWPhilosophy {
+    static let appName = "Here"
+
+    static let batesonQuote = "The human individual is in some degree a fiction."
+    static let batesonAttribution = "Gregory Bateson"
+    static let batesonQuoteSource = "Inaugural Eric Berne Lecture in Social Psychotherapy, March 1977."
+
     static let signatureLine = "We are each a piece of something whole."
 
     static let thesis = "The health of the self, our relationships, and our communities are the same work at different scales."
 
-    static let welcomeCopy = "Begin with the body, then move outward: relationship, community, agency, and civic life."
+    static let welcomeCopy = "Begin with the body. Practice peace together. Step outward with care."
 
     static let onboardingCopy = "This starts with you, not because you are the problem, but because you are the beginning."
 
@@ -27,15 +33,23 @@ enum POWPhilosophy {
 
     static let practiceCopy = "Practice is how the philosophy becomes embodied: regulated enough to be honest, connected enough to grow, grounded enough to act."
 
-    static let learnCopy = "Learn the ideas behind the spiral, then test them against your own lived experience."
+    static let learnCopy = "Learn the ideas behind Self, Together, and Community, then test them against your own lived experience."
 
     static let myPieceCopy = "Agency is knowing your piece: your gifts, values, capacity, boundaries, and next contribution."
 
     static let civicCopy = "Civic life here is nonpartisan, values-based participation rooted in care rather than ideology."
 
-    static let spiralCopy = "The five layers are not a checklist to complete. They are a spiral to return to and deepen over time."
+    static let spiralCopy = "Self, Together, and Community are not a checklist to complete. They are places to return to and deepen over time."
 
     static let attribution = "Working philosophy by Nicole Stone, April 2026."
+
+    static let selfCopy = "Self is the foundation: knowing yourself, regulating your nervous system, and learning how to return without shame."
+
+    static let togetherCopy = "Together is the soul. Peace is better than pleasure because peace can stay with you. Co-regulation is a practical way to bring steadiness into the relationships you care about."
+
+    static let communityCopy = "Community is the invitation outward: walking prompts, neighbor connection, gratitude for the land, and small local intentions that can accumulate."
+
+    static let whyHereCopy = "Your application is not just intake. It is a record of why you began, what you hoped might change, and what kind of participation felt honest."
 
     static let workingLines = [
         "Complacency is the rot of tomorrow.",

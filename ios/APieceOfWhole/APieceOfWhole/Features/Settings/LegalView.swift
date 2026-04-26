@@ -51,7 +51,7 @@ struct LegalView: View {
 
             Effective date: April 25, 2026
 
-            A Piece of Whole is an 8-week educational and community support program for adults. By creating an account or participating in a cohort, you confirm that you are at least 18 years old and that the information you provide is accurate.
+            Here is an educational and community support program for adults. By creating an account or participating in a cohort, you confirm that you are at least 18 years old and that the information you provide is accurate.
 
             This app is not therapy, medical care, legal advice, or crisis intervention. It does not diagnose, treat, or prevent any condition and does not create a therapist-client, clinician-patient, attorney-client, or emergency-services relationship. If you are in danger or crisis, call emergency services or 988 in the United States.
 
@@ -67,7 +67,7 @@ struct LegalView: View {
 
             Effective date: April 25, 2026
 
-            We collect the information needed to operate A Piece of Whole: account identifiers such as your email address and user ID, your display name, application responses, cohort enrollment records, purchase entitlement records, check-ins, journal entries, circle posts, comments, reports, notifications, and account deletion requests.
+            We collect the information needed to operate Here: account identifiers such as your email address and user ID, your display name, application responses, cohort enrollment records, purchase entitlement records, check-ins, journal entries, circle posts, comments, reports, notifications, anonymous shared excerpts you choose to publish, and account deletion requests.
 
             Private check-ins and journal entries are intended to be visible only to you. Circle posts and comments are visible to members and facilitators of your cohort according to the app's sharing controls. Reports may be reviewed by facilitators or administrators for safety and moderation.
 
@@ -81,7 +81,7 @@ struct LegalView: View {
             return """
             Community Guidelines
 
-            A Piece of Whole is a space for honest, caring engagement. Connection is not just an idea here; it is the practice. We ask that all participants:
+            Here is a space for honest, caring engagement. Connection is not just an idea here; it is the practice. We ask that all participants:
 
             - Share from your own experience.
             - Listen with curiosity, not judgment.

@@ -96,6 +96,16 @@ final class AuthJoinFlowUITests: XCTestCase {
         XCTAssertFalse(element("onboarding.agreementsContinueButton").exists)
     }
 
+    func testGuestSeesHereThreeLegTabs() {
+        launchSimulation()
+
+        tap("welcome.guestButton")
+
+        XCTAssertTrue(app.tabBars.buttons["Self"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.tabBars.buttons["Together"].exists)
+        XCTAssertTrue(app.tabBars.buttons["Community"].exists)
+    }
+
     private func launchSimulation(extraArguments: [String] = []) {
         app = XCUIApplication()
         app.launchArguments = ["--simulate-auth-flow"] + extraArguments
