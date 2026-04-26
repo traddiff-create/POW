@@ -2,20 +2,26 @@
 
 > 8-week somatic wellness + civic engagement program — iOS app with Supabase backend
 
+## Working Philosophy
+
+A Piece of Whole starts from a simple premise: the health of the self, relationships, and communities is the same work at different scales. The app is organized as a five-layer spiral: self-regulation, co-regulation, community, agency, and civic engagement.
+
+Core product decisions should preserve connection as the foundation, make the method match the message, support deep change without destabilization, treat care as intelligence, allow plurality, and keep civic participation nonpartisan, local, and grounded in care rather than ideology.
+
 ## App Store
 | Field | Value |
 |-------|-------|
 | Name | A Piece of Whole |
 | Bundle ID | com.traddifftech.apieceofwhole |
-| Version | 1.0 (build 1) |
-| Platform | iOS 18+ |
+| Version | 1.0 (build 2) |
+| Platform | iOS 17+ |
 | Categories | Health & Fitness / Education |
 | SKU | APIECEOFWHOLE2025 |
 
 ## Tech Stack
 | Layer | Technology |
 |-------|-----------|
-| iOS | Swift 6.2+, SwiftUI, @Observable |
+| iOS | Swift 6.0, SwiftUI, @Observable |
 | Backend | Supabase (Postgres + Auth + Edge Functions) |
 | Payments | StoreKit 2 (product: `apow.cohort.8week`) |
 | Android | Kotlin + Jetpack Compose (scaffold) |
@@ -29,16 +35,21 @@ Piece of Whole/
 ├── shared/                 — KMP scaffold
 ├── supabase/
 │   ├── migrations/         — DB schema (push with: supabase db push --linked)
-│   └── functions/          — verify-purchase, record-entitlement
+│   └── functions/          — verify-purchase; record-entitlement is disabled legacy code
 ├── marketing/ios/          — App Store metadata + screenshots
 ├── scripts/                — ExportOptions.plist, build/release scripts
 └── docs/                   — Architecture, design system, API contracts, ADRs
 ```
 
+Key iOS philosophy integration points:
+- `Core/Content/POWPhilosophy.swift` contains shared static philosophy copy.
+- `Features/Philosophy/PhilosophyView.swift` renders the full working philosophy in app.
+- Welcome, onboarding, Learn, Practice, Spiral, My Piece, Civic, Settings, and Community Guidelines surface distilled app-facing language.
+
 ## Quick Start — iOS
 
 ### Prerequisites
-- Xcode 26.2 (`DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer`)
+- Xcode 26.4.1 (`DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer`)
 - Copy `ios/APieceOfWhole/APieceOfWhole/Config/Secrets.xcconfig.example` → `Secrets.xcconfig` and fill in Supabase credentials
 
 ### Build
@@ -57,7 +68,6 @@ supabase db push --linked
 
 # Deploy edge functions
 supabase functions deploy verify-purchase
-supabase functions deploy record-entitlement
 
 # Run SQL on remote
 supabase db query --linked "SELECT count(*) FROM practices"

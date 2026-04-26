@@ -25,7 +25,7 @@
 
 | Layer | Technology | Notes |
 |-------|-----------|-------|
-| iOS language | Swift 6.2+ | Strict concurrency |
+| iOS language | Swift 6.0 | Strict concurrency |
 | iOS UI | SwiftUI | @Observable state, NavigationStack |
 | iOS state | @Observable + AppState | Single root state object |
 | Backend | Supabase | Auth, Postgres, Edge Functions, Storage |
@@ -106,8 +106,8 @@ Features/
 
 | Function | Trigger | Purpose |
 |----------|---------|---------|
-| `verify-purchase` | Client POST after StoreKit | Validates Apple receipt |
-| `record-entitlement` | Called by verify-purchase | Creates enrollment row |
+| `verify-purchase` | Client POST after StoreKit | Validates the Apple-signed StoreKit transaction and records entitlement |
+| `record-entitlement` | Disabled | Legacy fallback kept closed with HTTP 410; undeploy old remote copies |
 
 ## Secrets
 
@@ -116,3 +116,4 @@ Features/
 | `SUPABASE_URL` | Secrets.xcconfig (gitignored) | iOS via Info.plist |
 | `SUPABASE_ANON_KEY` | Secrets.xcconfig (gitignored) | iOS via Info.plist |
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase secrets store | Edge functions only |
+| `APPLE_BUNDLE_ID` | Supabase secrets store | Required bundle check in `verify-purchase` |

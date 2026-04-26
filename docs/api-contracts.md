@@ -132,16 +132,25 @@ func shareJournalEntry(entryID: String, userID: String, cohortID: String,
 ## Edge Functions
 
 ### POST /functions/v1/verify-purchase
-Validates a StoreKit 2 transaction and triggers entitlement creation.
+Validates a StoreKit 2 signed transaction and records the entitlement with the service role.
 
 ```json
 // Request
-{ "transactionId": "...", "userID": "...", "productID": "apow.cohort.8week" }
+{
+  "transactionId": "...",
+  "originalTransactionId": "...",
+  "userId": "...",
+  "cohortId": "...",
+  "productId": "apow.cohort.8week",
+  "appAccountToken": "...",
+  "purchaseDate": "2026-04-25T00:00:00Z",
+  "expiresDate": null,
+  "signedTransactionInfo": "..."
+}
 
 // Response 200
-{ "enrolled": true, "enrollmentId": "..." }
+{ "success": true, "valid": true, "enrolled": true, "enrollmentId": "..." }
 ```
 
 ### POST /functions/v1/record-entitlement
-Called internally by `verify-purchase`. Creates `purchases` + `enrollments` rows.
-Requires `SUPABASE_SERVICE_ROLE_KEY` (server-side only).
+Disabled legacy endpoint. It returns HTTP 410 and must not be used for purchase or enrollment creation.

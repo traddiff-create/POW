@@ -12,6 +12,19 @@
 | Shared | Kotlin Multiplatform (KMP) scaffold — not wired to iOS yet |
 | AI | OpenAI API + Codex API |
 
+## Product Philosophy
+
+A Piece of Whole is built from the inside out: self-regulation, co-regulation, community, agency, and civic engagement are one connected spiral, not separate features.
+
+Use this working philosophy as a decision filter:
+- Connection is the foundation; optimize for embodied, relational practice over passive consumption.
+- The method is the message; do not use domination, shame, manipulation, or fear to create participation.
+- Change should be deep without destabilizing people or communities; respect nervous-system and community windows of tolerance.
+- Care is intelligence, not weakness; make safety, consent, privacy, and repair visible in product choices.
+- No single framework owns the truth; hold plurality, lived experience, humility, and the unknown.
+- Reciprocity matters; connect inward practice to relationships, civic life, and the living world.
+- Civic engagement is nonpartisan, values-based, local, and grounded in care rather than ideology.
+
 ## Bundle IDs & App IDs
 - iOS Bundle: `com.traddifftech.apieceofwhole`
 - Apple Bundle ID registered: `8NNC4RKNGT` (registered 2026-04-25)
@@ -33,6 +46,7 @@ ios/APieceOfWhole/
     Config/       — Config.swift, Secrets.xcconfig (gitignored)
     Core/
       Auth/         — AuthService (Supabase auth)
+      Content/      — Static product philosophy and shared app copy
       Supabase/     — SupabaseClient, SupabaseService
       Models/       — All data models (CheckIn, Practice, Profile, etc.)
       Design/       — Colors, Typography, POW* components
@@ -40,6 +54,7 @@ ios/APieceOfWhole/
     Features/
       Auth/         — CreateAccountView, SignInView
       Onboarding/   — Age confirm, agreements, profile setup
+      Philosophy/   — Working Philosophy screen
       Tabs/         — MainTabView + Today, Practices, Circle, Journal, MyPiece tabs
       Settings/     — SettingsView, Safety, Legal, Support, DeleteAccount
       Manage/       — Admin + Facilitator dashboards
@@ -81,7 +96,6 @@ supabase db push --linked
 
 # Supabase — deploy edge functions
 supabase functions deploy verify-purchase
-supabase functions deploy record-entitlement
 ```
 
 ## Supabase Schema Quick Reference
@@ -97,7 +111,9 @@ supabase functions deploy record-entitlement
 
 ## StoreKit
 - Product ID: `apow.cohort.8week`
-- Edge function `verify-purchase` validates receipt → `record-entitlement` creates enrollment
+- Edge function `verify-purchase` validates the StoreKit signed transaction and creates the purchase + enrollment
+- Required Supabase function secrets: `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `APPLE_BUNDLE_ID=com.traddifftech.apieceofwhole`
+- `record-entitlement` is intentionally disabled; undeploy any old remote copy instead of using an internal shared secret purchase writer
 
 ## Related Skills
 `/pipeline` `/release` `/dharma-release` (reference for cross-platform release flow)

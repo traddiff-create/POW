@@ -32,7 +32,7 @@ ios/APieceOfWhole/
     App/          — @main entry, AppState, RootView
     Config/       — Config.swift, Secrets.xcconfig (gitignored)
     Core/
-      Auth/         — AuthService (Supabase auth)
+      Auth/         — AuthService (Supabase auth), AppleSignInButton, SignInWithAppleService types
       Supabase/     — SupabaseClient, SupabaseService
       Models/       — All data models (CheckIn, Practice, Profile, etc.)
       Design/       — Colors, Typography, POW* components
@@ -81,7 +81,6 @@ supabase db push --linked
 
 # Supabase — deploy edge functions
 supabase functions deploy verify-purchase
-supabase functions deploy record-entitlement
 ```
 
 ## Supabase Schema Quick Reference
@@ -97,7 +96,46 @@ supabase functions deploy record-entitlement
 
 ## StoreKit
 - Product ID: `apow.cohort.8week`
-- Edge function `verify-purchase` validates receipt → `record-entitlement` creates enrollment
+- Edge function `verify-purchase` validates the StoreKit signed transaction and creates the purchase + enrollment
+- Required Supabase function secrets: `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `APPLE_BUNDLE_ID=com.traddifftech.apieceofwhole`
+- `record-entitlement` is intentionally disabled; undeploy any old remote copy instead of using an internal shared secret purchase writer
+
+## Sign in with Apple
+
+Auth providers wired in v1: email/password, anonymous (guest), **Sign in with Apple**. No Google.
+
+iOS:
+- Capability: `com.apple.developer.applesignin` in `APieceOfWhole.entitlements` (already added)
+- App ID `8NNC4RKNGT` must have "Sign in with Apple" capability enabled in Apple Developer portal — confirm under Certificates, Identifiers & Profiles → Identifiers → POW App ID
+- `Core/Auth/AppleSignInButton.swift` — native `SignInWithAppleButton` wrapper, generates per-request nonce and SHA256-hashes it for the Apple request
+- `Core/Auth/SignInWithAppleService.swift` — shared `AppleIDCredentialPayload` and `SignInWithAppleError` types
+- `AuthService.signInWithApple(identityToken:rawNonce:)` calls `client.auth.signInWithIdToken(credentials: .init(provider: .apple, idToken:, nonce:))`
+- `AppState.signInWithApple(credential:)` orchestrates the exchange and stashes Apple's first-sign-in `fullName` into `pendingDisplayName`. `OnboardingView`'s `ProfileSetupView` consumes that suggestion via `consumePendingDisplayName()` to pre-fill the display name field
+- Apple only returns `email`/`fullName` on the FIRST sign-in for a given Apple ID. Capture them immediately; don't expect them again
+
+Supabase config (production dashboard):
+- `[auth.external.apple]` must be enabled with a valid Services ID + private key signed with Apple's `AuthKey`. Local `supabase/config.toml` shows `enabled = false` — that controls only local dev; production is set in Dashboard → Authentication → Providers → Apple
+- Until Supabase Apple config lands, the iOS button will surface an "Unsupported provider" error from Supabase's auth endpoint — this is expected pre-config and not a client bug
+
+### Apple Services ID config (exact values)
+
+| Field | Value |
+|-------|-------|
+| App ID | `8NNC4RKNGT` |
+| iOS bundle ID | `com.traddifftech.apieceofwhole` |
+| Services ID | `com.traddifftech.apieceofwhole.web` |
+| Team ID | `SP854VZ979` |
+| Apple Services domain | `gtpeyindgjhegldrdrrb.supabase.co` |
+| Apple Return URL | `https://gtpeyindgjhegldrdrrb.supabase.co/auth/v1/callback` |
+
+Setup checklist (Apple Developer portal → Certificates, Identifiers & Profiles):
+1. Identifiers → POW App ID `8NNC4RKNGT` → enable **Sign in with Apple** capability
+2. Identifiers → **+** → Services IDs → register `com.traddifftech.apieceofwhole.web` → enable Sign in with Apple → Configure: Primary App ID = the POW App ID, Domain = `gtpeyindgjhegldrdrrb.supabase.co`, Return URL = `https://gtpeyindgjhegldrdrrb.supabase.co/auth/v1/callback`
+3. Keys → **+** → enable Sign in with Apple → assign to the App ID → register → **download the `.p8` (only chance — Apple does not allow re-download)** → store in `~/.private_keys/` and back up to 1Password
+4. Note the **Key ID** shown next to the key
+5. Supabase Dashboard → Authentication → Providers → Apple → enable → paste Services ID, Team ID `SP854VZ979`, Key ID, and the `.p8` file contents (the entire `-----BEGIN PRIVATE KEY-----…-----END PRIVATE KEY-----` block)
+
+Reference: <https://supabase.com/docs/guides/auth/social-login/auth-apple>
 
 ## Shared Content Resources
 

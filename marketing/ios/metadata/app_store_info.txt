@@ -5,12 +5,12 @@
 - App Store Connect ID: 6763727066 ✅ (created 2026-04-25)
 - SKU: APIECEOFWHOLE2025
 - Primary Locale: en-US
-- Platform: iOS 18+
+- Platform: iOS 17+
 - Content Rights: declared ✅
 
 ## Pricing
-- Base price: Paid (see StoreKit product: apow.cohort.8week)
-- Cohort access is unlocked via in-app purchase
+- Base app price: Free
+- Cohort access is unlocked via StoreKit in-app purchase: apow.cohort.8week
 
 ## Categories
 - Primary: Health & Fitness
