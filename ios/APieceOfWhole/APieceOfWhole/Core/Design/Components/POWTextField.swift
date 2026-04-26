@@ -7,6 +7,7 @@ struct POWTextField: View {
     var isSecure: Bool = false
     var keyboardType: UIKeyboardType = .default
     var axis: Axis = .horizontal
+    var accessibilityID: String?
 
     @FocusState private var isFocused: Bool
 
@@ -38,6 +39,7 @@ struct POWTextField: View {
                     .stroke(isFocused ? Color.powSage : Color.powBorder, lineWidth: isFocused ? 1.5 : 1)
             )
             .focused($isFocused)
+            .accessibilityIdentifier(accessibilityID ?? label)
         }
     }
 }

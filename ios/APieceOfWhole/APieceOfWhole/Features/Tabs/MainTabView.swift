@@ -5,7 +5,7 @@ struct MainTabView: View {
     @State private var selectedTab: Tab = .today
 
     enum Tab {
-        case today, spiral, practice, journal, circle, myPiece, civic, settings, manage
+        case today, practice, learn, journal, circle, spiral, myPiece, civic, settings, manage
     }
 
     var body: some View {
@@ -14,13 +14,13 @@ struct MainTabView: View {
                 .tabItem { Label("Today", systemImage: "sun.horizon") }
                 .tag(Tab.today)
 
-            SpiralView()
-                .tabItem { Label("Spiral", systemImage: "arrow.clockwise.circle") }
-                .tag(Tab.spiral)
-
             PracticeLibraryView()
                 .tabItem { Label("Practice", systemImage: "waveform") }
                 .tag(Tab.practice)
+
+            LearnView()
+                .tabItem { Label("Learn", systemImage: "text.book.closed") }
+                .tag(Tab.learn)
 
             JournalListView()
                 .tabItem { Label("Journal", systemImage: "book.closed") }
@@ -29,6 +29,10 @@ struct MainTabView: View {
             CircleView()
                 .tabItem { Label("Circle", systemImage: "person.3") }
                 .tag(Tab.circle)
+
+            SpiralView()
+                .tabItem { Label("Spiral", systemImage: "arrow.clockwise.circle") }
+                .tag(Tab.spiral)
 
             MyPieceView()
                 .tabItem { Label("My Piece", systemImage: "leaf") }
@@ -44,7 +48,7 @@ struct MainTabView: View {
             .tabItem { Label("Settings", systemImage: "gear") }
             .tag(Tab.settings)
 
-            if appState.role != .participant {
+            if appState.canAccessManagement {
                 NavigationStack {
                     ManageTabView()
                 }
@@ -57,10 +61,11 @@ struct MainTabView: View {
             guard url.scheme == "apow", url.host == "tab" else { return }
             switch url.pathComponents.last {
             case "today":    selectedTab = .today
-            case "spiral":   selectedTab = .spiral
             case "practice": selectedTab = .practice
+            case "learn":    selectedTab = .learn
             case "journal":  selectedTab = .journal
             case "circle":   selectedTab = .circle
+            case "spiral":   selectedTab = .spiral
             case "mypiece":  selectedTab = .myPiece
             case "civic":    selectedTab = .civic
             case "settings": selectedTab = .settings

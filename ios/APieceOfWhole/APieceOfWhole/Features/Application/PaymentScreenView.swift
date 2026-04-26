@@ -104,7 +104,13 @@ struct PaymentScreenView: View {
     }
 
     private func restore() async {
-        try? await AppStore.sync()
-        await appState.refreshMembership()
+        error = nil
+        do {
+            try await purchaseService.restorePurchases(cohortID: cohortID)
+            await appState.refreshMembership()
+            dismiss()
+        } catch {
+            self.error = error.localizedDescription
+        }
     }
 }

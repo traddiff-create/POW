@@ -67,7 +67,7 @@ struct AdminContentView: View {
 
     private func load() async {
         isLoading = true
-        async let p = try? SupabaseService.shared.fetchPractices()
+        async let p = try? SupabaseService.shared.fetchPractices(publishedOnly: false)
         async let c = try? SupabaseService.shared.fetchCivicLessons()
         practices = (await p) ?? []
         civicLessons = (await c) ?? []

@@ -17,7 +17,7 @@ struct PracticeLibraryView: View {
 
     var filtered: [Practice] {
         guard let layer = selectedLayer else { return practices }
-        return practices.filter { $0.category == layer }
+        return practices.filter { $0.layerValues.contains(layer) }
     }
 
     var body: some View {
@@ -27,6 +27,9 @@ struct PracticeLibraryView: View {
 
                 VStack(spacing: 0) {
                     layerFilter
+                    philosophyIntro
+                        .padding(.horizontal, 24)
+                        .padding(.bottom, 8)
                     if isLoading {
                         ProgressView().padding(.top, 48)
                         Spacer()
@@ -65,6 +68,27 @@ struct PracticeLibraryView: View {
             }
             .padding(.horizontal, 24)
             .padding(.vertical, 12)
+        }
+    }
+
+    private var philosophyIntro: some View {
+        POWCard {
+            HStack(alignment: .top, spacing: 12) {
+                Image(systemName: "circle.hexagongrid")
+                    .font(.system(size: 20))
+                    .foregroundStyle(Color.powSage)
+                    .frame(width: 28)
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Practice the spiral")
+                        .font(.powLabel)
+                        .foregroundStyle(Color.powForeground)
+                    Text(POWPhilosophy.practiceCopy)
+                        .font(.powCallout)
+                        .foregroundStyle(Color.powMuted)
+                }
+            }
+            .padding(16)
         }
     }
 
@@ -131,7 +155,7 @@ struct PracticeCard: View {
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color.powSage.opacity(0.12))
                         .frame(width: 56, height: 56)
-                    Image(systemName: practice.audioPath != nil ? "waveform" : "text.alignleft")
+                    Image(systemName: practice.iconName ?? (practice.audioPath != nil ? "waveform" : "text.alignleft"))
                         .font(.system(size: 24))
                         .foregroundStyle(Color.powSage)
                 }
@@ -141,11 +165,38 @@ struct PracticeCard: View {
                         .font(.powBody)
                         .foregroundStyle(Color.powForeground)
                         .lineLimit(2)
-                    if let duration = practice.durationMinutes {
-                        Label("\(duration) min", systemImage: "clock")
+
+                    if let subtitle = practice.subtitle {
+                        Text(subtitle)
                             .font(.powCaption)
                             .foregroundStyle(Color.powMuted)
+                            .lineLimit(1)
                     }
+
+                    HStack(spacing: 8) {
+                        if let duration = practice.durationMinutes {
+                            Label("\(duration) min", systemImage: "clock")
+                        }
+                        if practice.hasAudio {
+                            Label("Audio", systemImage: "waveform")
+                        }
+                    }
+                    .font(.powCaption)
+                    .foregroundStyle(Color.powMuted)
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        if let sourceKind = practice.sourceKind {
+                            Text(sourceKindLabel(sourceKind))
+                        }
+                        if let evidence = practice.evidenceLevel {
+                            Text("Evidence: \(evidenceLabel(evidence))")
+                        }
+                        if let risk = practice.riskLevel {
+                            Text("Risk: \(riskLabel(risk))")
+                        }
+                    }
+                    .font(.powCaption)
+                    .foregroundStyle(Color.powMuted)
                 }
 
                 Spacer()
@@ -156,5 +207,22 @@ struct PracticeCard: View {
             }
             .padding(16)
         }
+    }
+
+    private func sourceKindLabel(_ sourceKind: String) -> String {
+        switch sourceKind {
+        case "meditation_technique": return "Technique"
+        case "audio_library": return "Audio"
+        case "legacy_curriculum": return "Curriculum"
+        default: return sourceKind.replacingOccurrences(of: "_", with: " ").capitalized
+        }
+    }
+
+    private func evidenceLabel(_ evidence: String) -> String {
+        evidence.replacingOccurrences(of: "_", with: " ").capitalized
+    }
+
+    private func riskLabel(_ risk: String) -> String {
+        risk.replacingOccurrences(of: "_", with: " ").capitalized
     }
 }

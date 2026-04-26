@@ -62,10 +62,8 @@ struct CohortListView: View {
         isLoading = true
         error = nil
         do {
-            cohorts = try await SupabaseService.shared.fetchOpenCohorts()
-            if let email = appState.session?.user.email {
-                applications = try await SupabaseService.shared.fetchApplications(userEmail: email)
-            }
+            cohorts = try await appState.fetchOpenCohorts()
+            applications = try await appState.fetchApplicationsForCurrentUser()
         } catch {
             self.error = error.localizedDescription
         }
@@ -89,6 +87,7 @@ struct CohortCard: View {
                     Text(cohort.name)
                         .font(.powTitle2)
                         .foregroundStyle(Color.powForeground)
+                        .accessibilityIdentifier("cohort.card.\(cohort.id)")
 
                     if let description = cohort.description {
                         Text(description)
@@ -113,8 +112,10 @@ struct CohortCard: View {
 
                 if let app = existingApplication {
                     ApplicationStatusBadge(status: app.status)
+                        .accessibilityIdentifier("cohort.applicationStatus.\(cohort.id)")
                 } else {
                     POWButton(title: "Apply", action: onApply)
+                        .accessibilityIdentifier("cohort.applyButton.\(cohort.id)")
                 }
             }
             .padding(20)

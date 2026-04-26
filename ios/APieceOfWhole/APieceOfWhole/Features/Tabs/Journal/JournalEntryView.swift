@@ -46,7 +46,7 @@ struct JournalEntryView: View {
                         }
                         .disabled(body_text.trimmingCharacters(in: .whitespaces).isEmpty)
 
-                        if entry != nil && !(entry?.isShared ?? false) {
+                        if entry != nil && !(entry?.isShared ?? false) && appState.circleID != nil {
                             Button("Share to Circle") {
                                 showShareConfirm = true
                             }
@@ -82,8 +82,7 @@ struct JournalEntryView: View {
     }
 
     private func save() async {
-        guard let userID = appState.session?.user.id.uuidString,
-              let cohortID = appState.activeMembership?.cohortID else { return }
+        guard let userID = appState.session?.user.id.uuidString else { return }
         isLoading = true
         error = nil
         do {
@@ -96,7 +95,7 @@ struct JournalEntryView: View {
             } else {
                 try await SupabaseService.shared.createJournalEntry(
                     userID: userID,
-                    cohortID: cohortID,
+                    cohortID: appState.activeMembership?.cohortID,
                     title: title.isEmpty ? nil : title,
                     body: body_text
                 )

@@ -19,6 +19,9 @@ struct OnboardingView: View {
                 EmptyView()
             }
         }
+        .onAppear {
+            step = OnboardingStep(rawValue: appState.profile?.onboardingStep ?? "") ?? .ageConfirm
+        }
     }
 }
 
@@ -26,6 +29,7 @@ struct AgeConfirmView: View {
     let onContinue: () -> Void
     @State private var confirmed = false
     @State private var isLoading = false
+    @State private var error: String?
     @Environment(AppState.self) var appState
 
     var body: some View {
@@ -44,6 +48,11 @@ struct AgeConfirmView: View {
                         .foregroundStyle(Color.powMuted)
                         .multilineTextAlignment(.center)
 
+                    Text(POWPhilosophy.onboardingCopy)
+                        .font(.powBody)
+                        .foregroundStyle(Color.powForeground)
+                        .multilineTextAlignment(.center)
+
                     Text("This app is not therapy, not medical care, and is not a crisis service. If you are in crisis, please contact 988.")
                         .font(.powCaption)
                         .foregroundStyle(Color.powMuted)
@@ -57,14 +66,24 @@ struct AgeConfirmView: View {
                         .foregroundStyle(Color.powForeground)
                 }
                 .tint(Color.powSage)
+                .accessibilityIdentifier("onboarding.ageToggle")
+
+                if let error {
+                    Text(error)
+                        .font(.powCaption)
+                        .foregroundStyle(Color.powError)
+                        .multilineTextAlignment(.center)
+                        .accessibilityIdentifier("onboarding.ageErrorText")
+                }
 
                 Spacer()
 
                 POWButton(title: "Continue", isLoading: isLoading) {
                     Task { await confirmAge() }
                 }
-                .disabled(!confirmed)
+                .disabled(!confirmed || isLoading)
                 .opacity(confirmed ? 1 : 0.5)
+                .accessibilityIdentifier("onboarding.ageContinueButton")
                 .padding(.bottom, 32)
             }
             .padding(.horizontal, 28)
@@ -74,12 +93,15 @@ struct AgeConfirmView: View {
     }
 
     private func confirmAge() async {
-        guard let userID = appState.session?.user.id.uuidString else { return }
         isLoading = true
-        let timestamp = ISO8601DateFormatter().string(from: Date())
-        try? await SupabaseService.shared.updateOnboardingAgeConfirm(userID: userID, timestamp: timestamp)
+        error = nil
+        do {
+            try await appState.confirmAdult()
+            onContinue()
+        } catch {
+            self.error = error.localizedDescription
+        }
         isLoading = false
-        onContinue()
     }
 }
 
@@ -89,6 +111,7 @@ struct AgreementsView: View {
     @State private var privacyAccepted = false
     @State private var communityAccepted = false
     @State private var isLoading = false
+    @State private var error: String?
     @Environment(AppState.self) var appState
 
     var allAccepted: Bool { termsAccepted && privacyAccepted && communityAccepted }
@@ -103,7 +126,7 @@ struct AgreementsView: View {
                             Text("Agreements")
                                 .font(.powTitle)
                                 .foregroundStyle(Color.powForeground)
-                            Text("Please review and accept the following before continuing.")
+                            Text("These agreements protect the conditions for honest, caring, nonclinical community practice.")
                                 .font(.powBody)
                                 .foregroundStyle(Color.powMuted)
                                 .multilineTextAlignment(.center)
@@ -111,9 +134,17 @@ struct AgreementsView: View {
                         .padding(.top, 24)
 
                         VStack(spacing: 16) {
-                            AgreementToggle(label: "I agree to the Terms of Service", isOn: $termsAccepted)
-                            AgreementToggle(label: "I agree to the Privacy Policy", isOn: $privacyAccepted)
-                            AgreementToggle(label: "I agree to the Community Guidelines", isOn: $communityAccepted)
+                            AgreementToggle(label: "I agree to the Terms of Service", accessibilityID: "onboarding.termsToggle", isOn: $termsAccepted)
+                            AgreementToggle(label: "I agree to the Privacy Policy", accessibilityID: "onboarding.privacyToggle", isOn: $privacyAccepted)
+                            AgreementToggle(label: "I agree to the Community Guidelines", accessibilityID: "onboarding.communityToggle", isOn: $communityAccepted)
+                        }
+
+                        if let error {
+                            Text(error)
+                                .font(.powCaption)
+                                .foregroundStyle(Color.powError)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .accessibilityIdentifier("onboarding.agreementsErrorText")
                         }
                     }
                     .padding(.horizontal, 24)
@@ -122,8 +153,9 @@ struct AgreementsView: View {
                 POWButton(title: "Accept & Continue", isLoading: isLoading) {
                     Task { await acceptAgreements() }
                 }
-                .disabled(!allAccepted)
+                .disabled(!allAccepted || isLoading)
                 .opacity(allAccepted ? 1 : 0.5)
+                .accessibilityIdentifier("onboarding.agreementsContinueButton")
                 .padding(.horizontal, 24)
                 .padding(.bottom, 32)
             }
@@ -133,17 +165,21 @@ struct AgreementsView: View {
     }
 
     private func acceptAgreements() async {
-        guard let userID = appState.session?.user.id.uuidString else { return }
         isLoading = true
-        let timestamp = ISO8601DateFormatter().string(from: Date())
-        try? await SupabaseService.shared.updateOnboardingAgreements(userID: userID, timestamp: timestamp)
+        error = nil
+        do {
+            try await appState.acceptAgreements()
+            onContinue()
+        } catch {
+            self.error = error.localizedDescription
+        }
         isLoading = false
-        onContinue()
     }
 }
 
 struct AgreementToggle: View {
     let label: String
+    let accessibilityID: String
     @Binding var isOn: Bool
 
     var body: some View {
@@ -153,6 +189,7 @@ struct AgreementToggle: View {
                 .foregroundStyle(Color.powForeground)
         }
         .tint(Color.powSage)
+        .accessibilityIdentifier(accessibilityID)
         .padding(16)
         .background(Color.powSurface)
         .clipShape(RoundedRectangle(cornerRadius: 12))
@@ -167,6 +204,8 @@ struct ProfileSetupView: View {
     let onComplete: () -> Void
     @State private var displayName = ""
     @State private var isLoading = false
+    @State private var error: String?
+    @State private var hasPrefilled = false
     @Environment(AppState.self) var appState
 
     var body: some View {
@@ -177,35 +216,59 @@ struct ProfileSetupView: View {
                     Text("How shall we know you?")
                         .font(.powTitle)
                         .foregroundStyle(Color.powForeground)
-                    Text("This name will appear in your cohort circle.")
+                    Text(appState.isGuest ? "You can add a name now or continue as Guest." : "This name will appear in your cohort circle, where connection is practiced with care.")
                         .font(.powBody)
                         .foregroundStyle(Color.powMuted)
                         .multilineTextAlignment(.center)
                 }
                 .padding(.top, 24)
 
-                POWTextField(label: "Display Name", text: $displayName, placeholder: "Your name or nickname")
+                POWTextField(label: "Display Name", text: $displayName, placeholder: "Your name or nickname", accessibilityID: "onboarding.displayNameField")
+
+                if let error {
+                    Text(error)
+                        .font(.powCaption)
+                        .foregroundStyle(Color.powError)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .accessibilityIdentifier("onboarding.profileErrorText")
+                }
 
                 Spacer()
 
                 POWButton(title: "Finish Setup", isLoading: isLoading) {
                     Task { await saveProfile() }
                 }
-                .disabled(displayName.trimmingCharacters(in: .whitespaces).isEmpty)
+                .disabled((!appState.isGuest && displayName.trimmingCharacters(in: .whitespaces).isEmpty) || isLoading)
+                .accessibilityIdentifier("onboarding.finishButton")
                 .padding(.bottom, 32)
             }
             .padding(.horizontal, 24)
         }
         .navigationTitle("Your Profile")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            guard !hasPrefilled else { return }
+            hasPrefilled = true
+            if let suggested = appState.consumePendingDisplayName(),
+               displayName.trimmingCharacters(in: .whitespaces).isEmpty {
+                displayName = suggested
+            } else if let existing = appState.profile?.displayName,
+                      !existing.trimmingCharacters(in: .whitespaces).isEmpty,
+                      displayName.trimmingCharacters(in: .whitespaces).isEmpty {
+                displayName = existing
+            }
+        }
     }
 
     private func saveProfile() async {
-        guard let userID = appState.session?.user.id.uuidString else { return }
         isLoading = true
-        let timestamp = ISO8601DateFormatter().string(from: Date())
-        try? await SupabaseService.shared.updateOnboardingProfile(userID: userID, displayName: displayName, timestamp: timestamp)
+        error = nil
+        do {
+            try await appState.completeOnboarding(displayName: displayName)
+            onComplete()
+        } catch {
+            self.error = error.localizedDescription
+        }
         isLoading = false
-        onComplete()
     }
 }

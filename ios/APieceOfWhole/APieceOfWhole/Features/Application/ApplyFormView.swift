@@ -20,7 +20,10 @@ struct ApplyFormView: View {
     @State private var error: String?
 
     private var isValid: Bool {
-        !motivation.isEmpty && !hopedChange.isEmpty && agreementsAccepted && safetyAcknowledged
+        !motivation.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            && !hopedChange.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            && agreementsAccepted
+            && safetyAcknowledged
     }
 
     var body: some View {
@@ -32,16 +35,16 @@ struct ApplyFormView: View {
                         Text("Apply to \(cohort.name)")
                             .font(.powTitle2)
                             .foregroundStyle(Color.powForeground)
-                        Text("Tell us about yourself and what brings you here.")
+                        Text(POWPhilosophy.applicationCopy)
                             .font(.powBody)
                             .foregroundStyle(Color.powMuted)
                             .multilineTextAlignment(.center)
                     }
                     .padding(.top, 8)
 
-                    POWTextField(label: "What motivates you to join? *", text: $motivation, placeholder: "Share what's calling you to this work...", axis: .vertical)
-                    POWTextField(label: "What change do you hope for? *", text: $hopedChange, placeholder: "What does growth look like for you...", axis: .vertical)
-                    POWTextField(label: "How did you hear about us?", text: $howHeard)
+                    POWTextField(label: "What motivates you to join? *", text: $motivation, placeholder: "Share what's calling you to this work...", axis: .vertical, accessibilityID: "application.motivationField")
+                    POWTextField(label: "What change do you hope for? *", text: $hopedChange, placeholder: "What does growth look like for you...", axis: .vertical, accessibilityID: "application.hopedChangeField")
+                    POWTextField(label: "How did you hear about us?", text: $howHeard, accessibilityID: "application.howHeardField")
 
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Hours per week you can commit (1-10)")
@@ -49,6 +52,7 @@ struct ApplyFormView: View {
                             .foregroundStyle(Color.powMuted)
                         Stepper("\(weeklyCapacity) hours", value: $weeklyCapacity, in: 1...10)
                             .font(.powBody)
+                            .accessibilityIdentifier("application.weeklyCapacityStepper")
                     }
 
                     VStack(alignment: .leading, spacing: 8) {
@@ -68,6 +72,7 @@ struct ApplyFormView: View {
                                         .clipShape(Circle())
                                         .overlay(Circle().stroke(Color.powBorder, lineWidth: 1))
                                 }
+                                .accessibilityIdentifier("application.groupComfort.\(n)")
                             }
                         }
                     }
@@ -78,6 +83,7 @@ struct ApplyFormView: View {
                             .foregroundStyle(Color.powForeground)
                     }
                     .tint(Color.powSage)
+                    .accessibilityIdentifier("application.agreementsToggle")
 
                     Toggle(isOn: $safetyAcknowledged) {
                         Text("I understand this is not therapy, not medical care, and not a crisis service")
@@ -85,19 +91,22 @@ struct ApplyFormView: View {
                             .foregroundStyle(Color.powForeground)
                     }
                     .tint(Color.powSage)
+                    .accessibilityIdentifier("application.safetyToggle")
 
                     if let error {
                         Text(error)
                             .font(.powCaption)
                             .foregroundStyle(Color.powError)
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            .accessibilityIdentifier("application.errorText")
                     }
 
                     POWButton(title: "Submit Application", isLoading: isLoading) {
                         Task { await submit() }
                     }
-                    .disabled(!isValid)
+                    .disabled(!isValid || isLoading)
                     .opacity(isValid ? 1 : 0.5)
+                    .accessibilityIdentifier("application.submitButton")
                     .padding(.bottom, 32)
                 }
                 .padding(.horizontal, 24)
@@ -105,27 +114,27 @@ struct ApplyFormView: View {
         }
         .navigationTitle("Application")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                ApplicantAccountMenu()
+            }
+        }
     }
 
     private func submit() async {
-        guard let email = appState.session?.user.email,
-              let name = appState.profile?.displayName else { return }
         isLoading = true
         error = nil
         do {
-            let submission = ApplicationSubmission(
-                cohortID: cohort.id,
-                applicantName: name,
-                applicantEmail: email,
+            let application = try await appState.submitApplication(
+                cohort: cohort,
                 motivation: motivation,
                 howHeard: howHeard,
                 hopedChange: hopedChange,
-                weeklyCapacityHours: weeklyCapacity,
-                groupComfortLevel: groupComfort,
+                weeklyCapacity: weeklyCapacity,
+                groupComfort: groupComfort,
                 agreementsAccepted: agreementsAccepted,
                 safetyAcknowledged: safetyAcknowledged
             )
-            let application = try await SupabaseService.shared.submitApplication(submission)
             path.append(application)
         } catch {
             self.error = error.localizedDescription

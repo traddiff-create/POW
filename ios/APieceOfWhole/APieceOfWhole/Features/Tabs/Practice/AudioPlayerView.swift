@@ -33,11 +33,11 @@ final class AudioPlayerModel {
             forInterval: CMTime(seconds: 0.5, preferredTimescale: 600),
             queue: .main
         ) { [weak self] time in
-            guard let self, let player = self.player else { return }
-            let current = time.seconds
-            let total = player.currentItem?.duration.seconds ?? 1
-            if total.isFinite && total > 0 {
-                Task { @MainActor in
+            Task { @MainActor in
+                guard let self, let player = self.player else { return }
+                let current = time.seconds
+                let total = player.currentItem?.duration.seconds ?? 1
+                if total.isFinite && total > 0 {
                     self.progress = current / total
                     if current >= total - 0.1 {
                         self.isPlaying = false
@@ -67,11 +67,11 @@ final class AudioPlayerModel {
     }
 
     func stop() {
-        player?.pause()
-        player = nil
         if let observer = timeObserver {
             player?.removeTimeObserver(observer)
         }
+        player?.pause()
+        player = nil
         timeObserver = nil
         isPlaying = false
         progress = 0
@@ -79,7 +79,7 @@ final class AudioPlayerModel {
 }
 
 struct AudioPlayerView: View {
-    let audioURL: String
+    let audioURL: URL
     @State private var model = AudioPlayerModel()
 
     var body: some View {
@@ -132,11 +132,7 @@ struct AudioPlayerView: View {
             .padding(16)
         }
         .onAppear {
-            if let url = URL(string: audioURL) {
-                model.load(url: url)
-            } else {
-                model.error = "Invalid audio URL"
-            }
+            model.load(url: audioURL)
         }
         .onDisappear { model.stop() }
     }

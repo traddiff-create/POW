@@ -37,9 +37,12 @@ struct MyPieceView: View {
                 Label("Your contribution to the whole", systemImage: "puzzle.piece")
                     .font(.powCaption)
                     .foregroundStyle(Color.powMuted)
-                Text("These reflections are private and help you stay grounded in your unique gifts and edges.")
+                Text(POWPhilosophy.myPieceCopy)
                     .font(.powBody)
                     .foregroundStyle(Color.powForeground)
+                Text("These reflections are private and help you stay grounded in your honest capacity.")
+                    .font(.powCallout)
+                    .foregroundStyle(Color.powMuted)
             }
             .padding(20)
         }

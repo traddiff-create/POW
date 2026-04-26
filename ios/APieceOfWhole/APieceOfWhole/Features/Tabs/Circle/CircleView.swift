@@ -16,6 +16,8 @@ struct CircleView: View {
                     ProgressView()
                 } else if let error {
                     errorView(error)
+                } else if appState.activeMembership?.cohortID == nil {
+                    noCohortView
                 } else if posts.isEmpty {
                     emptyView
                 } else {
@@ -36,11 +38,13 @@ struct CircleView: View {
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        showNewPost = true
-                    } label: {
-                        Image(systemName: "plus.circle")
-                            .foregroundStyle(Color.powSage)
+                    if appState.activeMembership?.cohortID != nil {
+                        Button {
+                            showNewPost = true
+                        } label: {
+                            Image(systemName: "plus.circle")
+                                .foregroundStyle(Color.powSage)
+                        }
                     }
                 }
             }
@@ -65,6 +69,22 @@ struct CircleView: View {
                 .multilineTextAlignment(.center)
             POWButton(title: "Share to Circle") { showNewPost = true }
                 .padding(.top, 8)
+        }
+        .padding(28)
+    }
+
+    private var noCohortView: some View {
+        VStack(spacing: 16) {
+            Image(systemName: "person.3")
+                .font(.system(size: 48))
+                .foregroundStyle(Color.powMuted)
+            Text("Circle opens with a cohort")
+                .font(.powTitle2)
+                .foregroundStyle(Color.powForeground)
+            Text("Guest mode keeps your personal practice private. Join a cohort to share, comment, and participate in Circle.")
+                .font(.powBody)
+                .foregroundStyle(Color.powMuted)
+                .multilineTextAlignment(.center)
         }
         .padding(28)
     }
@@ -184,7 +204,10 @@ struct NewCirclePostView: View {
 
     private func submit() async {
         guard let userID = appState.session?.user.id.uuidString,
-              let cohortID = appState.activeMembership?.cohortID else { return }
+              let cohortID = appState.activeMembership?.cohortID else {
+            error = "Join a cohort to post in Circle."
+            return
+        }
         isLoading = true
         error = nil
         do {

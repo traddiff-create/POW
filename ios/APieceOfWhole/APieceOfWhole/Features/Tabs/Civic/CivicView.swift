@@ -46,8 +46,11 @@ struct CivicView: View {
             Text("From personal to collective")
                 .font(.powTitle2)
                 .foregroundStyle(Color.powForeground)
-            Text("Explore how your inner work connects to civic participation and collective change.")
+            Text(POWPhilosophy.civicCopy)
                 .font(.powBody)
+                .foregroundStyle(Color.powMuted)
+            Text("Explore how regulation, relationship, and agency connect to local participation and collective change.")
+                .font(.powCallout)
                 .foregroundStyle(Color.powMuted)
         }
     }
@@ -137,7 +140,7 @@ struct CivicModuleDetailView: View {
                         }
                     }
 
-                    Text("This app is not a substitute for civic engagement or professional guidance. Take action at the pace that feels right for you.")
+                    Text("This app is not a substitute for civic engagement, legal advice, or professional guidance. Take action at the pace that feels grounded and sustainable.")
                         .font(.powCaption)
                         .foregroundStyle(Color.powMuted)
                         .multilineTextAlignment(.center)

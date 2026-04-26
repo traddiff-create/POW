@@ -21,6 +21,7 @@ struct ApplicationStatusView: View {
                         .font(.powTitle)
                         .foregroundStyle(Color.powForeground)
                         .multilineTextAlignment(.center)
+                        .accessibilityIdentifier("applicationStatus.headline")
 
                     Text(statusMessage)
                         .font(.powBody)
@@ -32,6 +33,7 @@ struct ApplicationStatusView: View {
                     POWButton(title: "Complete Your Enrollment") {
                         showPayment = true
                     }
+                    .accessibilityIdentifier("applicationStatus.completeEnrollmentButton")
                 }
 
                 Spacer()
@@ -40,6 +42,11 @@ struct ApplicationStatusView: View {
         }
         .navigationTitle("Application Status")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                ApplicantAccountMenu()
+            }
+        }
         .sheet(isPresented: $showPayment) {
             if let cohortID = application.cohortID {
                 PaymentScreenView(cohortID: cohortID)

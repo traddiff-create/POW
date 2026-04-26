@@ -5,12 +5,12 @@ struct SpiralView: View {
     @State private var checkIns: [CheckIn] = []
     @State private var isLoading = true
 
-    private let layers: [(name: String, color: Color, icon: String)] = [
-        ("Self-Regulation", Color(hex: "#7A9E7E"), "brain.head.profile"),
-        ("Co-Regulation", Color(hex: "#6B8F9E"), "person.2"),
-        ("Community", Color(hex: "#C4A882"), "person.3"),
-        ("Agency", Color(hex: "#9E7A8C"), "hand.raised"),
-        ("Civic Engagement", Color(hex: "#8E9E7A"), "building.columns")
+    private let layers: [(summary: POWLayerSummary, color: Color)] = [
+        (POWPhilosophy.layers[0], Color(hex: "#7A9E7E")),
+        (POWPhilosophy.layers[1], Color(hex: "#6B8F9E")),
+        (POWPhilosophy.layers[2], Color(hex: "#C4A882")),
+        (POWPhilosophy.layers[3], Color(hex: "#9E7A8C")),
+        (POWPhilosophy.layers[4], Color(hex: "#8E9E7A"))
     ]
 
     var body: some View {
@@ -19,6 +19,7 @@ struct SpiralView: View {
                 Color.powBackground.ignoresSafeArea()
                 ScrollView {
                     VStack(spacing: 32) {
+                        spiralIntro
                         spiralDiagram
                         weekGrid
                     }
@@ -28,6 +29,23 @@ struct SpiralView: View {
             .navigationTitle("Your Spiral")
             .navigationBarTitleDisplayMode(.large)
             .task { await load() }
+        }
+    }
+
+    private var spiralIntro: some View {
+        POWCard {
+            VStack(alignment: .leading, spacing: 8) {
+                Label("Inside out", systemImage: "circle.hexagongrid")
+                    .font(.powCaption)
+                    .foregroundStyle(Color.powMuted)
+                Text(POWPhilosophy.signatureLine)
+                    .font(.powTitle2)
+                    .foregroundStyle(Color.powForeground)
+                Text(POWPhilosophy.spiralCopy)
+                    .font(.powBody)
+                    .foregroundStyle(Color.powMuted)
+            }
+            .padding(20)
         }
     }
 
@@ -47,14 +65,17 @@ struct SpiralView: View {
                                 Circle()
                                     .fill(layer.color.opacity(isCurrentLayer(index) ? 1.0 : 0.2))
                                     .frame(width: 44, height: 44)
-                                Image(systemName: layer.icon)
+                                Image(systemName: layer.summary.systemImage)
                                     .font(.system(size: 18))
                                     .foregroundStyle(isCurrentLayer(index) ? Color.white : layer.color)
                             }
                             VStack(alignment: .leading, spacing: 2) {
-                                Text(layer.name)
+                                Text(layer.summary.title)
                                     .font(.powBody)
                                     .foregroundStyle(isCurrentLayer(index) ? Color.powForeground : Color.powMuted)
+                                Text(layer.summary.shortDescription)
+                                    .font(.powCaption)
+                                    .foregroundStyle(Color.powMuted)
                                 if isCurrentLayer(index) {
                                     Text("Current focus")
                                         .font(.powCaption)

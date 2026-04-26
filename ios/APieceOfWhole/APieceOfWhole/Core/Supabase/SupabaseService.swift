@@ -2,7 +2,7 @@ import Foundation
 import Supabase
 
 @MainActor
-final class SupabaseService {
+final class SupabaseService: AppDataProviding {
     static let shared = SupabaseService()
     private let db = SupabaseClient.shared
 
@@ -19,19 +19,20 @@ final class SupabaseService {
             .value
     }
 
-    func updateOnboardingAgeConfirm(userID: String, timestamp: String) async throws {
-        struct P: Encodable { let adult_confirmed_at: String; let onboarding_step: String }
-        try await db.from("user_profiles").update(P(adult_confirmed_at: timestamp, onboarding_step: OnboardingStep.agreements.rawValue)).eq("id", value: userID).execute()
+    func updateOnboardingAgeConfirm(userID: String) async throws {
+        guard !userID.isEmpty else { throw AppDataError.missingSession }
+        try await db.rpc("profile_confirm_adult").execute()
     }
 
-    func updateOnboardingAgreements(userID: String, timestamp: String) async throws {
-        struct P: Encodable { let agreements_accepted_at: String; let onboarding_step: String }
-        try await db.from("user_profiles").update(P(agreements_accepted_at: timestamp, onboarding_step: OnboardingStep.profileSetup.rawValue)).eq("id", value: userID).execute()
+    func updateOnboardingAgreements(userID: String) async throws {
+        guard !userID.isEmpty else { throw AppDataError.missingSession }
+        try await db.rpc("profile_accept_agreements").execute()
     }
 
-    func updateOnboardingProfile(userID: String, displayName: String, timestamp: String) async throws {
-        struct P: Encodable { let display_name: String; let onboarding_step: String; let onboarding_completed_at: String }
-        try await db.from("user_profiles").update(P(display_name: displayName, onboarding_step: OnboardingStep.complete.rawValue, onboarding_completed_at: timestamp)).eq("id", value: userID).execute()
+    func updateOnboardingProfile(userID: String, displayName: String) async throws {
+        guard !userID.isEmpty else { throw AppDataError.missingSession }
+        struct P: Encodable { let display_name: String }
+        try await db.rpc("profile_complete_onboarding", params: P(display_name: displayName)).execute()
     }
 
     func updateMyPiece(userID: String, values: String?, giftsSkills: String?, currentCapacity: String?, boundaries: String?, currentContribution: String?, smallAction: String?) async throws {
@@ -89,6 +90,15 @@ final class SupabaseService {
         try await db.from("applications")
             .select()
             .eq("applicant_email", value: userEmail)
+            .order("created_at", ascending: false)
+            .execute()
+            .value
+    }
+
+    func fetchApplications(userID: String) async throws -> [CohortApplication] {
+        try await db.from("applications")
+            .select()
+            .eq("user_id", value: userID)
             .order("created_at", ascending: false)
             .execute()
             .value
@@ -158,12 +168,20 @@ final class SupabaseService {
 
     // MARK: - Practices
 
-    func fetchPractices(weekNumber: Int? = nil) async throws -> [Practice] {
+    func fetchPractices(weekNumber: Int? = nil, publishedOnly: Bool = true) async throws -> [Practice] {
         var query = db.from("practices").select()
         if let week = weekNumber {
             query = query.eq("week_number", value: week)
         }
-        return try await query.order("week_number").execute().value
+        if publishedOnly {
+            query = query.eq("published", value: true)
+        }
+        return try await query
+            .order("sort_order")
+            .order("week_number")
+            .order("title")
+            .execute()
+            .value
     }
 
     func fetchCurrentWeekTheme(cohortID: String, week: Int = 1) async throws -> CurriculumItem? {
@@ -173,6 +191,30 @@ final class SupabaseService {
     func fetchSuggestedPractice(cohortID: String, week: Int = 1) async throws -> Practice? {
         let all = try await fetchPractices(weekNumber: week)
         return all.first
+    }
+
+    // MARK: - Learning Resources
+
+    func fetchLearningResources(layer: String? = nil) async throws -> [LearningResource] {
+        let resources: [LearningResource] = try await db.from("learning_resources")
+            .select()
+            .eq("published", value: true)
+            .order("sort_order")
+            .order("title")
+            .execute()
+            .value
+        guard let layer else { return resources }
+        return resources.filter { $0.layerValues.contains(layer) }
+    }
+
+    func fetchLearningResource(id: String) async throws -> LearningResource {
+        try await db.from("learning_resources")
+            .select()
+            .eq("id", value: id)
+            .eq("published", value: true)
+            .single()
+            .execute()
+            .value
     }
 
     // MARK: - Check-ins
@@ -226,12 +268,12 @@ final class SupabaseService {
             .value
     }
 
-    func createJournalEntry(userID: String, cohortID: String, title: String?, body: String) async throws -> JournalEntry {
+    func createJournalEntry(userID: String, cohortID: String?, title: String?, body: String, sourceResourceID: String? = nil) async throws -> JournalEntry {
         struct Payload: Encodable {
-            let user_id: String; let cohort_id: String; let title: String?; let body: String
+            let user_id: String; let cohort_id: String?; let title: String?; let body: String; let source_resource_id: String?
         }
         return try await db.from("journal_entries")
-            .insert(Payload(user_id: userID, cohort_id: cohortID, title: title, body: body))
+            .insert(Payload(user_id: userID, cohort_id: cohortID, title: title, body: body, source_resource_id: sourceResourceID))
             .select()
             .single()
             .execute()
@@ -404,6 +446,19 @@ final class SupabaseService {
         try await db.from("notifications")
             .update(["read_at": ISO8601DateFormatter().string(from: Date())])
             .eq("id", value: id)
+            .execute()
+    }
+
+    // MARK: - Account Deletion
+
+    func submitAccountDeletionRequest(userID: String, reason: String?) async throws {
+        struct Payload: Encodable {
+            let user_id: String
+            let reason: String?
+        }
+
+        try await db.from("account_deletion_requests")
+            .insert(Payload(user_id: userID, reason: reason))
             .execute()
     }
 }

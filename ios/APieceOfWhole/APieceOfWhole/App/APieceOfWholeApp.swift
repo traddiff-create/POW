@@ -9,6 +9,7 @@ struct APieceOfWholeApp: App {
             RootView()
                 .environment(appState)
                 .task {
+                    PurchaseService.shared.observeTransactionUpdates()
                     await appState.load()
                 }
         }

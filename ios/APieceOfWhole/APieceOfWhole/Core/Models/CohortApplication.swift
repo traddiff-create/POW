@@ -39,6 +39,7 @@ struct CohortApplication: Codable, Identifiable, Sendable {
 }
 
 struct ApplicationSubmission: Encodable, Sendable {
+    let userID: String
     let cohortID: String
     let applicantName: String
     let applicantEmail: String
@@ -51,6 +52,7 @@ struct ApplicationSubmission: Encodable, Sendable {
     let safetyAcknowledged: Bool
 
     enum CodingKeys: String, CodingKey {
+        case userID = "user_id"
         case cohortID = "cohort_id"
         case applicantName = "applicant_name"
         case applicantEmail = "applicant_email"

@@ -159,18 +159,25 @@ struct TodayView: View {
     }
 
     private func load() async {
-        guard let userID = appState.session?.user.id.uuidString,
-              let cohortID = appState.activeMembership?.cohortID else {
+        guard let userID = appState.session?.user.id.uuidString else {
             isLoading = false
             return
         }
-        let week = currentWeek ?? 1
         async let checkIn = try? SupabaseService.shared.fetchTodayCheckIn(userID: userID)
-        async let curriculum = try? SupabaseService.shared.fetchCurrentWeekTheme(cohortID: cohortID, week: week)
-        async let practice = try? SupabaseService.shared.fetchSuggestedPractice(cohortID: cohortID, week: week)
+
+        if let cohortID = appState.activeMembership?.cohortID {
+            let week = currentWeek ?? 1
+            async let curriculum = try? SupabaseService.shared.fetchCurrentWeekTheme(cohortID: cohortID, week: week)
+            async let practice = try? SupabaseService.shared.fetchSuggestedPractice(cohortID: cohortID, week: week)
+            weekTheme = await curriculum
+            todayPractice = await practice
+        } else {
+            weekTheme = nil
+            let practices = (try? await SupabaseService.shared.fetchPractices()) ?? []
+            todayPractice = practices.first
+        }
+
         recentCheckIn = await checkIn
-        weekTheme = await curriculum
-        todayPractice = await practice
         isLoading = false
     }
 }

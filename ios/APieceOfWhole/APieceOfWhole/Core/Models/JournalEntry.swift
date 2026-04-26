@@ -11,6 +11,7 @@ struct JournalEntry: Codable, Identifiable, Sendable {
 
     // Extended fields (added by migration)
     var sharedPostID: String?
+    var sourceResourceID: String?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -20,6 +21,7 @@ struct JournalEntry: Codable, Identifiable, Sendable {
         case createdAt = "created_at"
         case updatedAt = "updated_at"
         case sharedPostID = "shared_post_id"
+        case sourceResourceID = "source_resource_id"
     }
 
     var isShared: Bool { sharedPostID != nil }

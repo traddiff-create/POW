@@ -6,6 +6,7 @@ struct SettingsView: View {
     @State private var showSupport = false
     @State private var showLegal = false
     @State private var showDeleteAccount = false
+    @State private var showUpgradeGuest = false
     @State private var isSigningOut = false
 
     var body: some View {
@@ -14,6 +15,10 @@ struct SettingsView: View {
                 Color.powBackground.ignoresSafeArea()
                 List {
                     Section("Profile") {
+                        if appState.isGuest {
+                            Label("Guest Mode", systemImage: "person.crop.circle.badge.questionmark")
+                                .foregroundStyle(Color.powMuted)
+                        }
                         NavigationLink(destination: ProfileEditView()) {
                             Label("Edit Profile", systemImage: "person.circle")
                         }
@@ -34,6 +39,12 @@ struct SettingsView: View {
                         }
                     }
 
+                    Section("About") {
+                        NavigationLink(destination: PhilosophyView()) {
+                            Label("Working Philosophy", systemImage: "circle.hexagongrid")
+                        }
+                    }
+
                     Section("Legal") {
                         Button {
                             showLegal = true
@@ -44,20 +55,39 @@ struct SettingsView: View {
                     }
 
                     Section {
-                        Button(role: .destructive) {
-                            Task { await signOut() }
-                        } label: {
-                            HStack {
-                                Label("Sign Out", systemImage: "rectangle.portrait.and.arrow.right")
-                                if isSigningOut { Spacer(); ProgressView() }
+                        if appState.isGuest {
+                            Button {
+                                showUpgradeGuest = true
+                            } label: {
+                                Label("Create Account to Keep Access", systemImage: "person.badge.plus")
+                                    .foregroundStyle(Color.powForeground)
                             }
-                        }
-                        .disabled(isSigningOut)
 
-                        Button(role: .destructive) {
-                            showDeleteAccount = true
-                        } label: {
-                            Label("Delete Account", systemImage: "trash")
+                            Button(role: .destructive) {
+                                Task { await signOut() }
+                            } label: {
+                                HStack {
+                                    Label("Exit Guest Mode", systemImage: "rectangle.portrait.and.arrow.right")
+                                    if isSigningOut { Spacer(); ProgressView() }
+                                }
+                            }
+                            .disabled(isSigningOut)
+                        } else {
+                            Button(role: .destructive) {
+                                Task { await signOut() }
+                            } label: {
+                                HStack {
+                                    Label("Sign Out", systemImage: "rectangle.portrait.and.arrow.right")
+                                    if isSigningOut { Spacer(); ProgressView() }
+                                }
+                            }
+                            .disabled(isSigningOut)
+
+                            Button(role: .destructive) {
+                                showDeleteAccount = true
+                            } label: {
+                                Label("Delete Account", systemImage: "trash")
+                            }
                         }
                     }
                 }
@@ -70,6 +100,7 @@ struct SettingsView: View {
             .sheet(isPresented: $showSupport) { SupportView() }
             .sheet(isPresented: $showLegal) { LegalView() }
             .sheet(isPresented: $showDeleteAccount) { DeleteAccountView() }
+            .sheet(isPresented: $showUpgradeGuest) { GuestAccountUpgradeView() }
         }
     }
 
@@ -77,6 +108,86 @@ struct SettingsView: View {
         isSigningOut = true
         try? await appState.signOut()
         isSigningOut = false
+    }
+}
+
+struct GuestAccountUpgradeView: View {
+    @Environment(AppState.self) var appState
+    @Environment(\.dismiss) var dismiss
+    @State private var email = ""
+    @State private var password = ""
+    @State private var confirmPassword = ""
+    @State private var isSaving = false
+    @State private var error: String?
+
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                Color.powBackground.ignoresSafeArea()
+                ScrollView {
+                    VStack(spacing: 24) {
+                        VStack(spacing: 8) {
+                            Text("Keep your guest access")
+                                .font(.powTitle2)
+                                .foregroundStyle(Color.powForeground)
+                            Text("Add email and password sign-in to preserve this guest profile, check-ins, journal entries, and My Piece reflections.")
+                                .font(.powBody)
+                                .foregroundStyle(Color.powMuted)
+                                .multilineTextAlignment(.center)
+                        }
+                        .padding(.top, 8)
+
+                        VStack(spacing: 16) {
+                            POWTextField(label: "Email", text: $email, keyboardType: .emailAddress)
+                            POWTextField(label: "Password", text: $password, isSecure: true)
+                            POWTextField(label: "Confirm Password", text: $confirmPassword, isSecure: true)
+                        }
+
+                        if let error {
+                            Text(error)
+                                .font(.powCaption)
+                                .foregroundStyle(Color.powError)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+
+                            if error == AuthInputError.emailAlreadyExists.localizedDescription {
+                                NavigationLink(destination: SignInView()) {
+                                    Label("Sign In Instead", systemImage: "rectangle.portrait.and.arrow.right")
+                                        .font(.powCallout)
+                                        .foregroundStyle(Color.powSage)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                        }
+
+                        POWButton(title: "Create Account", isLoading: isSaving) {
+                            Task { await upgrade() }
+                        }
+                        .disabled(email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || password.isEmpty)
+                        .accessibilityIdentifier("guestUpgrade.submitButton")
+                    }
+                    .padding(24)
+                }
+            }
+            .navigationTitle("Create Account")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
+                }
+            }
+        }
+    }
+
+    private func upgrade() async {
+        isSaving = true
+        error = nil
+        do {
+            try await appState.upgradeGuestAccount(email: email, password: password, confirmPassword: confirmPassword)
+            dismiss()
+        } catch {
+            self.error = error.localizedDescription
+        }
+        isSaving = false
     }
 }
 
@@ -111,16 +222,10 @@ struct ProfileEditView: View {
     }
 
     private func save() async {
-        guard let userID = appState.session?.user.id.uuidString else { return }
         isSaving = true
         error = nil
         do {
-            try await SupabaseService.shared.updateOnboardingProfile(
-                userID: userID,
-                displayName: displayName.trimmingCharacters(in: .whitespaces),
-                timestamp: ISO8601DateFormatter().string(from: Date())
-            )
-            await appState.refreshProfile()
+            try await appState.updateDisplayName(displayName)
             dismiss()
         } catch {
             self.error = error.localizedDescription

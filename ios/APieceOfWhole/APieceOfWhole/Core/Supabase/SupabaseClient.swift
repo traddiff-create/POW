@@ -3,6 +3,12 @@ import Supabase
 
 extension SupabaseClient {
     static let shared: SupabaseClient = {
-        SupabaseClient(supabaseURL: Config.supabaseURL, supabaseKey: Config.supabaseAnonKey)
+        guard let supabaseURL = Config.supabaseURL,
+              let supabaseAnonKey = Config.supabaseAnonKey else {
+            let placeholderURL = URL(string: "https://missing-supabase-configuration.invalid") ?? URL(fileURLWithPath: "/")
+            return SupabaseClient(supabaseURL: placeholderURL, supabaseKey: "missing-configuration")
+        }
+
+        return SupabaseClient(supabaseURL: supabaseURL, supabaseKey: supabaseAnonKey)
     }()
 }
