@@ -2,7 +2,7 @@ BEGIN;
 
 CREATE EXTENSION IF NOT EXISTS pgtap WITH SCHEMA extensions;
 
-SELECT plan(20);
+SELECT plan(32);
 
 SELECT is_empty(
   $$ SELECT 1
@@ -192,6 +192,131 @@ SELECT isnt_empty(
        AND tablename = 'account_deletion_requests'
        AND policyname = 'account_deletion_insert_own' $$,
   'account deletion requests are available to authenticated owners'
+);
+
+SELECT isnt_empty(
+  $$ SELECT 1
+     FROM information_schema.role_table_grants
+     WHERE table_schema = 'public'
+       AND table_name = 'daily_practice_entries'
+       AND grantee = 'authenticated'
+       AND privilege_type IN ('SELECT','INSERT','UPDATE','DELETE')
+     GROUP BY grantee
+     HAVING count(DISTINCT privilege_type) = 4 $$,
+  'authenticated clients can manage own daily practice entries through RLS'
+);
+
+SELECT is_empty(
+  $$ SELECT 1
+     FROM information_schema.role_table_grants
+     WHERE table_schema = 'public'
+       AND table_name = 'daily_practice_entries'
+       AND grantee = 'anon' $$,
+  'anonymous users cannot access private daily practice entries'
+);
+
+SELECT isnt_empty(
+  $$ SELECT 1
+     FROM pg_policies
+     WHERE schemaname = 'public'
+       AND tablename = 'daily_practice_entries'
+       AND policyname = 'daily_practice_select_own'
+       AND qual LIKE '%user_id = auth.uid%' $$,
+  'daily practice entries are owner-readable only'
+);
+
+SELECT isnt_empty(
+  $$ SELECT 1
+     FROM pg_policies
+     WHERE schemaname = 'public'
+       AND tablename = 'daily_practice_entries'
+       AND policyname = 'daily_practice_insert_own'
+       AND with_check LIKE '%user_id = auth.uid%' $$,
+  'daily practice entries require owner-bound inserts'
+);
+
+SELECT isnt_empty(
+  $$ SELECT 1
+     FROM pg_policies
+     WHERE schemaname = 'public'
+       AND tablename = 'daily_practice_entries'
+       AND policyname = 'daily_practice_update_own'
+       AND qual LIKE '%user_id = auth.uid%'
+       AND with_check LIKE '%user_id = auth.uid%' $$,
+  'daily practice entries require owner-only edits'
+);
+
+SELECT isnt_empty(
+  $$ SELECT 1
+     FROM information_schema.role_table_grants
+     WHERE table_schema = 'public'
+       AND table_name = 'shared_reflection_excerpts'
+       AND grantee = 'authenticated'
+       AND privilege_type IN ('SELECT','INSERT','UPDATE','DELETE')
+     GROUP BY grantee
+     HAVING count(DISTINCT privilege_type) = 4 $$,
+  'authenticated clients can manage own shared reflection excerpts through RLS'
+);
+
+SELECT is_empty(
+  $$ SELECT 1
+     FROM information_schema.role_table_grants
+     WHERE table_schema = 'public'
+       AND table_name = 'shared_reflection_excerpts'
+       AND grantee = 'anon' $$,
+  'anonymous users cannot access raw shared reflection rows'
+);
+
+SELECT isnt_empty(
+  $$ SELECT 1
+     FROM pg_policies
+     WHERE schemaname = 'public'
+       AND tablename = 'shared_reflection_excerpts'
+       AND policyname = 'shared_reflection_update_own'
+       AND qual LIKE '%user_id = auth.uid%'
+       AND with_check LIKE '%user_id = auth.uid%' $$,
+  'shared reflection excerpts require owner-only edits and unsharing'
+);
+
+SELECT isnt_empty(
+  $$ SELECT 1
+     FROM information_schema.columns
+     WHERE table_schema = 'public'
+       AND table_name = 'shared_reflection_excerpts'
+       AND column_name = 'is_active'
+       AND column_default = 'true' $$,
+  'shared reflection excerpts can be reversibly unshared'
+);
+
+SELECT isnt_empty(
+  $$ SELECT 1
+     FROM pg_proc p
+     JOIN pg_namespace n ON n.oid = p.pronamespace
+     WHERE n.nspname = 'public'
+       AND p.proname = 'public_shared_reflection_excerpts'
+       AND p.prosecdef = true $$,
+  'public shared reflection excerpts are exposed through a security definer RPC'
+);
+
+SELECT isnt_empty(
+  $$ SELECT 1
+     FROM information_schema.routine_privileges
+     WHERE routine_schema = 'public'
+       AND routine_name = 'public_shared_reflection_excerpts'
+       AND grantee IN ('anon','authenticated')
+       AND privilege_type = 'EXECUTE'
+     GROUP BY routine_name
+     HAVING count(DISTINCT grantee) = 2 $$,
+  'anonymous and authenticated users can read sanitized public excerpts'
+);
+
+SELECT is_empty(
+  $$ SELECT 1
+     FROM information_schema.parameters
+     WHERE specific_schema = 'public'
+       AND routine_name = 'public_shared_reflection_excerpts'
+       AND parameter_name IN ('id','user_id','email','application_id') $$,
+  'public shared reflection excerpts expose no identifying columns'
 );
 
 SELECT * FROM finish();

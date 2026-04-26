@@ -22,6 +22,10 @@
 		0E00000B0000000000000001 /* Clocks in Frameworks */ = {isa = PBXBuildFile; productRef = 0E0000210000000000000001 /* Clocks */; };
 		0E00000C0000000000000001 /* IssueReporting in Frameworks */ = {isa = PBXBuildFile; productRef = 0E0000220000000000000001 /* IssueReporting */; };
 		0E00000D0000000000000001 /* IssueReportingTestSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 0E0000230000000000000001 /* IssueReportingTestSupport */; };
+		0F1100010000000000000001 /* HerePractice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1000010000000000000001 /* HerePractice.swift */; };
+		0F1400010000000000000001 /* HereLegViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1300010000000000000001 /* HereLegViews.swift */; };
+		0F1600010000000000000001 /* WhyHereView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1500010000000000000001 /* WhyHereView.swift */; };
+		0F1800010000000000000001 /* HerePracticeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1700010000000000000001 /* HerePracticeTests.swift */; };
 		07BCC950B028CBF1840E332F /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA356B59F5439659EBD5615A /* JournalEntry.swift */; };
 		083021FBC6C94B649CC03C3D /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7A86DE09B0804511A0B4E9BB /* PrivacyInfo.xcprivacy */; };
 		09AAFCA502DD36B8EC2C3789 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1252033FF59ED9EE05E07E99 /* ReportView.swift */; };
@@ -138,6 +142,10 @@
 		0E0000050000000000000001 /* ProfileRoleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRoleTests.swift; sourceTree = "<group>"; };
 		4BD7A9FA6B21400A91E9E6F0 /* MeditationTimerModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationTimerModelTests.swift; sourceTree = "<group>"; };
 		6A1909B38F6840A28786AB7A /* MeditationSessionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationSessionStoreTests.swift; sourceTree = "<group>"; };
+		0F1000010000000000000001 /* HerePractice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HerePractice.swift; sourceTree = "<group>"; };
+		0F1300010000000000000001 /* HereLegViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HereLegViews.swift; sourceTree = "<group>"; };
+		0F1500010000000000000001 /* WhyHereView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhyHereView.swift; sourceTree = "<group>"; };
+		0F1700010000000000000001 /* HerePracticeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HerePracticeTests.swift; sourceTree = "<group>"; };
 		0E53774A5E2A2FA697951F4C /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		1252033FF59ED9EE05E07E99 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
 		1628D4C1256176E61A7D55E7 /* CohortListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CohortListView.swift; sourceTree = "<group>"; };
@@ -254,6 +262,7 @@
 				6709B96E863627B0979B04F0 /* MainTabView.swift */,
 				816436A1972F611D2764B99A /* Circle */,
 				99A50E8AC386C93A4C376687 /* Civic */,
+				0F1200010000000000000001 /* Here */,
 				2944676916327B560ECF88CE /* Journal */,
 				0A1400010000000000000001 /* Learn */,
 				E6EF7E906B4267630538B74C /* MyPiece */,
@@ -321,6 +330,15 @@
 			path = Philosophy;
 			sourceTree = "<group>";
 		};
+		0F1200010000000000000001 /* Here */ = {
+			isa = PBXGroup;
+			children = (
+				0F1300010000000000000001 /* HereLegViews.swift */,
+				0F1500010000000000000001 /* WhyHereView.swift */,
+			);
+			path = Here;
+			sourceTree = "<group>";
+		};
 		1930BB072D9C06F730BF397D /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -331,6 +349,7 @@
 				1B385598E03AB160E6C886A8 /* CohortApplication.swift */,
 				74A7FC4FAC53C7991745EA5D /* CohortMembership.swift */,
 				B8449C7EDC8BB7CEB5C63C0E /* Enums.swift */,
+				0F1000010000000000000001 /* HerePractice.swift */,
 				CA356B59F5439659EBD5615A /* JournalEntry.swift */,
 				0A1000010000000000000001 /* LearningResource.swift */,
 				278A6A974DEE25F2CBBEF5C4 /* Practice.swift */,
@@ -485,6 +504,7 @@
 			children = (
 				0E0000030000000000000001 /* AppStateTests.swift */,
 				0E0000040000000000000001 /* ApplicationFlowTests.swift */,
+				0F1700010000000000000001 /* HerePracticeTests.swift */,
 				6A1909B38F6840A28786AB7A /* MeditationSessionStoreTests.swift */,
 				4BD7A9FA6B21400A91E9E6F0 /* MeditationTimerModelTests.swift */,
 				0E0000020000000000000001 /* MockSupabaseService.swift */,
@@ -812,6 +832,7 @@
 			files = (
 				0E0000070000000000000001 /* AppStateTests.swift in Sources */,
 				0E0000080000000000000001 /* ApplicationFlowTests.swift in Sources */,
+				0F1800010000000000000001 /* HerePracticeTests.swift in Sources */,
 				59F810AC2E92481586064956 /* MeditationSessionStoreTests.swift in Sources */,
 				87717AFC151C48BFA23553BC /* MeditationTimerModelTests.swift in Sources */,
 				0E0000060000000000000001 /* MockSupabaseService.swift in Sources */,
@@ -860,6 +881,8 @@
 				07BCC950B028CBF1840E332F /* JournalEntry.swift in Sources */,
 				B7740576E62551C2EFE31F15 /* JournalEntryView.swift in Sources */,
 				3E98597C81280266F86E2932 /* JournalListView.swift in Sources */,
+				0F1400010000000000000001 /* HereLegViews.swift in Sources */,
+				0F1100010000000000000001 /* HerePractice.swift in Sources */,
 				BFAD2C668DA694314E3E02E6 /* LegalView.swift in Sources */,
 				0A1100010000000000000001 /* LearningResource.swift in Sources */,
 				0A1300010000000000000001 /* LearnView.swift in Sources */,
@@ -901,6 +924,7 @@
 				F815AA625156BDEE4FFEDEDD /* SupportView.swift in Sources */,
 				FA8DE92252D2FB6A59222203 /* TodayView.swift in Sources */,
 				38074162918271C3F9BBF8AE /* Typography.swift in Sources */,
+				0F1600010000000000000001 /* WhyHereView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

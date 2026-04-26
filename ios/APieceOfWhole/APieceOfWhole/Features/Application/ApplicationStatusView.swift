@@ -36,6 +36,13 @@ struct ApplicationStatusView: View {
                     .accessibilityIdentifier("applicationStatus.completeEnrollmentButton")
                 }
 
+                NavigationLink(destination: WhyIHereView()) {
+                    Text("Review Why I'm Here")
+                        .font(.powCallout)
+                        .foregroundStyle(Color.powSage)
+                }
+                .accessibilityIdentifier("applicationStatus.whyHereLink")
+
                 Spacer()
             }
             .padding(.horizontal, 28)

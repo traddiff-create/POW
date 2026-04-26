@@ -9,7 +9,7 @@ struct PhilosophyView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     header
                     workingLines
-                    layersSection
+                    legsSection
                     beliefsSection
                     closingSection
                 }
@@ -22,11 +22,11 @@ struct PhilosophyView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("A Piece of Whole")
+            Text(POWPhilosophy.appName)
                 .font(.powLargeTitle)
                 .foregroundStyle(Color.powForeground)
 
-            Text(POWPhilosophy.signatureLine)
+            Text("Self. Together. Community.")
                 .font(.powTitle2)
                 .foregroundStyle(Color.powSage)
 
@@ -34,7 +34,7 @@ struct PhilosophyView: View {
                 .font(.powBody)
                 .foregroundStyle(Color.powMuted)
 
-            Text("This is a living philosophy, not doctrine. It begins with the body and moves outward into relationship, community, agency, civic life, and the living world.")
+            Text("This is a living philosophy, not doctrine. It begins with the body, practices peace together, and moves outward into local care.")
                 .font(.powBody)
                 .foregroundStyle(Color.powForeground)
         }
@@ -58,30 +58,30 @@ struct PhilosophyView: View {
         }
     }
 
-    private var layersSection: some View {
+    private var legsSection: some View {
         VStack(alignment: .leading, spacing: 14) {
-            Text("The Five Layers")
+            Text("The Three Legs")
                 .font(.powTitle2)
                 .foregroundStyle(Color.powForeground)
 
-            Text(POWPhilosophy.spiralCopy)
+            Text("Self is the foundation. Together is the soul. Community is the invitation outward.")
                 .font(.powBody)
                 .foregroundStyle(Color.powMuted)
 
             VStack(spacing: 12) {
-                ForEach(POWPhilosophy.layers) { layer in
+                ForEach(HereLeg.allCases) { leg in
                     POWCard {
                         HStack(alignment: .top, spacing: 14) {
-                            Image(systemName: layer.systemImage)
+                            Image(systemName: leg.systemImage)
                                 .font(.system(size: 22))
                                 .foregroundStyle(Color.powSage)
                                 .frame(width: 34, height: 34)
 
                             VStack(alignment: .leading, spacing: 4) {
-                                Text(layer.title)
+                                Text(leg.title)
                                     .font(.powLabel)
                                     .foregroundStyle(Color.powForeground)
-                                Text(layer.detail)
+                                Text(detail(for: leg))
                                     .font(.powCallout)
                                     .foregroundStyle(Color.powMuted)
                             }
@@ -90,6 +90,17 @@ struct PhilosophyView: View {
                     }
                 }
             }
+        }
+    }
+
+    private func detail(for leg: HereLeg) -> String {
+        switch leg {
+        case .selfFoundation:
+            return POWPhilosophy.selfCopy
+        case .together:
+            return POWPhilosophy.togetherCopy
+        case .community:
+            return POWPhilosophy.communityCopy
         }
     }
 

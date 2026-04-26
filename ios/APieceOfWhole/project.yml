@@ -38,7 +38,7 @@ targets:
       path: APieceOfWhole/Info.plist
       properties:
         CFBundleIconName: AppIcon
-        CFBundleDisplayName: A Piece of Whole
+        CFBundleDisplayName: Here
         CFBundleIdentifier: com.traddifftech.apieceofwhole
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"

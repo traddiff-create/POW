@@ -257,6 +257,145 @@ final class SupabaseService: AppDataProviding {
             .value
     }
 
+    // MARK: - Here Daily Practice
+
+    func fetchTodayDailyPracticeEntry(userID: String, leg: HereLeg) async throws -> DailyPracticeEntry? {
+        let results: [DailyPracticeEntry] = try await db.from("daily_practice_entries")
+            .select()
+            .eq("user_id", value: userID)
+            .eq("leg", value: leg.rawValue)
+            .eq("practice_date", value: Self.practiceDateString())
+            .limit(1)
+            .execute()
+            .value
+        return results.first
+    }
+
+    func saveDailyPracticeEntry(_ submission: DailyPracticeSubmission) async throws -> DailyPracticeEntry {
+        let existing: [DailyPracticeEntry] = try await db.from("daily_practice_entries")
+            .select()
+            .eq("user_id", value: submission.userID)
+            .eq("leg", value: submission.leg.rawValue)
+            .eq("practice_date", value: submission.practiceDate)
+            .limit(1)
+            .execute()
+            .value
+
+        struct Payload: Encodable {
+            let user_id: String
+            let leg: HereLeg
+            let prompt_id: String
+            let prompt_title: String
+            let private_reflection: String?
+            let practice_date: String
+        }
+
+        let payload = Payload(
+            user_id: submission.userID,
+            leg: submission.leg,
+            prompt_id: submission.promptID,
+            prompt_title: submission.promptTitle,
+            private_reflection: submission.privateReflection,
+            practice_date: submission.practiceDate
+        )
+
+        if let existing = existing.first {
+            return try await db.from("daily_practice_entries")
+                .update(payload)
+                .eq("id", value: existing.id)
+                .select()
+                .single()
+                .execute()
+                .value
+        }
+
+        return try await db.from("daily_practice_entries")
+            .insert(payload)
+            .select()
+            .single()
+            .execute()
+            .value
+    }
+
+    func fetchMyApplicationReflectionExcerpt(userID: String) async throws -> SharedReflectionExcerpt? {
+        let results: [SharedReflectionExcerpt] = try await db.from("shared_reflection_excerpts")
+            .select()
+            .eq("user_id", value: userID)
+            .eq("source_type", value: SharedReflectionSourceType.application.rawValue)
+            .limit(1)
+            .execute()
+            .value
+        return results.first
+    }
+
+    func saveApplicationReflectionExcerpt(_ submission: SharedReflectionExcerptSubmission) async throws -> SharedReflectionExcerpt {
+        let existing: [SharedReflectionExcerpt] = try await db.from("shared_reflection_excerpts")
+            .select()
+            .eq("user_id", value: submission.userID)
+            .eq("source_type", value: SharedReflectionSourceType.application.rawValue)
+            .limit(1)
+            .execute()
+            .value
+
+        struct Payload: Encodable {
+            let user_id: String
+            let source_type: SharedReflectionSourceType
+            let leg: HereLeg
+            let excerpt: String
+            let is_active: Bool
+        }
+
+        let payload = Payload(
+            user_id: submission.userID,
+            source_type: submission.sourceType,
+            leg: submission.leg,
+            excerpt: submission.excerpt,
+            is_active: submission.isActive
+        )
+
+        if let existing = existing.first {
+            return try await db.from("shared_reflection_excerpts")
+                .update(payload)
+                .eq("id", value: existing.id)
+                .select()
+                .single()
+                .execute()
+                .value
+        }
+
+        return try await db.from("shared_reflection_excerpts")
+            .insert(payload)
+            .select()
+            .single()
+            .execute()
+            .value
+    }
+
+    func unshareApplicationReflectionExcerpt(id: String) async throws -> SharedReflectionExcerpt {
+        struct Payload: Encodable { let is_active: Bool }
+        return try await db.from("shared_reflection_excerpts")
+            .update(Payload(is_active: false))
+            .eq("id", value: id)
+            .select()
+            .single()
+            .execute()
+            .value
+    }
+
+    func fetchPublicSharedReflectionExcerpts() async throws -> [PublicSharedReflectionExcerpt] {
+        try await db.rpc("public_shared_reflection_excerpts")
+            .execute()
+            .value
+    }
+
+    nonisolated static func practiceDateString(for date: Date = Date(), calendar: Calendar = .current) -> String {
+        let components = calendar.dateComponents([.year, .month, .day], from: date)
+        guard let year = components.year, let month = components.month, let day = components.day else {
+            return ""
+        }
+        return String(format: "%04d-%02d-%02d", year, month, day)
+    }
+
     // MARK: - Journal
 
     func fetchJournalEntries(userID: String) async throws -> [JournalEntry] {

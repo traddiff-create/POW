@@ -97,7 +97,7 @@ struct PracticeLibraryView: View {
                     .frame(width: 28)
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Practice the spiral")
+                    Text("Practice returning")
                         .font(.powLabel)
                         .foregroundStyle(Color.powForeground)
                     Text(POWPhilosophy.practiceCopy)
