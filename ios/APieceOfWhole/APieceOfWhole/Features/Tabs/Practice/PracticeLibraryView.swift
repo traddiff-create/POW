@@ -5,6 +5,9 @@ struct PracticeLibraryView: View {
     @State private var selectedLayer: String? = nil
     @State private var isLoading = true
     @State private var error: String?
+    @State private var meditationSessionStore = MeditationSessionStore()
+    @State private var meditationSettings = MeditationTimerSettingsStore()
+    @State private var showMeditationTimer = false
 
     private let layers = ["self_regulation", "co_regulation", "community", "agency", "civic_engagement"]
     private let layerLabels: [String: String] = [
@@ -30,6 +33,14 @@ struct PracticeLibraryView: View {
                     philosophyIntro
                         .padding(.horizontal, 24)
                         .padding(.bottom, 8)
+                    MeditationTimerCard(
+                        sessionStore: meditationSessionStore,
+                        settings: meditationSettings
+                    ) {
+                        showMeditationTimer = true
+                    }
+                    .padding(.horizontal, 24)
+                    .padding(.bottom, 8)
                     if isLoading {
                         ProgressView().padding(.top, 48)
                         Spacer()
@@ -55,6 +66,12 @@ struct PracticeLibraryView: View {
             .navigationTitle("Practice")
             .navigationBarTitleDisplayMode(.large)
             .task { await load() }
+            .fullScreenCover(isPresented: $showMeditationTimer) {
+                MeditationTimerFlowView(
+                    settings: meditationSettings,
+                    sessionStore: meditationSessionStore
+                )
+            }
         }
     }
 

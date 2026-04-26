@@ -92,6 +92,15 @@
 		FBD1953ADF3FCA9456CEDA59 /* PracticeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766FC6FAD13ACA0E1DB172F0 /* PracticeDetailView.swift */; };
 		FCE933BAE91BC453D4831D61 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD45B2ABE5C3CDFF54CE482 /* Purchase.swift */; };
 		FDFC164646D33FC9187510B4 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2272D49349E8E0BE2475E3 /* Config.swift */; };
+		D9373140211546E6A0C76F28 /* MeditationAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FEBD8EE9784E6C952CA6B7 /* MeditationAudioController.swift */; };
+		796C80ABA616442B9D14218D /* MeditationNotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF673656002645A6A564D27D /* MeditationNotificationScheduler.swift */; };
+		27FBB903496A4CE2A130D895 /* MeditationSessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67721EC66CD480192205098 /* MeditationSessionStore.swift */; };
+		E8D0836870E747D09AEF11F1 /* MeditationTimerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933E4C03A31C4C438F43B47F /* MeditationTimerCard.swift */; };
+		E7FBC3A50D64461AAC5155BD /* MeditationTimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F391B42D51F14F3290555F49 /* MeditationTimerModel.swift */; };
+		AA4DA8765F9940DFB31B6B36 /* MeditationTimerTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BDD7D7D237453E957F236E /* MeditationTimerTypes.swift */; };
+		1DA03796B4F94FD8A4BA6C51 /* MeditationTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33EAB0A88784AAC83378A44 /* MeditationTimerView.swift */; };
+		87717AFC151C48BFA23553BC /* MeditationTimerModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD7A9FA6B21400A91E9E6F0 /* MeditationTimerModelTests.swift */; };
+		59F810AC2E92481586064956 /* MeditationSessionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1909B38F6840A28786AB7A /* MeditationSessionStoreTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +136,8 @@
 		0E0000030000000000000001 /* AppStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateTests.swift; sourceTree = "<group>"; };
 		0E0000040000000000000001 /* ApplicationFlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationFlowTests.swift; sourceTree = "<group>"; };
 		0E0000050000000000000001 /* ProfileRoleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRoleTests.swift; sourceTree = "<group>"; };
+		4BD7A9FA6B21400A91E9E6F0 /* MeditationTimerModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationTimerModelTests.swift; sourceTree = "<group>"; };
+		6A1909B38F6840A28786AB7A /* MeditationSessionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationSessionStoreTests.swift; sourceTree = "<group>"; };
 		0E53774A5E2A2FA697951F4C /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		1252033FF59ED9EE05E07E99 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
 		1628D4C1256176E61A7D55E7 /* CohortListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CohortListView.swift; sourceTree = "<group>"; };
@@ -172,6 +183,13 @@
 		7A86DE09B0804511A0B4E9BB /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		7B5CE30C747832B9D9E689BB /* PracticeLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeLibraryView.swift; sourceTree = "<group>"; };
 		7FD4D21C48923F218B1CFB8C /* ShareConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareConfirmationView.swift; sourceTree = "<group>"; };
+		42FEBD8EE9784E6C952CA6B7 /* MeditationAudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationAudioController.swift; sourceTree = "<group>"; };
+		BF673656002645A6A564D27D /* MeditationNotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationNotificationScheduler.swift; sourceTree = "<group>"; };
+		F67721EC66CD480192205098 /* MeditationSessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationSessionStore.swift; sourceTree = "<group>"; };
+		933E4C03A31C4C438F43B47F /* MeditationTimerCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationTimerCard.swift; sourceTree = "<group>"; };
+		F391B42D51F14F3290555F49 /* MeditationTimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationTimerModel.swift; sourceTree = "<group>"; };
+		D5BDD7D7D237453E957F236E /* MeditationTimerTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationTimerTypes.swift; sourceTree = "<group>"; };
+		A33EAB0A88784AAC83378A44 /* MeditationTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationTimerView.swift; sourceTree = "<group>"; };
 		8949FF2A5E69393985FF7C50 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		8F87571CA77FF1AC16977DB2 /* AdminApplicationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminApplicationsView.swift; sourceTree = "<group>"; };
 		97B8D8BCB695FB9545BAE388 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -252,8 +270,23 @@
 				9CB0C822702FCC002AECE5DD /* AudioPlayerView.swift */,
 				766FC6FAD13ACA0E1DB172F0 /* PracticeDetailView.swift */,
 				7B5CE30C747832B9D9E689BB /* PracticeLibraryView.swift */,
+				752EB398D1E84B809B6A54E2 /* Timer */,
 			);
 			path = Practice;
+			sourceTree = "<group>";
+		};
+		752EB398D1E84B809B6A54E2 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				42FEBD8EE9784E6C952CA6B7 /* MeditationAudioController.swift */,
+				BF673656002645A6A564D27D /* MeditationNotificationScheduler.swift */,
+				F67721EC66CD480192205098 /* MeditationSessionStore.swift */,
+				933E4C03A31C4C438F43B47F /* MeditationTimerCard.swift */,
+				F391B42D51F14F3290555F49 /* MeditationTimerModel.swift */,
+				D5BDD7D7D237453E957F236E /* MeditationTimerTypes.swift */,
+				A33EAB0A88784AAC83378A44 /* MeditationTimerView.swift */,
+			);
+			path = Timer;
 			sourceTree = "<group>";
 		};
 		16D312D2FA8945A31872B2E1 /* Spiral */ = {
@@ -452,6 +485,8 @@
 			children = (
 				0E0000030000000000000001 /* AppStateTests.swift */,
 				0E0000040000000000000001 /* ApplicationFlowTests.swift */,
+				6A1909B38F6840A28786AB7A /* MeditationSessionStoreTests.swift */,
+				4BD7A9FA6B21400A91E9E6F0 /* MeditationTimerModelTests.swift */,
 				0E0000020000000000000001 /* MockSupabaseService.swift */,
 				0E0000050000000000000001 /* ProfileRoleTests.swift */,
 			);
@@ -777,6 +812,8 @@
 			files = (
 				0E0000070000000000000001 /* AppStateTests.swift in Sources */,
 				0E0000080000000000000001 /* ApplicationFlowTests.swift in Sources */,
+				59F810AC2E92481586064956 /* MeditationSessionStoreTests.swift in Sources */,
+				87717AFC151C48BFA23553BC /* MeditationTimerModelTests.swift in Sources */,
 				0E0000060000000000000001 /* MockSupabaseService.swift in Sources */,
 				0E0000090000000000000001 /* ProfileRoleTests.swift in Sources */,
 			);
@@ -828,6 +865,13 @@
 				0A1300010000000000000001 /* LearnView.swift in Sources */,
 				BC50926614778554022ECF18 /* MainTabView.swift in Sources */,
 				30B55CA925CF04CCF2862070 /* ManageTabView.swift in Sources */,
+				D9373140211546E6A0C76F28 /* MeditationAudioController.swift in Sources */,
+				796C80ABA616442B9D14218D /* MeditationNotificationScheduler.swift in Sources */,
+				27FBB903496A4CE2A130D895 /* MeditationSessionStore.swift in Sources */,
+				E8D0836870E747D09AEF11F1 /* MeditationTimerCard.swift in Sources */,
+				E7FBC3A50D64461AAC5155BD /* MeditationTimerModel.swift in Sources */,
+				AA4DA8765F9940DFB31B6B36 /* MeditationTimerTypes.swift in Sources */,
+				1DA03796B4F94FD8A4BA6C51 /* MeditationTimerView.swift in Sources */,
 				427CDBCE6B4A681379A4443E /* MyPieceView.swift in Sources */,
 				D8C9848030F969FE92D9A75D /* OnboardingView.swift in Sources */,
 				0B1100010000000000000001 /* POWPhilosophy.swift in Sources */,
