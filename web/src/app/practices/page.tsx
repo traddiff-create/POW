@@ -2,8 +2,14 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { CrisisBanner } from "@/components/CrisisBanner";
+import { currentProgramWeek } from "@/lib/week";
 
 const CATEGORY_LABELS: Record<string, string> = {
+  self_regulation: "Self-Regulation",
+  co_regulation: "Co-Regulation",
+  community: "Community",
+  agency: "Agency",
+  civic_engagement: "Civic Engagement",
   somatic: "Somatic",
   breathwork: "Breathwork",
   mindfulness: "Mindfulness",
@@ -29,13 +35,12 @@ export default async function PracticesPage() {
     ? (enrollment as unknown as { cohorts: { start_date: string } }).cohorts
     : null;
 
-  const weekNumber = cohort
-    ? Math.min(8, Math.max(1, Math.ceil((Date.now() - new Date(cohort.start_date).getTime()) / (7 * 24 * 60 * 60 * 1000))))
-    : null;
+  const weekNumber = cohort ? currentProgramWeek(cohort.start_date) : null;
 
   const { data: practices } = await supabase
     .from("practices")
-    .select("id, title, category, duration_minutes, week_number, has_audio")
+    .select("id, title, subtitle, category, duration_minutes, week_number, has_audio, audio_source, source_kind, evidence_level, risk_level, sort_order")
+    .order("sort_order", { ascending: true, nullsFirst: false })
     .order("week_number", { ascending: true, nullsFirst: false });
 
   const thisWeek = weekNumber ? practices?.filter((p) => p.week_number === weekNumber) : [];
@@ -84,10 +89,15 @@ function PracticeCard({
   practice: {
     id: string;
     title: string;
+    subtitle: string | null;
     category: string | null;
     duration_minutes: number | null;
     week_number: number | null;
     has_audio: boolean;
+    audio_source: string | null;
+    source_kind: string | null;
+    evidence_level: string | null;
+    risk_level: string | null;
   };
   highlight?: boolean;
 }) {
@@ -100,6 +110,9 @@ function PracticeCard({
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-sm font-medium">{practice.title}</p>
+            {practice.subtitle && (
+              <p className="text-xs text-foreground/50 mt-1">{practice.subtitle}</p>
+            )}
             <div className="flex gap-3 mt-1 text-xs text-foreground/50">
               {practice.category && (
                 <span>{CATEGORY_LABELS[practice.category] ?? practice.category}</span>
@@ -107,7 +120,14 @@ function PracticeCard({
               {practice.duration_minutes && (
                 <span>{practice.duration_minutes} min</span>
               )}
-              {practice.has_audio && <span>🎧</span>}
+              {practice.has_audio && (
+                <span>{practice.audio_source === "ios_bundle" ? "Audio in iOS" : "Audio"}</span>
+              )}
+            </div>
+            <div className="flex flex-wrap gap-2 mt-2 text-[11px] text-foreground/40">
+              {practice.source_kind && <span>{labelize(practice.source_kind)}</span>}
+              {practice.evidence_level && <span>Evidence: {labelize(practice.evidence_level)}</span>}
+              {practice.risk_level && <span>Risk: {labelize(practice.risk_level)}</span>}
             </div>
           </div>
           {practice.week_number && (
@@ -117,4 +137,8 @@ function PracticeCard({
       </Link>
     </li>
   );
+}
+
+function labelize(value: string) {
+  return value.replaceAll("_", " ").replace(/\b\w/g, (char) => char.toUpperCase());
 }

@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { CrisisBanner } from "@/components/CrisisBanner";
+import { currentDateLabel, currentGreeting, currentProgramWeek } from "@/lib/week";
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -35,17 +36,7 @@ export default async function HomePage() {
     };
   }).cohorts : null;
 
-  const weekNumber = cohort
-    ? Math.min(
-        8,
-        Math.max(
-          1,
-          Math.ceil(
-            (Date.now() - new Date(cohort.start_date).getTime()) / (7 * 24 * 60 * 60 * 1000)
-          )
-        )
-      )
-    : 1;
+  const weekNumber = currentProgramWeek(cohort?.start_date);
 
   const currentWeek = cohort?.cohort_curriculum?.find((w) => w.week_number === weekNumber);
 
@@ -57,15 +48,14 @@ export default async function HomePage() {
     .maybeSingle();
 
   const firstName = profile?.display_name?.split(" ")[0] ?? "there";
-  const hour = new Date().getHours();
-  const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
+  const greeting = currentGreeting();
 
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 px-6 py-12 max-w-2xl mx-auto w-full space-y-10">
         <div>
           <p className="text-foreground/50 text-sm mb-1">
-            {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
+            {currentDateLabel()}
           </p>
           <h1 className="text-3xl">
             {greeting}, {firstName}.

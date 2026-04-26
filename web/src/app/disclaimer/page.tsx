@@ -4,9 +4,6 @@ export default function DisclaimerPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 px-6 py-16 max-w-2xl mx-auto">
-        <p className="text-sm text-error mb-8 border border-error px-4 py-3">
-          DRAFT — FOR ATTORNEY REVIEW BEFORE LAUNCH
-        </p>
         <h1 className="text-3xl mb-6">Not Therapy Disclaimer</h1>
         <div className="space-y-4 text-foreground/80 leading-relaxed">
           <p>

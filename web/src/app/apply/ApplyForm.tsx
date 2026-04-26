@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Link from "next/link";
@@ -29,12 +29,12 @@ export function ApplyForm({ cohorts, defaultCohortId }: { cohorts: Cohort[]; def
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<FormValues>({
+  const { register, handleSubmit, control, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: { cohort_id: defaultCohortId ?? "" },
   });
 
-  const crisis = watch("crisis");
+  const crisis = useWatch({ control, name: "crisis" });
 
   async function onSubmit(values: FormValues) {
     if (values.crisis === "yes") return;

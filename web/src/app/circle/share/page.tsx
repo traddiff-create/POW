@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { CrisisBanner } from "@/components/CrisisBanner";
+import { currentProgramWeek } from "@/lib/week";
 import { ShareForm } from "./ShareForm";
 
 export default async function SharePage() {
@@ -23,9 +24,7 @@ export default async function SharePage() {
     cohorts: { start_date: string; cohort_curriculum: Array<{ week_number: number; circle_prompt: string }> };
   }).cohorts;
 
-  const weekNumber = Math.min(8, Math.max(1, Math.ceil(
-    (Date.now() - new Date(cohort.start_date).getTime()) / (7 * 24 * 60 * 60 * 1000)
-  )));
+  const weekNumber = currentProgramWeek(cohort.start_date);
 
   const curriculumWeek = cohort.cohort_curriculum?.find((w) => w.week_number === weekNumber);
   const cohortId = (enrollment as unknown as { cohort_id: string }).cohort_id;

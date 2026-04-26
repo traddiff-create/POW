@@ -2,29 +2,26 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { CrisisBanner } from "@/components/CrisisBanner";
+import { currentProgramWeek } from "@/lib/week";
 
 export default async function MyPiecePage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/auth/login");
 
-  const [profileRes, enrollmentRes, checkInsRes, journalRes, sharesRes] = await Promise.all([
-    supabase.from("user_profiles").select("display_name, onboarding_completed_at").eq("id", user.id).single(),
+  const [enrollmentRes, checkInsRes, journalRes, sharesRes] = await Promise.all([
     supabase.from("enrollments").select("cohort_id, enrolled_at, cohorts(name, start_date)").eq("user_id", user.id).order("enrolled_at", { ascending: false }).limit(1).maybeSingle(),
     supabase.from("check_ins").select("id, week_number").eq("user_id", user.id),
     supabase.from("journal_entries").select("id").eq("user_id", user.id),
     supabase.from("circle_shares").select("id").eq("user_id", user.id),
   ]);
 
-  const profile = profileRes.data;
   const enrollment = enrollmentRes.data;
   const cohort = enrollment
     ? (enrollment as unknown as { cohorts: { name: string; start_date: string } }).cohorts
     : null;
 
-  const weekNumber = cohort
-    ? Math.min(8, Math.max(1, Math.ceil((Date.now() - new Date(cohort.start_date).getTime()) / (7 * 24 * 60 * 60 * 1000))))
-    : null;
+  const weekNumber = cohort ? currentProgramWeek(cohort.start_date) : null;
 
   const checkIns = checkInsRes.data ?? [];
   const journalCount = journalRes.data?.length ?? 0;

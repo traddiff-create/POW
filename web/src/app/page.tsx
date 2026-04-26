@@ -48,6 +48,11 @@ export default async function LandingPage() {
           <p className="text-foreground/80 leading-relaxed">
             The civic piece is optional — a gentle invitation to consider how the inner work connects to the world outside. Not political. Not prescribed. Just an opening.
           </p>
+          <p className="mt-6">
+            <Link href="/learn" className="text-sm text-sage underline">
+              Browse the Learn library →
+            </Link>
+          </p>
         </section>
 
         {/* How it works */}

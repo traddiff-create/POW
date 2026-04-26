@@ -74,7 +74,7 @@ export async function PATCH(
       to: applicantEmail,
       name: applicantName,
       cohortName,
-      stripePaymentLink: `${process.env.NEXT_PUBLIC_APP_URL}/pay?a=${id}`,
+      nextStep: "Please sign in to the iOS app with this email address. You will complete cohort enrollment through the in-app purchase flow.",
     });
   } else if (action === "reject") {
     await sendRejectionEmail({

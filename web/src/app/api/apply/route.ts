@@ -12,7 +12,13 @@ const schema = z.object({
 });
 
 export async function POST(request: NextRequest) {
-  const body = await request.json();
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+  }
+
   const result = schema.safeParse(body);
 
   if (!result.success) {
@@ -46,7 +52,10 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (insertError || !application) {
-    console.error("Application insert failed:", insertError);
+    console.error("Application insert failed:", {
+      code: insertError?.code,
+      message: insertError?.message,
+    });
     return NextResponse.json({ error: "Failed to save application" }, { status: 500 });
   }
 

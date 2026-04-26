@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { CrisisBanner } from "@/components/CrisisBanner";
+import { currentProgramWeek } from "@/lib/week";
 import { CheckInForm } from "./CheckInForm";
 
 export default async function CheckInPage() {
@@ -20,9 +21,7 @@ export default async function CheckInPage() {
     ? (enrollment as unknown as { cohort_id: string; cohorts: { start_date: string } }).cohorts
     : null;
 
-  const weekNumber = cohort
-    ? Math.min(8, Math.max(1, Math.ceil((Date.now() - new Date(cohort.start_date).getTime()) / (7 * 24 * 60 * 60 * 1000))))
-    : 1;
+  const weekNumber = currentProgramWeek(cohort?.start_date);
 
   const { data: existing } = await supabase
     .from("check_ins")

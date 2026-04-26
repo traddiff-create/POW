@@ -49,7 +49,7 @@ export async function sendApprovalEmail(opts: {
   to: string;
   name: string;
   cohortName: string;
-  stripePaymentLink: string;
+  nextStep: string;
 }) {
   return getResend().emails.send({
     from: FROM,
@@ -58,9 +58,7 @@ export async function sendApprovalEmail(opts: {
     html: `
       <p>Hi ${opts.name},</p>
       <p>We've reviewed your application to <strong>${opts.cohortName}</strong> and we're glad to welcome you.</p>
-      <p>To secure your spot, please complete your payment here:<br/>
-      <a href="${opts.stripePaymentLink}">${opts.stripePaymentLink}</a></p>
-      <p>Once payment is confirmed, you'll receive your sign-in link and cohort details.</p>
+      <p>${opts.nextStep}</p>
       <p>If you have questions, reply to this email.</p>
       <p>With care,<br/>A Piece of Whole</p>
     `,
