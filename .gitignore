@@ -36,6 +36,7 @@ supabase/.env
 supabase/functions/.env
 
 # Android
+.gradle/
 android/.gradle/
 android/build/
 android/local.properties
