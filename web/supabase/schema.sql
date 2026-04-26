@@ -94,13 +94,53 @@ create table enrollments (
 create table practices (
   id uuid primary key default uuid_generate_v4(),
   title text not null,
+  subtitle text,
   category text,
+  layers text[],
   week_number int check (week_number between 1 and 8),
   duration_minutes int,
   has_audio boolean not null default false,
   audio_path text,
+  audio_source text check (audio_source is null or audio_source in ('ios_bundle','supabase_storage','remote_url')),
   body_text text,
+  source_id text unique,
+  source_kind text check (source_kind is null or source_kind in ('legacy_curriculum','meditation_technique','audio_library')),
+  tags text[],
+  use_cases text[],
+  evidence_level text check (evidence_level is null or evidence_level in ('strong','moderate','low','theoretical')),
+  risk_level text check (risk_level is null or risk_level in ('very_low','low','moderate','high')),
+  risk_note text,
+  icon_name text,
+  is_advanced boolean not null default false,
+  sort_order int,
+  published boolean default true,
   created_at timestamptz not null default now()
+);
+
+-- learning_resources (reviewed Alexandria Learn shelf)
+create table learning_resources (
+  id uuid primary key default uuid_generate_v4(),
+  source_kind text not null check (source_kind in ('alexandria')),
+  source_id text not null unique,
+  source_uuid uuid not null unique,
+  title text not null,
+  subtitle text,
+  summary text,
+  body_markdown text,
+  content_status text not null default 'metadata_only'
+    check (content_status in ('metadata_only', 'excerpt', 'full_text')),
+  file_type text not null,
+  layers text[] not null default array[]::text[],
+  subjects text[] not null default array[]::text[],
+  tags text[] not null default array[]::text[],
+  reading_minutes int check (reading_minutes is null or reading_minutes > 0),
+  reflection_prompt text,
+  published boolean not null default false,
+  sort_order int,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  check (array_length(layers, 1) is not null),
+  check (content_status <> 'full_text' or body_markdown is not null)
 );
 
 -- civic_lessons (static civic content)
@@ -135,6 +175,7 @@ create table journal_entries (
   week_number int check (week_number between 1 and 8),
   title text,
   body text,
+  source_resource_id uuid references learning_resources(id) on delete set null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -204,6 +245,33 @@ create trigger set_journal_entries_updated_at
   before update on journal_entries
   for each row execute function set_updated_at();
 
+create trigger set_learning_resources_updated_at
+  before update on learning_resources
+  for each row execute function set_updated_at();
+
+create or replace view learning_resource_metadata
+with (security_invoker = true) as
+select
+  id,
+  source_kind,
+  source_id,
+  source_uuid,
+  title,
+  subtitle,
+  summary,
+  content_status,
+  file_type,
+  layers,
+  subjects,
+  tags,
+  reading_minutes,
+  published,
+  sort_order,
+  created_at,
+  updated_at
+from learning_resources
+where published = true;
+
 -- ============================================================
 -- ROW LEVEL SECURITY
 -- ============================================================
@@ -214,6 +282,7 @@ alter table applications enable row level security;
 alter table payments enable row level security;
 alter table enrollments enable row level security;
 alter table practices enable row level security;
+alter table learning_resources enable row level security;
 alter table civic_lessons enable row level security;
 alter table check_ins enable row level security;
 alter table journal_entries enable row level security;
@@ -279,6 +348,11 @@ create policy "admins manage enrollments" on enrollments for all using (is_admin
 -- practices (all authenticated users can read)
 create policy "authenticated reads practices" on practices for select using (auth.uid() is not null);
 create policy "admins manage practices" on practices for all using (is_admin());
+
+-- learning_resources (reviewed Alexandria shelf)
+create policy "published learning resources are readable" on learning_resources for select
+  using (published = true or is_admin());
+create policy "admins manage learning resources" on learning_resources for all using (is_admin());
 
 -- civic_lessons (all authenticated users can read)
 create policy "authenticated reads civic" on civic_lessons for select using (auth.uid() is not null);
