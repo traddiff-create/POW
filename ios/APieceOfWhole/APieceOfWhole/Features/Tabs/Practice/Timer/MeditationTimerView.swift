@@ -511,52 +511,57 @@ private struct MeditationActiveTimerView: View {
         ZStack {
             Color.powBackground.ignoresSafeArea()
 
-            VStack(spacing: 28) {
-                Spacer()
+            Button(action: onTogglePause) {
+                VStack(spacing: 28) {
+                    Spacer()
 
-                ZStack {
-                    Circle()
-                        .stroke(Color.powBorder, lineWidth: 12)
-                        .frame(width: 260, height: 260)
-                    Circle()
-                        .trim(from: 0, to: timer.progress)
-                        .stroke(Color.powSage, style: StrokeStyle(lineWidth: 12, lineCap: .round))
-                        .rotationEffect(.degrees(-90))
-                        .frame(width: 260, height: 260)
+                    ZStack {
+                        Circle()
+                            .stroke(Color.powBorder, lineWidth: 12)
+                            .frame(width: 260, height: 260)
+                        Circle()
+                            .trim(from: 0, to: timer.progress)
+                            .stroke(Color.powSage, style: StrokeStyle(lineWidth: 12, lineCap: .round))
+                            .rotationEffect(.degrees(-90))
+                            .frame(width: 260, height: 260)
 
-                    VStack(spacing: 8) {
-                        Text(MeditationTimerModel.formatTime(timer.timeRemainingSeconds))
-                            .font(.system(size: 58, weight: .semibold, design: .rounded))
-                            .monospacedDigit()
-                            .foregroundStyle(Color.powForeground)
-                        Text(timer.state == .paused ? "Paused" : "Sitting")
-                            .font(.powLabel)
-                            .foregroundStyle(Color.powMuted)
+                        VStack(spacing: 8) {
+                            Text(MeditationTimerModel.formatTime(timer.timeRemainingSeconds))
+                                .font(.system(size: 58, weight: .semibold, design: .rounded))
+                                .monospacedDigit()
+                                .foregroundStyle(Color.powForeground)
+                            Text(timer.state == .paused ? "Paused" : "Sitting")
+                                .font(.powLabel)
+                                .foregroundStyle(Color.powMuted)
+                        }
                     }
+
+                    ZStack {
+                        Circle()
+                            .fill(Color.powSageLight)
+                            .frame(width: 74, height: 74)
+                            .scaleEffect(timer.state == .paused ? 1 : breathScale)
+                        Image(systemName: timer.state == .paused ? "pause.fill" : "wind")
+                            .font(.system(size: 22))
+                            .foregroundStyle(Color.powSage)
+                    }
+                    .animation(
+                        timer.state == .paused ? .default : .easeInOut(duration: 4).repeatForever(autoreverses: true),
+                        value: breathScale
+                    )
+
+                    Text(timer.state == .paused ? "Tap to resume" : "Tap to pause")
+                        .font(.powCaption)
+                        .foregroundStyle(Color.powMuted)
+
+                    Spacer()
                 }
-
-                ZStack {
-                    Circle()
-                        .fill(Color.powSageLight)
-                        .frame(width: 74, height: 74)
-                        .scaleEffect(timer.state == .paused ? 1 : breathScale)
-                    Image(systemName: timer.state == .paused ? "pause.fill" : "wind")
-                        .font(.system(size: 22))
-                        .foregroundStyle(Color.powSage)
-                }
-                .animation(
-                    timer.state == .paused ? .default : .easeInOut(duration: 4).repeatForever(autoreverses: true),
-                    value: breathScale
-                )
-
-                Text(timer.state == .paused ? "Tap to resume" : "Tap to pause")
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
-
-                Spacer()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .contentShape(Rectangle())
             }
-            .contentShape(Rectangle())
-            .onTapGesture(perform: onTogglePause)
+            .buttonStyle(.plain)
+            .accessibilityLabel(timer.state == .paused ? "Resume meditation timer" : "Pause meditation timer")
+            .accessibilityValue(MeditationTimerModel.formatTime(timer.timeRemainingSeconds))
             .onAppear {
                 breathScale = 1.22
             }
@@ -577,9 +582,6 @@ private struct MeditationActiveTimerView: View {
                 Spacer()
             }
         }
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel("Meditation timer")
-        .accessibilityValue(MeditationTimerModel.formatTime(timer.timeRemainingSeconds))
     }
 }
 
