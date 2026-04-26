@@ -13,7 +13,7 @@ struct POWButton: View {
             ZStack {
                 if isLoading {
                     ProgressView()
-                        .tint(style == .primary ? .white : .powSage)
+                        .tint(style == .primary ? .powForeground : .powSage)
                 } else {
                     Text(title)
                         .font(.powHeadline)
@@ -42,7 +42,7 @@ struct POWButton: View {
 
     private var foregroundColor: Color {
         switch style {
-        case .primary: return .white
+        case .primary: return .powForeground
         case .ghost: return .powSage
         case .destructive: return .powError
         }

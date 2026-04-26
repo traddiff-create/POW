@@ -69,7 +69,7 @@ struct WelcomeView: View {
                                 Task { await signInWithApple(payload) }
                             },
                             onError: { error in
-                                appleError = error.errorDescription
+                                appleError = AppPublicError.message(for: error, context: .appleSignIn)
                             },
                             label: .continue
                         )
@@ -148,7 +148,7 @@ struct WelcomeView: View {
         do {
             try await appState.signInWithApple(credential: payload)
         } catch {
-            appleError = error.localizedDescription
+            appleError = AppPublicError.message(for: error, context: .appleSignIn)
         }
         isAppleSigningIn = false
     }

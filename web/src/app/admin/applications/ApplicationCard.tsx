@@ -81,7 +81,7 @@ export function ApplicationCard({ application }: { application: Application }) {
           <button
             onClick={() => take("approve")}
             disabled={!!loading}
-            className="text-xs bg-sage text-white px-3 py-1.5 hover:opacity-80 transition-opacity disabled:opacity-50"
+            className="text-xs bg-sage text-foreground px-3 py-1.5 hover:opacity-80 transition-opacity disabled:opacity-50"
           >
             {loading === "approve" ? "…" : "Approve"}
           </button>

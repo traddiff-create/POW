@@ -134,7 +134,7 @@ struct CohortEditView: View {
             await onSave()
             dismiss()
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .management)
         }
         isSaving = false
     }

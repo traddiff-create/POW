@@ -139,7 +139,7 @@ struct MyPieceView: View {
             savedAt = Date()
             await appState.refreshProfile()
         } catch {
-            saveError = error.localizedDescription
+            saveError = AppPublicError.message(for: error, context: .myPiece)
         }
         isSaving = false
     }

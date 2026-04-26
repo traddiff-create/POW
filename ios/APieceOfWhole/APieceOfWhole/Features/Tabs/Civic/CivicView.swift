@@ -61,7 +61,7 @@ struct CivicView: View {
         do {
             lessons = try await SupabaseService.shared.fetchCivicLessons()
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .civic)
         }
         isLoading = false
     }

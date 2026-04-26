@@ -1,14 +1,9 @@
 import Link from "next/link";
-import { createServiceClient } from "@/lib/supabase/server";
 import { Footer } from "@/components/Footer";
+import { getOpenCohorts } from "@/lib/public-data";
 
 export default async function CohortsPage() {
-  const supabase = await createServiceClient();
-  const { data: cohorts } = await supabase
-    .from("cohorts")
-    .select("id, name, slug, start_date, description, max_participants, is_open")
-    .eq("is_open", true)
-    .order("start_date", { ascending: true });
+  const cohorts = await getOpenCohorts();
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -18,7 +13,7 @@ export default async function CohortsPage() {
           Each cohort is a small group moving through 8 weeks together. Apply to join one below.
         </p>
 
-        {cohorts && cohorts.length > 0 ? (
+        {cohorts.length > 0 ? (
           <ul className="space-y-4">
             {cohorts.map((cohort) => (
               <li key={cohort.id}>

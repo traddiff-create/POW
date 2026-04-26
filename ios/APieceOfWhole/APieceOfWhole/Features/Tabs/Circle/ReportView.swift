@@ -141,7 +141,7 @@ struct ReportView: View {
             try await SupabaseService.shared.submitReport(submission)
             submitted = true
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .circle)
         }
         isSubmitting = false
     }

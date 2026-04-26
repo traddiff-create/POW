@@ -1,27 +1,18 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { createServiceClient } from "@/lib/supabase/server";
 import { Footer } from "@/components/Footer";
+import {
+  getCohortBySlugOrID,
+  getCurriculumForCohort,
+} from "@/lib/public-data";
 
 export default async function CohortDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const supabase = await createServiceClient();
-
-  const { data: cohort } = await supabase
-    .from("cohorts")
-    .select("id, name, slug, start_date, description, is_open")
-    .eq("slug", slug)
-    .single();
+  const cohort = await getCohortBySlugOrID(slug);
 
   if (!cohort) notFound();
 
-  const { data: curriculumRows } = await supabase
-    .from("cohort_curriculum")
-    .select("week_number, title, theme")
-    .eq("cohort_id", cohort.id)
-    .order("week_number");
-
-  const curriculum = curriculumRows ?? [];
+  const curriculum = await getCurriculumForCohort(cohort.id);
 
   return (
     <div className="flex flex-col min-h-screen">

@@ -86,7 +86,7 @@ struct DeleteAccountView: View {
             )
             didSubmit = true
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .accountDeletion)
         }
         isSubmitting = false
     }

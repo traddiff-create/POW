@@ -1,5 +1,5 @@
-import { createServiceClient } from "@/lib/supabase/server";
 import { Footer } from "@/components/Footer";
+import { getOpenCohorts, isDemoDataMode } from "@/lib/public-data";
 import { ApplyForm } from "./ApplyForm";
 
 export default async function ApplyPage({
@@ -8,18 +8,11 @@ export default async function ApplyPage({
   searchParams: Promise<{ cohort?: string }>;
 }) {
   const { cohort: cohortSlug } = await searchParams;
-  const supabase = await createServiceClient();
-
-  const { data: cohorts } = await supabase
-    .from("cohorts")
-    .select("id, name, slug")
-    .eq("is_open", true)
-    .order("start_date");
-
-  const openCohorts = cohorts ?? [];
+  const openCohorts = await getOpenCohorts();
   const defaultCohortId = cohortSlug
-    ? openCohorts.find((c) => c.slug === cohortSlug)?.id
+    ? openCohorts.find((c) => c.slug === cohortSlug || c.id === cohortSlug)?.id
     : undefined;
+  const isDemoMode = isDemoDataMode();
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -29,7 +22,11 @@ export default async function ApplyPage({
           <p className="text-foreground/60 mb-12">
             Applications are reviewed by a human within 48 hours.
           </p>
-          <ApplyForm cohorts={openCohorts} defaultCohortId={defaultCohortId} />
+          <ApplyForm
+            cohorts={openCohorts}
+            defaultCohortId={defaultCohortId}
+            isDemoMode={isDemoMode}
+          />
         </div>
       </main>
       <Footer />

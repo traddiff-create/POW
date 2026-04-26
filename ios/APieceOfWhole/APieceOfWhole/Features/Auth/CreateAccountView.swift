@@ -93,7 +93,7 @@ struct CreateAccountView: View {
                 confirmationMessage = "Check \(normalizedEmail) to confirm your account, then sign in."
             }
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .createAccount)
         }
         isLoading = false
     }
@@ -105,7 +105,7 @@ struct CreateAccountView: View {
         do {
             try await appState.signInWithApple(credential: payload)
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .appleSignIn)
         }
         isAppleSigningIn = false
     }

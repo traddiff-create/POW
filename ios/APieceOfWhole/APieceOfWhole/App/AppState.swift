@@ -67,7 +67,7 @@ final class AppState {
         circleID = nil
 
         if let configurationError = Config.supabaseConfigurationError {
-            loadError = configurationError.localizedDescription
+            loadError = AppPublicError.message(for: configurationError, context: .configuration)
             session = nil
             isLoadingSession = false
             return

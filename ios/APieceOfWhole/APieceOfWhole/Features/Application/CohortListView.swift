@@ -65,7 +65,7 @@ struct CohortListView: View {
             cohorts = try await appState.fetchOpenCohorts()
             applications = try await appState.fetchApplicationsForCurrentUser()
         } catch {
-            self.error = error.localizedDescription
+            self.error = AppPublicError.message(for: error, context: .cohorts)
         }
         isLoading = false
     }

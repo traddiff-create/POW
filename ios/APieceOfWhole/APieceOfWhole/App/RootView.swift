@@ -5,7 +5,9 @@ struct RootView: View {
 
     var body: some View {
         if let configurationError = Config.supabaseConfigurationError {
-            ConfigurationErrorView(message: configurationError.localizedDescription)
+            ConfigurationErrorView(
+                message: AppPublicError.message(for: configurationError, context: .configuration)
+            )
         } else if appState.isLoadingSession {
             ProgressView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
