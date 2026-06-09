@@ -1,0 +1,43 @@
+# POW (A Piece of Whole) iOS launch-pass config
+app:
+  name: APieceOfWhole
+  bundle_id: com.traddiff.APieceOfWhole  # confirm from pbxproj if non-default
+  marketing_version: "1.0"
+  build_number: 1
+  xcodeproj: ios/APieceOfWhole/APieceOfWhole.xcodeproj
+  scheme: APieceOfWhole
+devices:
+  - id: 00008110-0012543022C0A01E
+    label: iPad Mini
+    role: tablet-proof
+    connection: usb
+  - id: 00008150-00115D391EC0401C
+    label: iPhone 17 Pro
+    role: phone-proof
+    connection: wifi
+target_date: 2026-06-23
+cadence: { qa_days: 7, fix_days: 7 }
+readiness_score: { target: 85, source: docs/PRODUCTION_QA.md }
+reviewer_personas:
+  domain_user: end_user
+  product: artist
+launch_posture:
+  hide_until_proven: []
+  hide_for_sparse_content: []
+  evaluate_for_hide: []
+  keep_as_launch_feature: []
+  keep_but_gate: []
+scripts: { release_readiness: "", full_qa: "" }
+evidence: { base_dir: build/qa-evidence, tracker: docs/SHIP_GATE_QA_TRACKER.md }
+riders: 1
+field_test: { location: "", required: false, network: any }
+soak_minutes: 10
+content_thresholds: { inventory: 0, events: 0, posts: 0, photos: 0 }
+accessibility_bar: { voiceover: required, dynamic_type: required }
+guardrails:
+  developer_dir: /Applications/Xcode.app/Contents/Developer
+  parent_gitignore_blocks_star: true
+  no_archive_without_explicit_upload: true
+  notes:
+    - "POW = A Piece of Whole (cross-platform iOS path)"
+    - "v1.0 (build 1) - pre-TF"
