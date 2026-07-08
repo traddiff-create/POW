@@ -31,7 +31,7 @@ struct WelcomeView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
 
             VStack(spacing: 0) {
                 Spacer()
@@ -41,26 +41,26 @@ struct WelcomeView: View {
                         .accessibilityIdentifier("welcome.title")
 
                     VStack(spacing: 10) {
-                        Text("\"\(POWPhilosophy.batesonQuote)\"")
-                            .font(.powTitle2)
-                            .foregroundStyle(Color.powForeground)
+                        Text("\"\(HerePhilosophy.batesonQuote)\"")
+                            .font(.hereTitle2)
+                            .foregroundStyle(Color.hereForeground)
                             .multilineTextAlignment(.center)
 
-                        Text(POWPhilosophy.batesonAttribution)
-                            .font(.powCaption)
-                            .foregroundStyle(Color.powMuted)
+                        Text(HerePhilosophy.batesonAttribution)
+                            .font(.hereCaption)
+                            .foregroundStyle(Color.hereMuted)
 
-                        Text(POWPhilosophy.welcomeCopy)
-                            .font(.powBody)
-                            .foregroundStyle(Color.powMuted)
+                        Text(HerePhilosophy.welcomeCopy)
+                            .font(.hereBody)
+                            .foregroundStyle(Color.hereMuted)
                             .multilineTextAlignment(.center)
                     }
 
                     VStack(spacing: 12) {
                         if let loadError = appState.loadError {
                             Text(loadError)
-                                .font(.powCaption)
-                                .foregroundStyle(Color.powError)
+                                .font(.hereCaption)
+                                .foregroundStyle(Color.hereError)
                                 .multilineTextAlignment(.center)
                                 .accessibilityIdentifier("welcome.loadErrorText")
                         }
@@ -79,39 +79,39 @@ struct WelcomeView: View {
 
                         if let appleError {
                             Text(appleError)
-                                .font(.powCaption)
-                                .foregroundStyle(Color.powError)
+                                .font(.hereCaption)
+                                .foregroundStyle(Color.hereError)
                                 .multilineTextAlignment(.center)
                                 .accessibilityIdentifier("welcome.appleErrorText")
                         }
 
-                        POWButton(title: "Continue without Account", isLoading: isContinuingAsGuest) {
+                        HereButton(title: "Continue without Account", isLoading: isContinuingAsGuest) {
                             Task { await continueAsGuest() }
                         }
                         .accessibilityIdentifier("welcome.guestButton")
 
-                        POWButton(title: "Apply to Join", style: .ghost) {
+                        HereButton(title: "Apply to Join", style: .ghost) {
                             onCreateAccount()
                         }
                         .accessibilityIdentifier("welcome.applyToJoinButton")
 
-                        POWButton(title: "Sign In with Email", style: .ghost) {
+                        HereButton(title: "Sign In with Email", style: .ghost) {
                             onSignIn()
                         }
                         .accessibilityIdentifier("welcome.signInButton")
 
                         if let guestError {
                             Text(guestError)
-                                .font(.powCaption)
-                                .foregroundStyle(Color.powError)
+                                .font(.hereCaption)
+                                .foregroundStyle(Color.hereError)
                                 .multilineTextAlignment(.center)
                                 .accessibilityIdentifier("welcome.guestErrorText")
                         }
 
                         NavigationLink(destination: PhilosophyView()) {
                             Label("Working Philosophy", systemImage: "circle.hexagongrid")
-                                .font(.powCallout)
-                                .foregroundStyle(Color.powSage)
+                                .font(.hereCallout)
+                                .foregroundStyle(Color.hereSage)
                         }
                         .padding(.top, 4)
                     }
@@ -122,8 +122,8 @@ struct WelcomeView: View {
                 Spacer()
 
                 Text("This app is not therapy, not medical care, and is not a crisis service.\nIf you are in crisis, contact 988.")
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 28)
                     .padding(.bottom, 32)
@@ -160,7 +160,7 @@ private struct HereWordmark: View {
         VStack(spacing: 8) {
             Text("Here")
                 .font(.system(size: 54, weight: .semibold, design: .serif))
-                .foregroundStyle(Color.powForeground)
+                .foregroundStyle(Color.hereForeground)
                 .tracking(0)
 
             HStack(spacing: 8) {
@@ -173,7 +173,7 @@ private struct HereWordmark: View {
 
     private func legDot(_ leg: HereLeg) -> some View {
         Circle()
-            .fill(leg == .together ? Color.powStone : Color.powSage)
+            .fill(leg == .together ? Color.hereStone : Color.hereSage)
             .frame(width: 7, height: 7)
             .accessibilityHidden(true)
     }

@@ -21,19 +21,19 @@ struct JournalEntryView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
                 VStack(spacing: 0) {
                     ScrollView {
                         VStack(spacing: 16) {
-                            POWTextField(label: "Title (optional)", text: $title, placeholder: "Give this entry a title...")
-                            POWTextField(label: "Your reflection", text: $body_text,
+                            HereTextField(label: "Title (optional)", text: $title, placeholder: "Give this entry a title...")
+                            HereTextField(label: "Your reflection", text: $body_text,
                                          placeholder: "What's present for you right now?", axis: .vertical)
                                 .frame(minHeight: 200, alignment: .top)
 
                             if let error {
                                 Text(error)
-                                    .font(.powCaption)
-                                    .foregroundStyle(Color.powError)
+                                    .font(.hereCaption)
+                                    .foregroundStyle(Color.hereError)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                             }
                         }
@@ -41,7 +41,7 @@ struct JournalEntryView: View {
                     }
 
                     VStack(spacing: 12) {
-                        POWButton(title: entry == nil ? "Save Entry" : "Update Entry", isLoading: isLoading) {
+                        HereButton(title: entry == nil ? "Save Entry" : "Update Entry", isLoading: isLoading) {
                             Task { await save() }
                         }
                         .disabled(body_text.trimmingCharacters(in: .whitespaces).isEmpty)
@@ -50,12 +50,12 @@ struct JournalEntryView: View {
                             Button("Share to Circle") {
                                 showShareConfirm = true
                             }
-                            .font(.powCallout)
-                            .foregroundStyle(Color.powSage)
+                            .font(.hereCallout)
+                            .foregroundStyle(Color.hereSage)
                         } else if entry?.isShared == true {
                             Label("Shared to Circle", systemImage: "checkmark.circle.fill")
-                                .font(.powCallout)
-                                .foregroundStyle(Color.powSage)
+                                .font(.hereCallout)
+                                .foregroundStyle(Color.hereSage)
                         }
                     }
                     .padding(.horizontal, 24)

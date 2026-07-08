@@ -11,7 +11,7 @@ struct RootView: View {
         } else if appState.isLoadingSession {
             ProgressView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.powBackground)
+                .background(Color.hereBackground)
         } else if !appState.isSignedIn {
             PublicNavigationView()
         } else if appState.isGuest && !appState.isOnboarded {
@@ -33,20 +33,20 @@ private struct ConfigurationErrorView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
 
             VStack(spacing: 16) {
                 Image(systemName: "exclamationmark.triangle")
                     .font(.system(size: 40))
-                    .foregroundStyle(Color.powError)
+                    .foregroundStyle(Color.hereError)
 
                 Text("Configuration Error")
-                    .font(.powTitle)
-                    .foregroundStyle(Color.powForeground)
+                    .font(.hereTitle)
+                    .foregroundStyle(Color.hereForeground)
 
                 Text(message)
-                    .font(.powBody)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereBody)
+                    .foregroundStyle(Color.hereMuted)
                     .multilineTextAlignment(.center)
             }
             .padding(.horizontal, 28)

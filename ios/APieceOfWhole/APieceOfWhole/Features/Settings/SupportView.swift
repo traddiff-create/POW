@@ -6,27 +6,27 @@ struct SupportView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
                 VStack(spacing: 24) {
                     Spacer()
                     Image(systemName: "envelope.circle")
                         .font(.system(size: 56))
-                        .foregroundStyle(Color.powSage)
+                        .foregroundStyle(Color.hereSage)
                     Text("Contact Support")
-                        .font(.powTitle2)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereTitle2)
+                        .foregroundStyle(Color.hereForeground)
                     Text("Have a question or need help? Reach out to our support team.")
-                        .font(.powBody)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereBody)
+                        .foregroundStyle(Color.hereMuted)
                         .multilineTextAlignment(.center)
-                    POWButton(title: "Email Support") {
-                        if let url = URL(string: "mailto:support@apieceofwhole.com") {
+                    HereButton(title: "Email Support") {
+                        if let url = URL(string: "mailto:rory@traddiff.com") {
                             UIApplication.shared.open(url)
                         }
                     }
                     Text("We typically respond within 2 business days.")
-                        .font(.powCaption)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereCaption)
+                        .foregroundStyle(Color.hereMuted)
                     Spacer()
                 }
                 .padding(28)

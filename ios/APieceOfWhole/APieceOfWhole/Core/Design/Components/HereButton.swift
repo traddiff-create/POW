@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct POWButton: View {
+struct HereButton: View {
     enum Style { case primary, ghost, destructive }
 
     let title: String
@@ -13,10 +13,10 @@ struct POWButton: View {
             ZStack {
                 if isLoading {
                     ProgressView()
-                        .tint(style == .primary ? .powForeground : .powSage)
+                        .tint(style == .primary ? .hereForeground : .hereSage)
                 } else {
                     Text(title)
-                        .font(.powHeadline)
+                        .font(.hereHeadline)
                         .foregroundStyle(foregroundColor)
                 }
             }
@@ -34,7 +34,7 @@ struct POWButton: View {
 
     private var backgroundColor: Color {
         switch style {
-        case .primary: return .powSage
+        case .primary: return .hereSage
         case .ghost: return .clear
         case .destructive: return .clear
         }
@@ -42,28 +42,28 @@ struct POWButton: View {
 
     private var foregroundColor: Color {
         switch style {
-        case .primary: return .powForeground
-        case .ghost: return .powSage
-        case .destructive: return .powError
+        case .primary: return .hereForeground
+        case .ghost: return .hereSage
+        case .destructive: return .hereError
         }
     }
 
     private var borderColor: Color {
         switch style {
         case .primary: return .clear
-        case .ghost: return .powSage
-        case .destructive: return .powError
+        case .ghost: return .hereSage
+        case .destructive: return .hereError
         }
     }
 }
 
 #Preview {
     VStack(spacing: 16) {
-        POWButton(title: "Primary") {}
-        POWButton(title: "Ghost", style: .ghost) {}
-        POWButton(title: "Destructive", style: .destructive) {}
-        POWButton(title: "Loading", isLoading: true) {}
+        HereButton(title: "Primary") {}
+        HereButton(title: "Ghost", style: .ghost) {}
+        HereButton(title: "Destructive", style: .destructive) {}
+        HereButton(title: "Loading", isLoading: true) {}
     }
     .padding()
-    .background(Color.powBackground)
+    .background(Color.hereBackground)
 }

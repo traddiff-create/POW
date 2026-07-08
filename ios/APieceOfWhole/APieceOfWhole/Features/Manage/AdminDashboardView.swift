@@ -29,6 +29,6 @@ struct AdminDashboardView: View {
             }
         }
         .scrollContentBackground(.hidden)
-        .background(Color.powBackground)
+        .background(Color.hereBackground)
     }
 }

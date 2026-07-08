@@ -13,13 +13,13 @@ struct AdminApplicationsView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
             Group {
                 if isLoading {
                     ProgressView()
                 } else if filtered.isEmpty {
                     Text("No applications found.")
-                        .font(.powBody).foregroundStyle(Color.powMuted)
+                        .font(.hereBody).foregroundStyle(Color.hereMuted)
                 } else {
                     List(filtered) { app in
                         NavigationLink(destination: ApplicationReviewView(application: app) {
@@ -29,7 +29,7 @@ struct AdminApplicationsView: View {
                         }
                     }
                     .scrollContentBackground(.hidden)
-                    .background(Color.powBackground)
+                    .background(Color.hereBackground)
                 }
             }
         }
@@ -46,7 +46,7 @@ struct AdminApplicationsView: View {
                     }
                 } label: {
                     Image(systemName: "line.3.horizontal.decrease.circle")
-                        .foregroundStyle(Color.powSage)
+                        .foregroundStyle(Color.hereSage)
                 }
             }
         }
@@ -66,12 +66,12 @@ struct ApplicationRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(application.applicantName)
-                .font(.powLabel)
-                .foregroundStyle(Color.powForeground)
+                .font(.hereLabel)
+                .foregroundStyle(Color.hereForeground)
             HStack {
                 Text(application.applicantEmail)
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
                 Spacer()
                 StatusBadge(status: application.status)
             }
@@ -85,16 +85,16 @@ struct StatusBadge: View {
 
     var color: Color {
         switch status {
-        case .approved: return Color.powSage
-        case .rejected: return Color.powError
-        case .waitlisted: return Color.powStone
-        default: return Color.powMuted
+        case .approved: return Color.hereSage
+        case .rejected: return Color.hereError
+        case .waitlisted: return Color.hereStone
+        default: return Color.hereMuted
         }
     }
 
     var body: some View {
         Text(status.rawValue.replacingOccurrences(of: "_", with: " ").capitalized)
-            .font(.powCaption)
+            .font(.hereCaption)
             .foregroundStyle(color)
             .padding(.horizontal, 8)
             .padding(.vertical, 2)
@@ -112,7 +112,7 @@ struct ApplicationReviewView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     infoSection
@@ -120,7 +120,7 @@ struct ApplicationReviewView: View {
                     if application.status == .pending {
                         actionButtons
                     }
-                    if let error { Text(error).font(.powCaption).foregroundStyle(Color.powError) }
+                    if let error { Text(error).font(.hereCaption).foregroundStyle(Color.hereError) }
                 }
                 .padding(24)
             }
@@ -130,7 +130,7 @@ struct ApplicationReviewView: View {
     }
 
     private var infoSection: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 8) {
                 detailRow("Email", application.applicantEmail)
                 detailRow("Status", application.status.rawValue.replacingOccurrences(of: "_", with: " ").capitalized)
@@ -143,10 +143,10 @@ struct ApplicationReviewView: View {
     }
 
     private var intakeSection: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 12) {
                 Label("Application Responses", systemImage: "doc.text")
-                    .font(.powLabel).foregroundStyle(Color.powForeground)
+                    .font(.hereLabel).foregroundStyle(Color.hereForeground)
                 if let motivation = application.motivation {
                     intakeField("Motivation", motivation)
                 }
@@ -166,13 +166,13 @@ struct ApplicationReviewView: View {
 
     private var actionButtons: some View {
         VStack(spacing: 12) {
-            POWButton(title: "Approve", isLoading: isUpdating) {
+            HereButton(title: "Approve", isLoading: isUpdating) {
                 Task { await updateStatus(.approved) }
             }
-            POWButton(title: "Waitlist", style: .ghost, isLoading: isUpdating) {
+            HereButton(title: "Waitlist", style: .ghost, isLoading: isUpdating) {
                 Task { await updateStatus(.waitlisted) }
             }
-            POWButton(title: "Reject", style: .ghost, isLoading: isUpdating) {
+            HereButton(title: "Reject", style: .ghost, isLoading: isUpdating) {
                 Task { await updateStatus(.rejected) }
             }
         }
@@ -180,16 +180,16 @@ struct ApplicationReviewView: View {
 
     private func detailRow(_ label: String, _ value: String) -> some View {
         HStack {
-            Text(label).font(.powCaption).foregroundStyle(Color.powMuted)
+            Text(label).font(.hereCaption).foregroundStyle(Color.hereMuted)
             Spacer()
-            Text(value).font(.powCaption).foregroundStyle(Color.powForeground)
+            Text(value).font(.hereCaption).foregroundStyle(Color.hereForeground)
         }
     }
 
     private func intakeField(_ label: String, _ value: String) -> some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(label).font(.powCaption).foregroundStyle(Color.powMuted)
-            Text(value).font(.powBody).foregroundStyle(Color.powForeground)
+            Text(label).font(.hereCaption).foregroundStyle(Color.hereMuted)
+            Text(value).font(.hereBody).foregroundStyle(Color.hereForeground)
         }
     }
 

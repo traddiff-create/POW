@@ -34,51 +34,51 @@ struct AgeConfirmView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
             VStack(spacing: 32) {
                 Spacer()
 
                 VStack(spacing: 16) {
                     Text("Before we begin")
-                        .font(.powTitle)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereTitle)
+                        .foregroundStyle(Color.hereForeground)
 
                     Text("This program is designed for adults. By continuing, you confirm you are 18 years of age or older.")
-                        .font(.powBody)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereBody)
+                        .foregroundStyle(Color.hereMuted)
                         .multilineTextAlignment(.center)
 
-                    Text(POWPhilosophy.onboardingCopy)
-                        .font(.powBody)
-                        .foregroundStyle(Color.powForeground)
+                    Text(HerePhilosophy.onboardingCopy)
+                        .font(.hereBody)
+                        .foregroundStyle(Color.hereForeground)
                         .multilineTextAlignment(.center)
 
                     Text("This app is not therapy, not medical care, and is not a crisis service. If you are in crisis, please contact 988.")
-                        .font(.powCaption)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereCaption)
+                        .foregroundStyle(Color.hereMuted)
                         .multilineTextAlignment(.center)
                         .padding(.top, 8)
                 }
 
                 Toggle(isOn: $confirmed) {
                     Text("I confirm I am 18 years of age or older")
-                        .font(.powBody)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereBody)
+                        .foregroundStyle(Color.hereForeground)
                 }
-                .tint(Color.powSage)
+                .tint(Color.hereSage)
                 .accessibilityIdentifier("onboarding.ageToggle")
 
                 if let error {
                     Text(error)
-                        .font(.powCaption)
-                        .foregroundStyle(Color.powError)
+                        .font(.hereCaption)
+                        .foregroundStyle(Color.hereError)
                         .multilineTextAlignment(.center)
                         .accessibilityIdentifier("onboarding.ageErrorText")
                 }
 
                 Spacer()
 
-                POWButton(title: "Continue", isLoading: isLoading) {
+                HereButton(title: "Continue", isLoading: isLoading) {
                     Task { await confirmAge() }
                 }
                 .disabled(!confirmed || isLoading)
@@ -118,17 +118,17 @@ struct AgreementsView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
             VStack(spacing: 0) {
                 ScrollView {
                     VStack(spacing: 24) {
                         VStack(spacing: 8) {
                             Text("Agreements")
-                                .font(.powTitle)
-                                .foregroundStyle(Color.powForeground)
+                                .font(.hereTitle)
+                                .foregroundStyle(Color.hereForeground)
                             Text("These agreements protect the conditions for honest, caring, nonclinical community practice.")
-                                .font(.powBody)
-                                .foregroundStyle(Color.powMuted)
+                                .font(.hereBody)
+                                .foregroundStyle(Color.hereMuted)
                                 .multilineTextAlignment(.center)
                         }
                         .padding(.top, 24)
@@ -141,8 +141,8 @@ struct AgreementsView: View {
 
                         if let error {
                             Text(error)
-                                .font(.powCaption)
-                                .foregroundStyle(Color.powError)
+                                .font(.hereCaption)
+                                .foregroundStyle(Color.hereError)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .accessibilityIdentifier("onboarding.agreementsErrorText")
                         }
@@ -150,7 +150,7 @@ struct AgreementsView: View {
                     .padding(.horizontal, 24)
                 }
 
-                POWButton(title: "Accept & Continue", isLoading: isLoading) {
+                HereButton(title: "Accept & Continue", isLoading: isLoading) {
                     Task { await acceptAgreements() }
                 }
                 .disabled(!allAccepted || isLoading)
@@ -185,17 +185,17 @@ struct AgreementToggle: View {
     var body: some View {
         Toggle(isOn: $isOn) {
             Text(label)
-                .font(.powBody)
-                .foregroundStyle(Color.powForeground)
+                .font(.hereBody)
+                .foregroundStyle(Color.hereForeground)
         }
-        .tint(Color.powSage)
+        .tint(Color.hereSage)
         .accessibilityIdentifier(accessibilityID)
         .padding(16)
-        .background(Color.powSurface)
+        .background(Color.hereSurface)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.powBorder, lineWidth: 1)
+                .stroke(Color.hereBorder, lineWidth: 1)
         )
     }
 }
@@ -210,32 +210,32 @@ struct ProfileSetupView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
             VStack(spacing: 32) {
                 VStack(spacing: 8) {
                     Text("How shall we know you?")
-                        .font(.powTitle)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereTitle)
+                        .foregroundStyle(Color.hereForeground)
                     Text(appState.isGuest ? "You can add a name now or continue as Guest." : "This name will appear in your cohort circle, where connection is practiced with care.")
-                        .font(.powBody)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereBody)
+                        .foregroundStyle(Color.hereMuted)
                         .multilineTextAlignment(.center)
                 }
                 .padding(.top, 24)
 
-                POWTextField(label: "Display Name", text: $displayName, placeholder: "Your name or nickname", accessibilityID: "onboarding.displayNameField")
+                HereTextField(label: "Display Name", text: $displayName, placeholder: "Your name or nickname", accessibilityID: "onboarding.displayNameField")
 
                 if let error {
                     Text(error)
-                        .font(.powCaption)
-                        .foregroundStyle(Color.powError)
+                        .font(.hereCaption)
+                        .foregroundStyle(Color.hereError)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .accessibilityIdentifier("onboarding.profileErrorText")
                 }
 
                 Spacer()
 
-                POWButton(title: "Finish Setup", isLoading: isLoading) {
+                HereButton(title: "Finish Setup", isLoading: isLoading) {
                     Task { await saveProfile() }
                 }
                 .disabled((!appState.isGuest && displayName.trimmingCharacters(in: .whitespaces).isEmpty) || isLoading)

@@ -7,7 +7,7 @@ struct ApplicationStatusView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
 
             VStack(spacing: 32) {
                 Spacer()
@@ -18,19 +18,19 @@ struct ApplicationStatusView: View {
                         .foregroundStyle(statusColor)
 
                     Text(statusHeadline)
-                        .font(.powTitle)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereTitle)
+                        .foregroundStyle(Color.hereForeground)
                         .multilineTextAlignment(.center)
                         .accessibilityIdentifier("applicationStatus.headline")
 
                     Text(statusMessage)
-                        .font(.powBody)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereBody)
+                        .foregroundStyle(Color.hereMuted)
                         .multilineTextAlignment(.center)
                 }
 
                 if application.status == .approved {
-                    POWButton(title: "Complete Your Enrollment") {
+                    HereButton(title: "Complete Your Enrollment") {
                         showPayment = true
                     }
                     .accessibilityIdentifier("applicationStatus.completeEnrollmentButton")
@@ -38,8 +38,8 @@ struct ApplicationStatusView: View {
 
                 NavigationLink(destination: WhyIHereView()) {
                     Text("Review Why I'm Here")
-                        .font(.powCallout)
-                        .foregroundStyle(Color.powSage)
+                        .font(.hereCallout)
+                        .foregroundStyle(Color.hereSage)
                 }
                 .accessibilityIdentifier("applicationStatus.whyHereLink")
 
@@ -72,10 +72,10 @@ struct ApplicationStatusView: View {
 
     private var statusColor: Color {
         switch application.status {
-        case .pending: return .powStone
-        case .approved: return .powSage
-        case .rejected: return .powError
-        case .waitlisted: return .powMuted
+        case .pending: return .hereStone
+        case .approved: return .hereSage
+        case .rejected: return .hereError
+        case .waitlisted: return .hereMuted
         }
     }
 

@@ -8,14 +8,14 @@ struct CivicView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
 
                 if isLoading {
                     ProgressView()
                 } else if let error {
                     VStack(spacing: 16) {
-                        Text(error).font(.powBody).foregroundStyle(Color.powMuted)
-                        POWButton(title: "Retry") { Task { await load() } }
+                        Text(error).font(.hereBody).foregroundStyle(Color.hereMuted)
+                        HereButton(title: "Retry") { Task { await load() } }
                     }
                     .padding(24)
                 } else {
@@ -44,14 +44,14 @@ struct CivicView: View {
     private var introHeader: some View {
         VStack(alignment: .leading, spacing: 6) {
             Text("From personal to collective")
-                .font(.powTitle2)
-                .foregroundStyle(Color.powForeground)
-            Text(POWPhilosophy.civicCopy)
-                .font(.powBody)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereTitle2)
+                .foregroundStyle(Color.hereForeground)
+            Text(HerePhilosophy.civicCopy)
+                .font(.hereBody)
+                .foregroundStyle(Color.hereMuted)
             Text("Explore how regulation, relationship, and agency connect to local participation and collective change.")
-                .font(.powCallout)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereCallout)
+                .foregroundStyle(Color.hereMuted)
         }
     }
 
@@ -71,30 +71,30 @@ struct CivicLessonCard: View {
     let lesson: CivicLesson
 
     var body: some View {
-        POWCard {
+        HereCard {
             HStack(spacing: 16) {
                 ZStack {
                     Circle()
-                        .fill(Color.powSageLight)
+                        .fill(Color.hereSageLight)
                         .frame(width: 44, height: 44)
                     Text("\(lesson.orderIndex ?? 1)")
-                        .font(.powLabel)
-                        .foregroundStyle(Color.powSage)
+                        .font(.hereLabel)
+                        .foregroundStyle(Color.hereSage)
                 }
                 VStack(alignment: .leading, spacing: 4) {
                     Text(lesson.title)
-                        .font(.powLabel)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereLabel)
+                        .foregroundStyle(Color.hereForeground)
                     if let minutes = lesson.estimatedMinutes {
                         Label("\(minutes) min", systemImage: "clock")
-                            .font(.powCaption)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereCaption)
+                            .foregroundStyle(Color.hereMuted)
                     }
                 }
                 Spacer()
                 Image(systemName: "chevron.right")
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
             }
             .padding(16)
         }
@@ -106,43 +106,43 @@ struct CivicModuleDetailView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
                     VStack(alignment: .leading, spacing: 8) {
                         if let minutes = lesson.estimatedMinutes {
                             Label("\(minutes) min read", systemImage: "clock")
-                                .font(.powCaption)
-                                .foregroundStyle(Color.powMuted)
+                                .font(.hereCaption)
+                                .foregroundStyle(Color.hereMuted)
                         }
                         Text(lesson.title)
-                            .font(.powTitle)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereTitle)
+                            .foregroundStyle(Color.hereForeground)
                     }
 
                     if let body = lesson.bodyText, !body.isEmpty {
                         Text(body)
-                            .font(.powBody)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereBody)
+                            .foregroundStyle(Color.hereForeground)
                     }
 
                     if let prompt = lesson.reflectionPrompt, !prompt.isEmpty {
-                        POWCard {
+                        HereCard {
                             VStack(alignment: .leading, spacing: 8) {
                                 Label("Reflection", systemImage: "bubble.left.and.quote.bubble.right")
-                                    .font(.powCaption)
-                                    .foregroundStyle(Color.powMuted)
+                                    .font(.hereCaption)
+                                    .foregroundStyle(Color.hereMuted)
                                 Text(prompt)
-                                    .font(.powBody)
-                                    .foregroundStyle(Color.powForeground)
+                                    .font(.hereBody)
+                                    .foregroundStyle(Color.hereForeground)
                             }
                             .padding(16)
                         }
                     }
 
                     Text("This app is not a substitute for civic engagement, legal advice, or professional guidance. Take action at the pace that feels grounded and sustainable.")
-                        .font(.powCaption)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereCaption)
+                        .foregroundStyle(Color.hereMuted)
                         .multilineTextAlignment(.center)
                         .padding(.top, 8)
                 }

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct POWTextField: View {
+struct HereTextField: View {
     let label: String
     @Binding var text: String
     var placeholder: String = ""
@@ -14,8 +14,8 @@ struct POWTextField: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             Text(label)
-                .font(.powCaption)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereCaption)
+                .foregroundStyle(Color.hereMuted)
 
             Group {
                 if isSecure {
@@ -29,14 +29,14 @@ struct POWTextField: View {
                         .keyboardType(keyboardType)
                 }
             }
-            .font(.powBody)
-            .foregroundStyle(Color.powForeground)
+            .font(.hereBody)
+            .foregroundStyle(Color.hereForeground)
             .padding(12)
-            .background(Color.powSurface)
+            .background(Color.hereSurface)
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(isFocused ? Color.powSage : Color.powBorder, lineWidth: isFocused ? 1.5 : 1)
+                    .stroke(isFocused ? Color.hereSage : Color.hereBorder, lineWidth: isFocused ? 1.5 : 1)
             )
             .focused($isFocused)
             .accessibilityIdentifier(accessibilityID ?? label)

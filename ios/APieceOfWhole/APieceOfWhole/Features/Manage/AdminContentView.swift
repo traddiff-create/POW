@@ -8,7 +8,7 @@ struct AdminContentView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
             VStack(spacing: 0) {
                 Picker("Type", selection: $selectedTab) {
                     Text("Practices").tag(0)
@@ -24,39 +24,39 @@ struct AdminContentView: View {
                     List(practices) { practice in
                         VStack(alignment: .leading, spacing: 4) {
                             Text(practice.title)
-                                .font(.powLabel)
-                                .foregroundStyle(Color.powForeground)
+                                .font(.hereLabel)
+                                .foregroundStyle(Color.hereForeground)
                             HStack {
                                 if let week = practice.weekNumber {
                                     Text("Week \(week)")
-                                        .font(.powCaption)
-                                        .foregroundStyle(Color.powMuted)
+                                        .font(.hereCaption)
+                                        .foregroundStyle(Color.hereMuted)
                                 }
                                 if let duration = practice.durationMinutes {
                                     Text("• \(duration) min")
-                                        .font(.powCaption)
-                                        .foregroundStyle(Color.powMuted)
+                                        .font(.hereCaption)
+                                        .foregroundStyle(Color.hereMuted)
                                 }
                             }
                         }
                     }
                     .scrollContentBackground(.hidden)
-                    .background(Color.powBackground)
+                    .background(Color.hereBackground)
                 } else {
                     List(civicLessons) { lesson in
                         VStack(alignment: .leading, spacing: 4) {
                             Text(lesson.title)
-                                .font(.powLabel)
-                                .foregroundStyle(Color.powForeground)
+                                .font(.hereLabel)
+                                .foregroundStyle(Color.hereForeground)
                             if let minutes = lesson.estimatedMinutes {
                                 Text("\(minutes) min")
-                                    .font(.powCaption)
-                                    .foregroundStyle(Color.powMuted)
+                                    .font(.hereCaption)
+                                    .foregroundStyle(Color.hereMuted)
                             }
                         }
                     }
                     .scrollContentBackground(.hidden)
-                    .background(Color.powBackground)
+                    .background(Color.hereBackground)
                 }
             }
         }

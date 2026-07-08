@@ -11,7 +11,7 @@ struct TodayView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
 
                 ScrollView {
                     VStack(spacing: 24) {
@@ -36,41 +36,41 @@ struct TodayView: View {
     private var greetingSection: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(greeting)
-                .font(.powTitle2)
-                .foregroundStyle(Color.powForeground)
+                .font(.hereTitle2)
+                .foregroundStyle(Color.hereForeground)
             if let week = appState.activeMembership.flatMap({ _ in currentWeek }) {
                 Text("Week \(week) of 8")
-                    .font(.powCallout)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCallout)
+                    .foregroundStyle(Color.hereMuted)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private var checkInSection: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
                     Label("Check In", systemImage: "heart.text.square")
-                        .font(.powLabel)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereLabel)
+                        .foregroundStyle(Color.hereForeground)
                     Spacer()
                     if recentCheckIn != nil {
                         Label("Done today", systemImage: "checkmark.circle.fill")
-                            .font(.powCaption)
-                            .foregroundStyle(Color.powSage)
+                            .font(.hereCaption)
+                            .foregroundStyle(Color.hereSage)
                     }
                 }
 
                 if recentCheckIn == nil {
                     Text("How are you arriving today?")
-                        .font(.powBody)
-                        .foregroundStyle(Color.powMuted)
-                    POWButton(title: "Begin Check-In") { showCheckIn = true }
+                        .font(.hereBody)
+                        .foregroundStyle(Color.hereMuted)
+                    HereButton(title: "Begin Check-In") { showCheckIn = true }
                 } else {
                     Text("Your check-in is recorded. Come back tomorrow.")
-                        .font(.powBody)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereBody)
+                        .foregroundStyle(Color.hereMuted)
                 }
             }
             .padding(20)
@@ -78,18 +78,18 @@ struct TodayView: View {
     }
 
     private func weekThemeCard(_ theme: CurriculumItem) -> some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 12) {
                 Label("This Week's Theme", systemImage: "sparkles")
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
                 Text(theme.title)
-                    .font(.powTitle2)
-                    .foregroundStyle(Color.powForeground)
+                    .font(.hereTitle2)
+                    .foregroundStyle(Color.hereForeground)
                 if let description = theme.theme {
                     Text(description)
-                        .font(.powBody)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereBody)
+                        .foregroundStyle(Color.hereMuted)
                         .lineLimit(3)
                 }
             }
@@ -98,23 +98,23 @@ struct TodayView: View {
     }
 
     private func practiceCard(_ practice: Practice) -> some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 12) {
                 Label("Suggested Practice", systemImage: "waveform")
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
                 Text(practice.title)
-                    .font(.powTitle2)
-                    .foregroundStyle(Color.powForeground)
+                    .font(.hereTitle2)
+                    .foregroundStyle(Color.hereForeground)
                 if let duration = practice.durationMinutes {
                     Label("\(duration) min", systemImage: "clock")
-                        .font(.powCallout)
-                        .foregroundStyle(Color.powSage)
+                        .font(.hereCallout)
+                        .foregroundStyle(Color.hereSage)
                 }
                 NavigationLink(destination: PracticeDetailView(practice: practice)) {
                     Text("Open Practice")
-                        .font(.powCallout)
-                        .foregroundStyle(Color.powSage)
+                        .font(.hereCallout)
+                        .foregroundStyle(Color.hereSage)
                 }
             }
             .padding(20)
@@ -124,15 +124,15 @@ struct TodayView: View {
     private var groundingButton: some View {
         VStack(spacing: 8) {
             Text("Need to return to center?")
-                .font(.powCaption)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereCaption)
+                .foregroundStyle(Color.hereMuted)
             NavigationLink(destination: GroundingPracticeView()) {
                 HStack {
                     Image(systemName: "wind")
                     Text("Return to Regulation")
                 }
-                .font(.powCallout)
-                .foregroundStyle(Color.powSage)
+                .font(.hereCallout)
+                .foregroundStyle(Color.hereSage)
             }
         }
         .padding(.top, 8)
@@ -185,22 +185,22 @@ struct TodayView: View {
 struct GroundingPracticeView: View {
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
             VStack(spacing: 24) {
                 Image(systemName: "wind")
                     .font(.system(size: 64))
-                    .foregroundStyle(Color.powSage)
+                    .foregroundStyle(Color.hereSage)
                 Text("5-4-3-2-1 Grounding")
-                    .font(.powTitle)
-                    .foregroundStyle(Color.powForeground)
+                    .font(.hereTitle)
+                    .foregroundStyle(Color.hereForeground)
                 Text("Name 5 things you can see, 4 you can touch, 3 you can hear, 2 you can smell, 1 you can taste. Breathe slowly between each one.")
-                    .font(.powBody)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereBody)
+                    .foregroundStyle(Color.hereMuted)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 8)
                 Text("This app is not therapy or medical care. If you are in crisis, please contact 988.")
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
                     .multilineTextAlignment(.center)
             }
             .padding(28)

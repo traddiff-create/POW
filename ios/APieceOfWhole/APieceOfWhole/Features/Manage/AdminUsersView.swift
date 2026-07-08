@@ -15,7 +15,7 @@ struct AdminUsersView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
             if isLoading {
                 ProgressView()
             } else {
@@ -25,17 +25,17 @@ struct AdminUsersView: View {
                     }) {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(profile.displayName ?? "No name")
-                                .font(.powLabel)
-                                .foregroundStyle(Color.powForeground)
+                                .font(.hereLabel)
+                                .foregroundStyle(Color.hereForeground)
                             Text(profile.role.rawValue.capitalized)
-                                .font(.powCaption)
-                                .foregroundStyle(Color.powMuted)
+                                .font(.hereCaption)
+                                .foregroundStyle(Color.hereMuted)
                         }
                     }
                 }
                 .searchable(text: $searchText, prompt: "Search by name")
                 .scrollContentBackground(.hidden)
-                .background(Color.powBackground)
+                .background(Color.hereBackground)
             }
         }
         .navigationTitle("Users")
@@ -66,23 +66,23 @@ struct UserDetailView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
             VStack(spacing: 20) {
-                POWCard {
+                HereCard {
                     VStack(alignment: .leading, spacing: 8) {
                         Text(profile.displayName ?? "No name")
-                            .font(.powTitle2)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereTitle2)
+                            .foregroundStyle(Color.hereForeground)
                         Text("ID: \(profile.id)")
-                            .font(.powCaption)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereCaption)
+                            .foregroundStyle(Color.hereMuted)
                     }
                     .padding(16)
                 }
 
-                POWCard {
+                HereCard {
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("Role").font(.powLabel).foregroundStyle(Color.powForeground)
+                        Text("Role").font(.hereLabel).foregroundStyle(Color.hereForeground)
                         Picker("Role", selection: $selectedRole) {
                             ForEach([UserRole.participant, .facilitator, .admin], id: \.self) { role in
                                 Text(role.rawValue.capitalized).tag(role)
@@ -94,10 +94,10 @@ struct UserDetailView: View {
                 }
 
                 if let error {
-                    Text(error).font(.powCaption).foregroundStyle(Color.powError)
+                    Text(error).font(.hereCaption).foregroundStyle(Color.hereError)
                 }
 
-                POWButton(title: "Update Role", isLoading: isUpdating) {
+                HereButton(title: "Update Role", isLoading: isUpdating) {
                     Task { await updateRole() }
                 }
 

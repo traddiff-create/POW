@@ -22,7 +22,7 @@ struct MainTabView: View {
                 .tabItem { Label("Community", systemImage: HereLeg.community.systemImage) }
                 .tag(Tab.community)
         }
-        .tint(Color.powSage)
+        .tint(Color.hereSage)
         .onOpenURL { url in
             guard url.scheme == "apow", url.host == "tab" else { return }
             switch url.pathComponents.last {

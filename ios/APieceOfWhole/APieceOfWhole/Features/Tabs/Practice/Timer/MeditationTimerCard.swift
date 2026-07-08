@@ -6,36 +6,36 @@ struct MeditationTimerCard: View {
     let onOpen: () -> Void
 
     var body: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 16) {
                 HStack(alignment: .top, spacing: 14) {
                     ZStack {
                         RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.powSageLight)
+                            .fill(Color.hereSageLight)
                             .frame(width: 54, height: 54)
                         Image(systemName: "timer")
                             .font(.system(size: 24, weight: .medium))
-                            .foregroundStyle(Color.powSage)
+                            .foregroundStyle(Color.hereSage)
                     }
 
                     VStack(alignment: .leading, spacing: 6) {
                         Text("Meditation Timer")
-                            .font(.powTitle2)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereTitle2)
+                            .foregroundStyle(Color.hereForeground)
 
                         Text("\(settings.selectedDurationMinutes) min selected")
-                            .font(.powCallout)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereCallout)
+                            .foregroundStyle(Color.hereMuted)
 
                         Text(statsText)
-                            .font(.powCaption)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereCaption)
+                            .foregroundStyle(Color.hereMuted)
                     }
 
                     Spacer()
                 }
 
-                POWButton(title: "Open Timer", action: onOpen)
+                HereButton(title: "Open Timer", action: onOpen)
             }
             .padding(18)
         }
@@ -59,5 +59,5 @@ struct MeditationTimerCard: View {
         onOpen: {}
     )
     .padding()
-    .background(Color.powBackground)
+    .background(Color.hereBackground)
 }

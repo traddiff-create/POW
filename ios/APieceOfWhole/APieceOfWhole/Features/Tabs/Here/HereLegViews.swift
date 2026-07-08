@@ -6,22 +6,22 @@ struct SelfView: View {
             HereLegScrollView(title: "Self") {
                 HereHeaderView(
                     leg: .selfFoundation,
-                    detail: POWPhilosophy.selfCopy
+                    detail: HerePhilosophy.selfCopy
                 )
 
                 DailyPracticePromptCard(prompt: HerePromptCatalog.dailyPrompt(for: .selfFoundation))
 
-                POWCard {
+                HereCard {
                     VStack(alignment: .leading, spacing: 12) {
                         Label("5-minute practice", systemImage: "paintbrush")
-                            .font(.powLabel)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereLabel)
+                            .foregroundStyle(Color.hereMuted)
                         Text("Create for the process, not the outcome")
-                            .font(.powTitle2)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereTitle2)
+                            .foregroundStyle(Color.hereForeground)
                         Text("Draw, write, hum, move, or make something small for five minutes. The point is not to produce something impressive. The point is to notice what happens when you let the process matter.")
-                            .font(.powBody)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereBody)
+                            .foregroundStyle(Color.hereMuted)
                     }
                     .padding(20)
                 }
@@ -74,22 +74,22 @@ struct TogetherView: View {
             HereLegScrollView(title: "Together") {
                 HereHeaderView(
                     leg: .together,
-                    detail: POWPhilosophy.togetherCopy
+                    detail: HerePhilosophy.togetherCopy
                 )
 
                 DailyPracticePromptCard(prompt: HerePromptCatalog.dailyPrompt(for: .together))
 
-                POWCard {
+                HereCard {
                     VStack(alignment: .leading, spacing: 12) {
                         Label("Co-regulation", systemImage: "person.2")
-                            .font(.powLabel)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereLabel)
+                            .foregroundStyle(Color.hereMuted)
                         Text("A grounding presence is a superpower")
-                            .font(.powTitle2)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereTitle2)
+                            .foregroundStyle(Color.hereForeground)
                         Text("We are social creatures. Much of communication happens below words: posture, pace, breath, tone, and attention. Practicing steadiness with others can support social ease and bring peace into ordinary moments.")
-                            .font(.powBody)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereBody)
+                            .foregroundStyle(Color.hereMuted)
                     }
                     .padding(20)
                 }
@@ -128,7 +128,7 @@ struct CommunityView: View {
             HereLegScrollView(title: "Community") {
                 HereHeaderView(
                     leg: .community,
-                    detail: POWPhilosophy.communityCopy
+                    detail: HerePhilosophy.communityCopy
                 )
 
                 DailyPracticePromptCard(prompt: HerePromptCatalog.dailyPrompt(for: .community))
@@ -168,7 +168,7 @@ private struct HereLegScrollView<Content: View>: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
             ScrollView {
                 VStack(spacing: 18) {
                     content
@@ -190,24 +190,24 @@ private struct HereHeaderView: View {
             HStack(spacing: 12) {
                 Image(systemName: leg.systemImage)
                     .font(.system(size: 24))
-                    .foregroundStyle(Color.powSage)
+                    .foregroundStyle(Color.hereSage)
                     .frame(width: 36, height: 36)
-                    .background(Color.powSageLight)
+                    .background(Color.hereSageLight)
                     .clipShape(Circle())
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(leg.subtitle)
-                        .font(.powLabel)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereLabel)
+                        .foregroundStyle(Color.hereMuted)
                     Text(leg.title)
-                        .font(.powTitle)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereTitle)
+                        .foregroundStyle(Color.hereForeground)
                 }
             }
 
             Text(detail)
-                .font(.powBody)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereBody)
+                .foregroundStyle(Color.hereMuted)
                 .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -224,32 +224,32 @@ private struct DailyPracticePromptCard: View {
     @State private var error: String?
 
     var body: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 14) {
                 HStack(alignment: .top) {
                     Label("Today's practice", systemImage: prompt.leg.systemImage)
-                        .font(.powLabel)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereLabel)
+                        .foregroundStyle(Color.hereMuted)
 
                     Spacer()
 
                     if entry != nil {
                         Label("Done", systemImage: "checkmark.circle.fill")
-                            .font(.powCaption)
-                            .foregroundStyle(Color.powSage)
+                            .font(.hereCaption)
+                            .foregroundStyle(Color.hereSage)
                     }
                 }
 
                 VStack(alignment: .leading, spacing: 8) {
                     Text(prompt.title)
-                        .font(.powTitle2)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereTitle2)
+                        .foregroundStyle(Color.hereForeground)
                     Text(prompt.body)
-                        .font(.powBody)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereBody)
+                        .foregroundStyle(Color.hereMuted)
                 }
 
-                POWTextField(
+                HereTextField(
                     label: "Private reflection",
                     text: $reflection,
                     placeholder: prompt.placeholder,
@@ -259,12 +259,12 @@ private struct DailyPracticePromptCard: View {
 
                 if let error {
                     Text(error)
-                        .font(.powCaption)
-                        .foregroundStyle(Color.powError)
+                        .font(.hereCaption)
+                        .foregroundStyle(Color.hereError)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
 
-                POWButton(
+                HereButton(
                     title: entry == nil ? "Mark Today's Practice" : "Update Reflection",
                     isLoading: isSaving
                 ) {
@@ -325,28 +325,28 @@ private struct HereActionLink<Destination: View>: View {
 
     var body: some View {
         NavigationLink(destination: destination) {
-            POWCard {
+            HereCard {
                 HStack(alignment: .top, spacing: 14) {
                     Image(systemName: systemImage)
                         .font(.system(size: 20))
-                        .foregroundStyle(Color.powSage)
+                        .foregroundStyle(Color.hereSage)
                         .frame(width: 30)
 
                     VStack(alignment: .leading, spacing: 5) {
                         Text(title)
-                            .font(.powBody)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereBody)
+                            .foregroundStyle(Color.hereForeground)
                         Text(detail)
-                            .font(.powCallout)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereCallout)
+                            .foregroundStyle(Color.hereMuted)
                             .fixedSize(horizontal: false, vertical: true)
                     }
 
                     Spacer()
 
                     Image(systemName: "chevron.right")
-                        .font(.powCaption)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereCaption)
+                        .foregroundStyle(Color.hereMuted)
                         .padding(.top, 4)
                 }
                 .padding(16)
@@ -358,14 +358,14 @@ private struct HereActionLink<Destination: View>: View {
 
 private struct LocalIntentionCard: View {
     var body: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 12) {
                 Label("Local invitations", systemImage: "figure.walk")
-                    .font(.powLabel)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereLabel)
+                    .foregroundStyle(Color.hereMuted)
                 Text("Small actions that accumulate")
-                    .font(.powTitle2)
-                    .foregroundStyle(Color.powForeground)
+                    .font(.hereTitle2)
+                    .foregroundStyle(Color.hereForeground)
 
                 VStack(alignment: .leading, spacing: 10) {
                     HereBullet(text: "Take a walk and notice one living thing you usually pass by.")
@@ -384,12 +384,12 @@ private struct HereBullet: View {
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
             Circle()
-                .fill(Color.powSage)
+                .fill(Color.hereSage)
                 .frame(width: 6, height: 6)
                 .padding(.top, 8)
             Text(text)
-                .font(.powCallout)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereCallout)
+                .foregroundStyle(Color.hereMuted)
                 .fixedSize(horizontal: false, vertical: true)
         }
     }
@@ -418,20 +418,20 @@ private struct HereToolbarLinks: ToolbarContent {
 struct GroundingWithOthersView: View {
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Ground With Someone")
-                            .font(.powTitle)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereTitle)
+                            .foregroundStyle(Color.hereForeground)
                         Text("A short co-regulation practice for two people or a small group.")
-                            .font(.powBody)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereBody)
+                            .foregroundStyle(Color.hereMuted)
                     }
 
-                    POWCard {
+                    HereCard {
                         VStack(alignment: .leading, spacing: 14) {
                             HereNumberedStep(number: "1", title: "Arrive", detail: "Sit or stand where everyone can be comfortable. Let silence be part of the practice.")
                             HereNumberedStep(number: "2", title: "Slow", detail: "Take three slower breaths. Let your shoulders drop before you speak.")
@@ -443,8 +443,8 @@ struct GroundingWithOthersView: View {
                     }
 
                     Text("This is a relational practice, not therapy or crisis care. If someone is in danger or crisis, contact emergency support or 988.")
-                        .font(.powCaption)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereCaption)
+                        .foregroundStyle(Color.hereMuted)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 .padding(24)
@@ -463,19 +463,19 @@ private struct HereNumberedStep: View {
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             Text(number)
-                .font(.powCaption)
-                .foregroundStyle(Color.powForeground)
+                .font(.hereCaption)
+                .foregroundStyle(Color.hereForeground)
                 .frame(width: 28, height: 28)
-                .background(Color.powSageLight)
+                .background(Color.hereSageLight)
                 .clipShape(Circle())
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
-                    .font(.powBody)
-                    .foregroundStyle(Color.powForeground)
+                    .font(.hereBody)
+                    .foregroundStyle(Color.hereForeground)
                 Text(detail)
-                    .font(.powCallout)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCallout)
+                    .foregroundStyle(Color.hereMuted)
                     .fixedSize(horizontal: false, vertical: true)
             }
         }

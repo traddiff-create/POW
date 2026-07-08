@@ -173,7 +173,7 @@ private struct MeditationTimerSetupView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
 
             ScrollView {
                 VStack(spacing: 18) {
@@ -182,7 +182,7 @@ private struct MeditationTimerSetupView: View {
                     windDownSection
                     presetSection
                     recentSection
-                    POWButton(title: "Begin", action: onStart)
+                    HereButton(title: "Begin", action: onStart)
                         .padding(.top, 4)
                 }
                 .padding(24)
@@ -195,7 +195,7 @@ private struct MeditationTimerSetupView: View {
                 Button(action: onClose) {
                     Image(systemName: "xmark")
                 }
-                .foregroundStyle(Color.powSage)
+                .foregroundStyle(Color.hereSage)
                 .accessibilityLabel("Close")
             }
         }
@@ -212,11 +212,11 @@ private struct MeditationTimerSetupView: View {
     }
 
     private var durationSection: some View {
-        POWCard {
+        HereCard {
             VStack(spacing: 18) {
                 Text("Duration")
-                    .font(.powLabel)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereLabel)
+                    .foregroundStyle(Color.hereMuted)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                 HStack(spacing: 24) {
@@ -228,10 +228,10 @@ private struct MeditationTimerSetupView: View {
                         Text("\(settings.selectedDurationMinutes)")
                             .font(.system(size: 64, weight: .semibold, design: .rounded))
                             .monospacedDigit()
-                            .foregroundStyle(Color.powSage)
+                            .foregroundStyle(Color.hereSage)
                         Text("minutes")
-                            .font(.powCaption)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereCaption)
+                            .foregroundStyle(Color.hereMuted)
                     }
                     .frame(minWidth: 140)
 
@@ -247,12 +247,12 @@ private struct MeditationTimerSetupView: View {
                                 settings.setDurationMinutes(minutes)
                             } label: {
                                 Text("\(minutes)")
-                                    .font(.powCaption)
-                                    .foregroundStyle(settings.selectedDurationMinutes == minutes ? Color.powForeground : Color.powMuted)
+                                    .font(.hereCaption)
+                                    .foregroundStyle(settings.selectedDurationMinutes == minutes ? Color.hereForeground : Color.hereMuted)
                                     .frame(width: 38, height: 32)
-                                    .background(settings.selectedDurationMinutes == minutes ? Color.powSageLight : Color.powSurface)
+                                    .background(settings.selectedDurationMinutes == minutes ? Color.hereSageLight : Color.hereSurface)
                                     .clipShape(Capsule())
-                                    .overlay(Capsule().stroke(Color.powBorder, lineWidth: 1))
+                                    .overlay(Capsule().stroke(Color.hereBorder, lineWidth: 1))
                             }
                         }
                     }
@@ -263,11 +263,11 @@ private struct MeditationTimerSetupView: View {
     }
 
     private var soundSection: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 16) {
                 Text("Sound")
-                    .font(.powLabel)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereLabel)
+                    .foregroundStyle(Color.hereMuted)
 
                 VStack(spacing: 0) {
                     ForEach(MeditationAudioController.availableBackgroundSounds, id: \.self) { sound in
@@ -283,8 +283,8 @@ private struct MeditationTimerSetupView: View {
                 Divider()
 
                 Text("End Sound")
-                    .font(.powLabel)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereLabel)
+                    .foregroundStyle(Color.hereMuted)
 
                 HStack(spacing: 8) {
                     ForEach(MeditationAudioController.availableEndSounds, id: \.self) { sound in
@@ -292,21 +292,21 @@ private struct MeditationTimerSetupView: View {
                             settings.setEndSound(sound)
                         } label: {
                             Text(sound)
-                                .font(.powCaption)
-                                .foregroundStyle(settings.selectedEndSound == sound ? Color.powForeground : Color.powMuted)
+                                .font(.hereCaption)
+                                .foregroundStyle(settings.selectedEndSound == sound ? Color.hereForeground : Color.hereMuted)
                                 .padding(.horizontal, 12)
                                 .frame(height: 34)
-                                .background(settings.selectedEndSound == sound ? Color.powSageLight : Color.powSurface)
+                                .background(settings.selectedEndSound == sound ? Color.hereSageLight : Color.hereSurface)
                                 .clipShape(Capsule())
-                                .overlay(Capsule().stroke(Color.powBorder, lineWidth: 1))
+                                .overlay(Capsule().stroke(Color.hereBorder, lineWidth: 1))
                         }
                     }
                 }
 
                 HStack {
                     Text("Volume")
-                        .font(.powCallout)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereCallout)
+                        .foregroundStyle(Color.hereForeground)
                     Slider(
                         value: Binding(
                             get: { settings.volume },
@@ -314,7 +314,7 @@ private struct MeditationTimerSetupView: View {
                         ),
                         in: 0...1
                     )
-                    .tint(Color.powSage)
+                    .tint(Color.hereSage)
                 }
             }
             .padding(18)
@@ -322,7 +322,7 @@ private struct MeditationTimerSetupView: View {
     }
 
     private var windDownSection: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 14) {
                 Toggle(
                     isOn: Binding(
@@ -331,10 +331,10 @@ private struct MeditationTimerSetupView: View {
                     )
                 ) {
                     Text("Wind-down")
-                        .font(.powHeadline)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereHeadline)
+                        .foregroundStyle(Color.hereForeground)
                 }
-                .tint(Color.powSage)
+                .tint(Color.hereSage)
 
                 if settings.windDownEnabled {
                     HStack(spacing: 8) {
@@ -343,13 +343,13 @@ private struct MeditationTimerSetupView: View {
                                 settings.setWindDownSeconds(seconds)
                             } label: {
                                 Text("\(seconds / 60) min")
-                                    .font(.powCaption)
-                                    .foregroundStyle(settings.windDownSeconds == seconds ? Color.powForeground : Color.powMuted)
+                                    .font(.hereCaption)
+                                    .foregroundStyle(settings.windDownSeconds == seconds ? Color.hereForeground : Color.hereMuted)
                                     .frame(maxWidth: .infinity)
                                     .frame(height: 36)
-                                    .background(settings.windDownSeconds == seconds ? Color.powSageLight : Color.powSurface)
+                                    .background(settings.windDownSeconds == seconds ? Color.hereSageLight : Color.hereSurface)
                                     .clipShape(RoundedRectangle(cornerRadius: 8))
-                                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.powBorder, lineWidth: 1))
+                                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.hereBorder, lineWidth: 1))
                             }
                         }
                     }
@@ -360,19 +360,19 @@ private struct MeditationTimerSetupView: View {
     }
 
     private var presetSection: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 14) {
                 HStack {
                     Text("Presets")
-                        .font(.powLabel)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereLabel)
+                        .foregroundStyle(Color.hereMuted)
                     Spacer()
                     Button {
                         showSavePreset = true
                     } label: {
                         Image(systemName: "plus.circle")
                             .font(.system(size: 22))
-                            .foregroundStyle(Color.powSage)
+                            .foregroundStyle(Color.hereSage)
                     }
                     .disabled(settings.presets.count >= 8)
                     .accessibilityLabel("Save preset")
@@ -380,8 +380,8 @@ private struct MeditationTimerSetupView: View {
 
                 if settings.presets.isEmpty {
                     Text("No saved presets")
-                        .font(.powCallout)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereCallout)
+                        .foregroundStyle(Color.hereMuted)
                 } else {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 8) {
@@ -390,11 +390,11 @@ private struct MeditationTimerSetupView: View {
                                     settings.applyPreset(preset)
                                 } label: {
                                     Text(preset.name)
-                                        .font(.powCaption)
-                                        .foregroundStyle(Color.powSage)
+                                        .font(.hereCaption)
+                                        .foregroundStyle(Color.hereSage)
                                         .padding(.horizontal, 12)
                                         .frame(height: 34)
-                                        .background(Color.powSageLight)
+                                        .background(Color.hereSageLight)
                                         .clipShape(Capsule())
                                 }
                                 .contextMenu {
@@ -414,24 +414,24 @@ private struct MeditationTimerSetupView: View {
     }
 
     private var recentSection: some View {
-        POWCard {
+        HereCard {
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Local Sessions")
-                        .font(.powLabel)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereLabel)
+                        .foregroundStyle(Color.hereMuted)
                     Text("\(sessionStore.completedSessionCount)")
-                        .font(.powTitle)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereTitle)
+                        .foregroundStyle(Color.hereForeground)
                 }
                 Spacer()
                 VStack(alignment: .trailing, spacing: 4) {
                     Text("Minutes")
-                        .font(.powLabel)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereLabel)
+                        .foregroundStyle(Color.hereMuted)
                     Text("\(sessionStore.totalCompletedMinutes)")
-                        .font(.powTitle)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereTitle)
+                        .foregroundStyle(Color.hereForeground)
                 }
             }
             .padding(18)
@@ -446,11 +446,11 @@ private struct MeditationTimerSetupView: View {
         Button(action: action) {
             Image(systemName: systemImage)
                 .font(.system(size: 18, weight: .semibold))
-                .foregroundStyle(Color.powSage)
+                .foregroundStyle(Color.hereSage)
                 .frame(width: 44, height: 44)
-                .background(Color.powSurface)
+                .background(Color.hereSurface)
                 .clipShape(Circle())
-                .overlay(Circle().stroke(Color.powBorder, lineWidth: 1))
+                .overlay(Circle().stroke(Color.hereBorder, lineWidth: 1))
         }
     }
 
@@ -464,14 +464,14 @@ private struct MeditationTimerSetupView: View {
             HStack(spacing: 12) {
                 Image(systemName: systemImage)
                     .frame(width: 24)
-                    .foregroundStyle(isSelected ? Color.powSage : Color.powMuted)
+                    .foregroundStyle(isSelected ? Color.hereSage : Color.hereMuted)
                 Text(title)
-                    .font(.powCallout)
-                    .foregroundStyle(Color.powForeground)
+                    .font(.hereCallout)
+                    .foregroundStyle(Color.hereForeground)
                 Spacer()
                 if isSelected {
                     Image(systemName: "checkmark.circle.fill")
-                        .foregroundStyle(Color.powSage)
+                        .foregroundStyle(Color.hereSage)
                 }
             }
             .padding(.vertical, 10)
@@ -485,16 +485,16 @@ private struct MeditationCountdownView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
 
             VStack(spacing: 12) {
                 Text("\(timer.countdownValue)")
                     .font(.system(size: 96, weight: .semibold, design: .rounded))
                     .monospacedDigit()
-                    .foregroundStyle(Color.powSage)
+                    .foregroundStyle(Color.hereSage)
                 Text("Begin")
-                    .font(.powLabel)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereLabel)
+                    .foregroundStyle(Color.hereMuted)
             }
         }
     }
@@ -509,7 +509,7 @@ private struct MeditationActiveTimerView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
 
             Button(action: onTogglePause) {
                 VStack(spacing: 28) {
@@ -517,11 +517,11 @@ private struct MeditationActiveTimerView: View {
 
                     ZStack {
                         Circle()
-                            .stroke(Color.powBorder, lineWidth: 12)
+                            .stroke(Color.hereBorder, lineWidth: 12)
                             .frame(width: 260, height: 260)
                         Circle()
                             .trim(from: 0, to: timer.progress)
-                            .stroke(Color.powSage, style: StrokeStyle(lineWidth: 12, lineCap: .round))
+                            .stroke(Color.hereSage, style: StrokeStyle(lineWidth: 12, lineCap: .round))
                             .rotationEffect(.degrees(-90))
                             .frame(width: 260, height: 260)
 
@@ -529,21 +529,21 @@ private struct MeditationActiveTimerView: View {
                             Text(MeditationTimerModel.formatTime(timer.timeRemainingSeconds))
                                 .font(.system(size: 58, weight: .semibold, design: .rounded))
                                 .monospacedDigit()
-                                .foregroundStyle(Color.powForeground)
+                                .foregroundStyle(Color.hereForeground)
                             Text(timer.state == .paused ? "Paused" : "Sitting")
-                                .font(.powLabel)
-                                .foregroundStyle(Color.powMuted)
+                                .font(.hereLabel)
+                                .foregroundStyle(Color.hereMuted)
                         }
                     }
 
                     ZStack {
                         Circle()
-                            .fill(Color.powSageLight)
+                            .fill(Color.hereSageLight)
                             .frame(width: 74, height: 74)
                             .scaleEffect(timer.state == .paused ? 1 : breathScale)
                         Image(systemName: timer.state == .paused ? "pause.fill" : "wind")
                             .font(.system(size: 22))
-                            .foregroundStyle(Color.powSage)
+                            .foregroundStyle(Color.hereSage)
                     }
                     .animation(
                         timer.state == .paused ? .default : .easeInOut(duration: 4).repeatForever(autoreverses: true),
@@ -551,8 +551,8 @@ private struct MeditationActiveTimerView: View {
                     )
 
                     Text(timer.state == .paused ? "Tap to resume" : "Tap to pause")
-                        .font(.powCaption)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereCaption)
+                        .foregroundStyle(Color.hereMuted)
 
                     Spacer()
                 }
@@ -572,7 +572,7 @@ private struct MeditationActiveTimerView: View {
                     Button(action: onExit) {
                         Image(systemName: "xmark")
                             .font(.system(size: 17, weight: .semibold))
-                            .foregroundStyle(Color.powMuted)
+                            .foregroundStyle(Color.hereMuted)
                             .frame(width: 44, height: 44)
                     }
                     .accessibilityLabel("End session")
@@ -591,25 +591,25 @@ private struct MeditationWindDownView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
 
             VStack(spacing: 22) {
                 Spacer()
                 Image(systemName: "leaf")
                     .font(.system(size: 48))
-                    .foregroundStyle(Color.powSage)
+                    .foregroundStyle(Color.hereSage)
                 Text(MeditationTimerModel.formatTime(timer.windDownRemainingSeconds))
                     .font(.system(size: 58, weight: .semibold, design: .rounded))
                     .monospacedDigit()
-                    .foregroundStyle(Color.powForeground)
+                    .foregroundStyle(Color.hereForeground)
                 Text("Wind-down")
-                    .font(.powLabel)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereLabel)
+                    .foregroundStyle(Color.hereMuted)
                 Spacer()
                 Button(action: onSkip) {
                     Text("Done")
-                        .font(.powHeadline)
-                        .foregroundStyle(Color.powSage)
+                        .font(.hereHeadline)
+                        .foregroundStyle(Color.hereSage)
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
                 }
@@ -623,14 +623,14 @@ private struct MeditationWindDownView: View {
 private struct MeditationCompletionView: View {
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
             VStack(spacing: 12) {
                 Image(systemName: "checkmark.circle.fill")
                     .font(.system(size: 58))
-                    .foregroundStyle(Color.powSage)
+                    .foregroundStyle(Color.hereSage)
                 Text("Complete")
-                    .font(.powTitle)
-                    .foregroundStyle(Color.powForeground)
+                    .font(.hereTitle)
+                    .foregroundStyle(Color.hereForeground)
             }
         }
     }

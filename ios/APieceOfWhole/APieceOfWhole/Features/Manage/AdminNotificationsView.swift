@@ -18,12 +18,12 @@ struct AdminNotificationsView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
             ScrollView {
                 VStack(spacing: 20) {
-                    POWCard {
+                    HereCard {
                         VStack(alignment: .leading, spacing: 16) {
-                            Text("Target").font(.powLabel).foregroundStyle(Color.powForeground)
+                            Text("Target").font(.hereLabel).foregroundStyle(Color.hereForeground)
                             Picker("Target", selection: $targetType) {
                                 ForEach(TargetType.allCases, id: \.self) { t in
                                     Text(t.rawValue).tag(t)
@@ -31,30 +31,30 @@ struct AdminNotificationsView: View {
                             }
                             .pickerStyle(.segmented)
                             if targetType == .specific {
-                                POWTextField(label: "User ID", text: $specificUserID, placeholder: "UUID of target user")
+                                HereTextField(label: "User ID", text: $specificUserID, placeholder: "UUID of target user")
                             }
                         }
                         .padding(16)
                     }
 
-                    POWCard {
+                    HereCard {
                         VStack(alignment: .leading, spacing: 12) {
-                            Text("Message").font(.powLabel).foregroundStyle(Color.powForeground)
-                            POWTextField(label: "Title", text: $notifTitle, placeholder: "Notification title")
-                            POWTextField(label: "Body", text: $notifBody, placeholder: "Optional message body", axis: .vertical)
+                            Text("Message").font(.hereLabel).foregroundStyle(Color.hereForeground)
+                            HereTextField(label: "Title", text: $notifTitle, placeholder: "Notification title")
+                            HereTextField(label: "Body", text: $notifBody, placeholder: "Optional message body", axis: .vertical)
                         }
                         .padding(16)
                     }
 
                     if sent {
                         Text("Notification sent.")
-                            .font(.powBody).foregroundStyle(Color.powSage)
+                            .font(.hereBody).foregroundStyle(Color.hereSage)
                     }
                     if let error {
-                        Text(error).font(.powCaption).foregroundStyle(Color.powError)
+                        Text(error).font(.hereCaption).foregroundStyle(Color.hereError)
                     }
 
-                    POWButton(title: "Send Notification", isLoading: isSending) {
+                    HereButton(title: "Send Notification", isLoading: isSending) {
                         Task { await send() }
                     }
                     .disabled(notifTitle.trimmingCharacters(in: .whitespaces).isEmpty)

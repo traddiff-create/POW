@@ -12,12 +12,12 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
                 List {
                     Section("Profile") {
                         if appState.isGuest {
                             Label("Guest Mode", systemImage: "person.crop.circle.badge.questionmark")
-                                .foregroundStyle(Color.powMuted)
+                                .foregroundStyle(Color.hereMuted)
                         }
                         NavigationLink(destination: ProfileEditView()) {
                             Label("Edit Profile", systemImage: "person.circle")
@@ -29,13 +29,13 @@ struct SettingsView: View {
                             showSafety = true
                         } label: {
                             Label("Safety Information", systemImage: "heart.circle")
-                                .foregroundStyle(Color.powForeground)
+                                .foregroundStyle(Color.hereForeground)
                         }
                         Button {
                             showSupport = true
                         } label: {
                             Label("Contact Support", systemImage: "envelope")
-                                .foregroundStyle(Color.powForeground)
+                                .foregroundStyle(Color.hereForeground)
                         }
                     }
 
@@ -50,7 +50,7 @@ struct SettingsView: View {
                             showLegal = true
                         } label: {
                             Label("Terms & Privacy", systemImage: "doc.text")
-                                .foregroundStyle(Color.powForeground)
+                                .foregroundStyle(Color.hereForeground)
                         }
                     }
 
@@ -60,7 +60,7 @@ struct SettingsView: View {
                                 showUpgradeGuest = true
                             } label: {
                                 Label("Create Account to Keep Access", systemImage: "person.badge.plus")
-                                    .foregroundStyle(Color.powForeground)
+                                    .foregroundStyle(Color.hereForeground)
                             }
 
                             Button(role: .destructive) {
@@ -92,7 +92,7 @@ struct SettingsView: View {
                     }
                 }
                 .scrollContentBackground(.hidden)
-                .background(Color.powBackground)
+                .background(Color.hereBackground)
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.large)
@@ -123,43 +123,43 @@ struct GuestAccountUpgradeView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
                 ScrollView {
                     VStack(spacing: 24) {
                         VStack(spacing: 8) {
                             Text("Keep your guest access")
-                                .font(.powTitle2)
-                                .foregroundStyle(Color.powForeground)
+                                .font(.hereTitle2)
+                                .foregroundStyle(Color.hereForeground)
                             Text("Add email and password sign-in to preserve this guest profile, check-ins, journal entries, and My Piece reflections.")
-                                .font(.powBody)
-                                .foregroundStyle(Color.powMuted)
+                                .font(.hereBody)
+                                .foregroundStyle(Color.hereMuted)
                                 .multilineTextAlignment(.center)
                         }
                         .padding(.top, 8)
 
                         VStack(spacing: 16) {
-                            POWTextField(label: "Email", text: $email, keyboardType: .emailAddress)
-                            POWTextField(label: "Password", text: $password, isSecure: true)
-                            POWTextField(label: "Confirm Password", text: $confirmPassword, isSecure: true)
+                            HereTextField(label: "Email", text: $email, keyboardType: .emailAddress)
+                            HereTextField(label: "Password", text: $password, isSecure: true)
+                            HereTextField(label: "Confirm Password", text: $confirmPassword, isSecure: true)
                         }
 
                         if let error {
                             Text(error)
-                                .font(.powCaption)
-                                .foregroundStyle(Color.powError)
+                                .font(.hereCaption)
+                                .foregroundStyle(Color.hereError)
                                 .frame(maxWidth: .infinity, alignment: .leading)
 
                             if error == (AuthInputError.emailAlreadyExists.errorDescription ?? "") {
                                 NavigationLink(destination: SignInView()) {
                                     Label("Sign In Instead", systemImage: "rectangle.portrait.and.arrow.right")
-                                        .font(.powCallout)
-                                        .foregroundStyle(Color.powSage)
+                                        .font(.hereCallout)
+                                        .foregroundStyle(Color.hereSage)
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             }
                         }
 
-                        POWButton(title: "Create Account", isLoading: isSaving) {
+                        HereButton(title: "Create Account", isLoading: isSaving) {
                             Task { await upgrade() }
                         }
                         .disabled(email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || password.isEmpty)
@@ -200,14 +200,14 @@ struct ProfileEditView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
             VStack(spacing: 20) {
-                POWTextField(label: "Display Name", text: $displayName, placeholder: "Your name")
+                HereTextField(label: "Display Name", text: $displayName, placeholder: "Your name")
                 if let error {
-                    Text(error).font(.powCaption).foregroundStyle(Color.powError)
+                    Text(error).font(.hereCaption).foregroundStyle(Color.hereError)
                 }
                 Spacer()
-                POWButton(title: "Save", isLoading: isSaving) {
+                HereButton(title: "Save", isLoading: isSaving) {
                     Task { await save() }
                 }
                 .disabled(displayName.trimmingCharacters(in: .whitespaces).isEmpty)

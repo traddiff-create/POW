@@ -11,35 +11,35 @@ struct ShareConfirmationView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
                 VStack(spacing: 32) {
                     Spacer()
 
                     VStack(spacing: 16) {
                         Image(systemName: "person.2.circle")
                             .font(.system(size: 56))
-                            .foregroundStyle(Color.powSage)
+                            .foregroundStyle(Color.hereSage)
 
                         Text("Share to Your Circle?")
-                            .font(.powTitle)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereTitle)
+                            .foregroundStyle(Color.hereForeground)
                             .multilineTextAlignment(.center)
 
                         Text("This entry will be visible to everyone in your circle. You cannot un-share it.")
-                            .font(.powBody)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereBody)
+                            .foregroundStyle(Color.hereMuted)
                             .multilineTextAlignment(.center)
 
-                        POWCard {
+                        HereCard {
                             VStack(alignment: .leading, spacing: 8) {
                                 if let title = entry.title {
                                     Text(title)
-                                        .font(.powLabel)
-                                        .foregroundStyle(Color.powForeground)
+                                        .font(.hereLabel)
+                                        .foregroundStyle(Color.hereForeground)
                                 }
                                 Text(entry.body ?? "")
-                                    .font(.powCallout)
-                                    .foregroundStyle(Color.powMuted)
+                                    .font(.hereCallout)
+                                    .foregroundStyle(Color.hereMuted)
                                     .lineLimit(4)
                             }
                             .padding(16)
@@ -48,18 +48,18 @@ struct ShareConfirmationView: View {
 
                     if let error {
                         Text(error)
-                            .font(.powCaption)
-                            .foregroundStyle(Color.powError)
+                            .font(.hereCaption)
+                            .foregroundStyle(Color.hereError)
                             .multilineTextAlignment(.center)
                     }
 
                     VStack(spacing: 12) {
-                        POWButton(title: "Share to Circle", isLoading: isLoading) {
+                        HereButton(title: "Share to Circle", isLoading: isLoading) {
                             Task { await share() }
                         }
                         Button("Keep Private") { dismiss() }
-                            .font(.powCallout)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereCallout)
+                            .foregroundStyle(Color.hereMuted)
                     }
 
                     Spacer()

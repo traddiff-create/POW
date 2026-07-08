@@ -13,7 +13,7 @@ struct PaymentScreenView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
 
                 VStack(spacing: 32) {
                     Spacer()
@@ -21,29 +21,29 @@ struct PaymentScreenView: View {
                     VStack(spacing: 16) {
                         Image(systemName: "sparkles")
                             .font(.system(size: 48))
-                            .foregroundStyle(Color.powSage)
+                            .foregroundStyle(Color.hereSage)
 
                         if let cohort {
                             Text("Join \(cohort.name)")
-                                .font(.powTitle)
-                                .foregroundStyle(Color.powForeground)
+                                .font(.hereTitle)
+                                .foregroundStyle(Color.hereForeground)
                                 .multilineTextAlignment(.center)
 
                             if let product = purchaseService.product {
                                 Text(product.displayPrice)
-                                    .font(.powTitle2)
-                                    .foregroundStyle(Color.powSage)
+                                    .font(.hereTitle2)
+                                    .foregroundStyle(Color.hereSage)
                                 Text("One-time payment • 8-week cohort access")
-                                    .font(.powCallout)
-                                    .foregroundStyle(Color.powMuted)
+                                    .font(.hereCallout)
+                                    .foregroundStyle(Color.hereMuted)
                             }
                         }
                     }
 
                     if let error {
                         Text(error)
-                            .font(.powCaption)
-                            .foregroundStyle(Color.powError)
+                            .font(.hereCaption)
+                            .foregroundStyle(Color.hereError)
                             .multilineTextAlignment(.center)
                     }
 
@@ -52,7 +52,7 @@ struct PaymentScreenView: View {
                             ProgressView()
                                 .frame(height: 50)
                         } else {
-                            POWButton(title: "Complete Enrollment", isLoading: purchaseService.isPurchasing) {
+                            HereButton(title: "Complete Enrollment", isLoading: purchaseService.isPurchasing) {
                                 Task { await purchase() }
                             }
                             .disabled(purchaseService.product == nil)
@@ -60,8 +60,8 @@ struct PaymentScreenView: View {
                             Button("Restore Previous Purchase") {
                                 Task { await restore() }
                             }
-                            .font(.powCallout)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereCallout)
+                            .foregroundStyle(Color.hereMuted)
                         }
                     }
                     .padding(.bottom, 32)

@@ -12,7 +12,7 @@ struct WhyIHereView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
 
             if isLoading {
                 ProgressView()
@@ -40,11 +40,11 @@ struct WhyIHereView: View {
     private var intro: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Why I'm Here")
-                .font(.powTitle)
-                .foregroundStyle(Color.powForeground)
-            Text(POWPhilosophy.whyHereCopy)
-                .font(.powBody)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereTitle)
+                .foregroundStyle(Color.hereForeground)
+            Text(HerePhilosophy.whyHereCopy)
+                .font(.hereBody)
+                .foregroundStyle(Color.hereMuted)
                 .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -62,20 +62,20 @@ struct WhyIHereView: View {
                 WhyHereAnswerCard(title: "How I heard about Here", detail: howHeard)
             }
 
-            POWCard {
+            HereCard {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Original capacity check")
-                        .font(.powLabel)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereLabel)
+                        .foregroundStyle(Color.hereMuted)
                     if let hours = application.weeklyCapacityHours {
                         Label("\(hours) hour\(hours == 1 ? "" : "s") per week", systemImage: "clock")
-                            .font(.powCallout)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereCallout)
+                            .foregroundStyle(Color.hereForeground)
                     }
                     if let comfort = application.groupComfortLevel {
                         Label("Group comfort \(comfort) of 5", systemImage: "person.3")
-                            .font(.powCallout)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereCallout)
+                            .foregroundStyle(Color.hereForeground)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -85,22 +85,22 @@ struct WhyIHereView: View {
     }
 
     private var anonymousShareCard: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 14) {
                 VStack(alignment: .leading, spacing: 6) {
                     Label("Optional anonymous sharing", systemImage: "eye.slash")
-                        .font(.powLabel)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereLabel)
+                        .foregroundStyle(Color.hereMuted)
                     Text("Help others know why people find Here")
-                        .font(.powTitle2)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereTitle2)
+                        .foregroundStyle(Color.hereForeground)
                     Text("Only this excerpt is shared. Your name, email, application, capacity, and comfort answers stay private.")
-                        .font(.powCallout)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereCallout)
+                        .foregroundStyle(Color.hereMuted)
                         .fixedSize(horizontal: false, vertical: true)
                 }
 
-                POWTextField(
+                HereTextField(
                     label: "Anonymous excerpt",
                     text: $excerptText,
                     placeholder: "A short reason you came to this practice...",
@@ -110,18 +110,18 @@ struct WhyIHereView: View {
 
                 if let savedMessage {
                     Text(savedMessage)
-                        .font(.powCaption)
-                        .foregroundStyle(Color.powSage)
+                        .font(.hereCaption)
+                        .foregroundStyle(Color.hereSage)
                 }
 
                 if let error {
                     Text(error)
-                        .font(.powCaption)
-                        .foregroundStyle(Color.powError)
+                        .font(.hereCaption)
+                        .foregroundStyle(Color.hereError)
                         .fixedSize(horizontal: false, vertical: true)
                 }
 
-                POWButton(
+                HereButton(
                     title: sharedExcerpt?.isActive == true ? "Update Anonymous Excerpt" : "Share Anonymous Excerpt",
                     isLoading: isSaving
                 ) {
@@ -132,7 +132,7 @@ struct WhyIHereView: View {
                 .accessibilityIdentifier("whyHere.shareButton")
 
                 if sharedExcerpt?.isActive == true {
-                    POWButton(title: "Unshare Excerpt", style: .destructive, isLoading: isSaving) {
+                    HereButton(title: "Unshare Excerpt", style: .destructive, isLoading: isSaving) {
                         Task { await unshareExcerpt() }
                     }
                     .accessibilityIdentifier("whyHere.unshareButton")
@@ -143,14 +143,14 @@ struct WhyIHereView: View {
     }
 
     private var emptyState: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 10) {
                 Label("No application yet", systemImage: "doc.text")
-                    .font(.powLabel)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereLabel)
+                    .foregroundStyle(Color.hereMuted)
                 Text("Once you apply, your answers will appear here so you can return to why you began.")
-                    .font(.powBody)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereBody)
+                    .foregroundStyle(Color.hereMuted)
                     .fixedSize(horizontal: false, vertical: true)
             }
             .padding(20)
@@ -229,14 +229,14 @@ private struct WhyHereAnswerCard: View {
     let detail: String
 
     var body: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 8) {
                 Text(title)
-                    .font(.powLabel)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereLabel)
+                    .foregroundStyle(Color.hereMuted)
                 Text(detail)
-                    .font(.powBody)
-                    .foregroundStyle(Color.powForeground)
+                    .font(.hereBody)
+                    .foregroundStyle(Color.hereForeground)
                     .fixedSize(horizontal: false, vertical: true)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -252,17 +252,17 @@ struct WhyWereHereView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
 
             if isLoading {
                 ProgressView()
             } else if let error {
                 VStack(spacing: 16) {
                     Text(error)
-                        .font(.powBody)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereBody)
+                        .foregroundStyle(Color.hereMuted)
                         .multilineTextAlignment(.center)
-                    POWButton(title: "Retry") { Task { await load() } }
+                    HereButton(title: "Retry") { Task { await load() } }
                 }
                 .padding(24)
             } else {
@@ -270,18 +270,18 @@ struct WhyWereHereView: View {
                     VStack(alignment: .leading, spacing: 18) {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Why We're Here")
-                                .font(.powTitle)
-                                .foregroundStyle(Color.powForeground)
+                                .font(.hereTitle)
+                                .foregroundStyle(Color.hereForeground)
                             Text("Anonymous excerpts from people who chose to share why they came to this practice.")
-                                .font(.powBody)
-                                .foregroundStyle(Color.powMuted)
+                                .font(.hereBody)
+                                .foregroundStyle(Color.hereMuted)
                         }
 
                         if excerpts.isEmpty {
-                            POWCard {
+                            HereCard {
                                 Text("No anonymous reflections have been shared yet.")
-                                    .font(.powBody)
-                                    .foregroundStyle(Color.powMuted)
+                                    .font(.hereBody)
+                                    .foregroundStyle(Color.hereMuted)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .padding(20)
                             }
@@ -318,14 +318,14 @@ private struct PublicExcerptCard: View {
     let excerpt: PublicSharedReflectionExcerpt
 
     var body: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 10) {
                 Label(excerpt.leg.title, systemImage: excerpt.leg.systemImage)
-                    .font(.powLabel)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereLabel)
+                    .foregroundStyle(Color.hereMuted)
                 Text(excerpt.excerpt)
-                    .font(.powBody)
-                    .foregroundStyle(Color.powForeground)
+                    .font(.hereBody)
+                    .foregroundStyle(Color.hereForeground)
                     .fixedSize(horizontal: false, vertical: true)
             }
             .frame(maxWidth: .infinity, alignment: .leading)

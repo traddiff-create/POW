@@ -1,6 +1,8 @@
-# A Piece of Whole (POW) — Claude Instructions
+# Here (formerly A Piece of Whole / POW) — Claude Instructions
 
-**Location:** `/Applications/Apps/Piece of Whole/` | **GitHub:** traddiff-create/POW | **Owner:** Rory Stone
+**Location:** `/Applications/Apps/Here/` | **GitHub:** traddiff-create/POW | **Owner:** Rory Stone
+
+> Rebranded to **Here** (three-leg practice: Self / Together / Community) at the Ignite RC Hackathon 2026-04-26; full internal POW→Here symbol rename 2026-07-08. Bundle ID, ASC app ID, StoreKit product ID (`apow.cohort.8week`), and the `pow_meditation_*` UserDefaults keys keep their original identifiers — Apple-locked or persistence-compat, do not rename. Xcode project/scheme/module remain `APieceOfWhole`.
 
 ## Stack
 
@@ -35,7 +37,7 @@ ios/APieceOfWhole/
       Auth/         — AuthService (Supabase auth), AppleSignInButton, SignInWithAppleService types
       Supabase/     — SupabaseClient, SupabaseService
       Models/       — All data models (CheckIn, Practice, Profile, etc.)
-      Design/       — Colors, Typography, POW* components
+      Design/       — Colors, Typography, Here* components (HereCard/HereButton/HereTextField)
       StoreKit/     — PurchaseService
     Features/
       Auth/         — CreateAccountView, SignInView

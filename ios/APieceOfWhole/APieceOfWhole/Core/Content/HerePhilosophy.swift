@@ -1,6 +1,6 @@
 import Foundation
 
-struct POWLayerSummary: Identifiable, Sendable {
+struct HereLayerSummary: Identifiable, Sendable {
     let id: String
     let title: String
     let systemImage: String
@@ -8,13 +8,13 @@ struct POWLayerSummary: Identifiable, Sendable {
     let detail: String
 }
 
-struct POWBelief: Identifiable, Sendable {
+struct HereBelief: Identifiable, Sendable {
     let id: String
     let title: String
     let body: String
 }
 
-enum POWPhilosophy {
+enum HerePhilosophy {
     static let appName = "Here"
 
     static let batesonQuote = "The human individual is in some degree a fiction."
@@ -57,36 +57,36 @@ enum POWPhilosophy {
         signatureLine
     ]
 
-    static let layers: [POWLayerSummary] = [
-        POWLayerSummary(
+    static let layers: [HereLayerSummary] = [
+        HereLayerSummary(
             id: "self_regulation",
             title: "Self-Regulation",
             systemImage: "brain.head.profile",
             shortDescription: "Body, breath, nervous system, and inner life.",
             detail: "The foundation. You cannot pour from an empty cup, but filling the cup is not the end of the story."
         ),
-        POWLayerSummary(
+        HereLayerSummary(
             id: "co_regulation",
             title: "Co-Regulation",
             systemImage: "person.2",
             shortDescription: "Shared regulation, attunement, and relational practice.",
             detail: "The missing piece in many wellness frameworks: personal healing becomes relational."
         ),
-        POWLayerSummary(
+        HereLayerSummary(
             id: "community",
             title: "Community",
             systemImage: "person.3",
             shortDescription: "Slow, purposeful connection around shared values.",
             detail: "Not a social feed. Circles, depth, trust, and belonging over performance or breadth."
         ),
-        POWLayerSummary(
+        HereLayerSummary(
             id: "agency",
             title: "Agency",
             systemImage: "hand.raised",
             shortDescription: "Knowing your piece and your sustainable contribution.",
             detail: "The bridge between inner work and outer action. Choice and freedom restored."
         ),
-        POWLayerSummary(
+        HereLayerSummary(
             id: "civic_engagement",
             title: "Civic Engagement",
             systemImage: "building.columns",
@@ -95,33 +95,33 @@ enum POWPhilosophy {
         )
     ]
 
-    static let beliefs: [POWBelief] = [
-        POWBelief(
+    static let beliefs: [HereBelief] = [
+        HereBelief(
             id: "connection",
             title: "Connection is the foundation",
             body: "The health of any system, from a person to a democracy, depends on the quality of its relationships."
         ),
-        POWBelief(
+        HereBelief(
             id: "process",
             title: "How we do things matters",
             body: "Process is not separate from outcome. You cannot use disconnection to build connection."
         ),
-        POWBelief(
+        HereBelief(
             id: "pace",
             title: "Change should be deep, not destabilizing",
             body: "Nervous systems, communities, and democracies all have a window of tolerance. Root work and slow work are not the same as no work."
         ),
-        POWBelief(
+        HereBelief(
             id: "care",
             title: "Care is not weakness",
             body: "Care is a sophisticated and durable intelligence, even when systems make it invisible."
         ),
-        POWBelief(
+        HereBelief(
             id: "plurality",
             title: "No single framework owns the truth",
             body: "The app should hold space for plurality, lived experience, humility, and the unknown."
         ),
-        POWBelief(
+        HereBelief(
             id: "living_world",
             title: "We are part of the living world",
             body: "What we practice inward, we practice outward toward each other and the earth we share."

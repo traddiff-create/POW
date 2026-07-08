@@ -28,49 +28,49 @@ struct ApplyFormView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
             ScrollView {
                 VStack(spacing: 24) {
                     VStack(spacing: 8) {
                         Text("Apply to \(cohort.name)")
-                            .font(.powTitle2)
-                            .foregroundStyle(Color.powForeground)
-                        Text(POWPhilosophy.applicationCopy)
-                            .font(.powBody)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereTitle2)
+                            .foregroundStyle(Color.hereForeground)
+                        Text(HerePhilosophy.applicationCopy)
+                            .font(.hereBody)
+                            .foregroundStyle(Color.hereMuted)
                             .multilineTextAlignment(.center)
                     }
                     .padding(.top, 8)
 
-                    POWTextField(label: "What motivates you to join? *", text: $motivation, placeholder: "Share what's calling you to this work...", axis: .vertical, accessibilityID: "application.motivationField")
-                    POWTextField(label: "What change do you hope for? *", text: $hopedChange, placeholder: "What does growth look like for you...", axis: .vertical, accessibilityID: "application.hopedChangeField")
-                    POWTextField(label: "How did you hear about us?", text: $howHeard, accessibilityID: "application.howHeardField")
+                    HereTextField(label: "What motivates you to join? *", text: $motivation, placeholder: "Share what's calling you to this work...", axis: .vertical, accessibilityID: "application.motivationField")
+                    HereTextField(label: "What change do you hope for? *", text: $hopedChange, placeholder: "What does growth look like for you...", axis: .vertical, accessibilityID: "application.hopedChangeField")
+                    HereTextField(label: "How did you hear about us?", text: $howHeard, accessibilityID: "application.howHeardField")
 
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Hours per week you can commit (1-10)")
-                            .font(.powCaption)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereCaption)
+                            .foregroundStyle(Color.hereMuted)
                         Stepper("\(weeklyCapacity) hours", value: $weeklyCapacity, in: 1...10)
-                            .font(.powBody)
+                            .font(.hereBody)
                             .accessibilityIdentifier("application.weeklyCapacityStepper")
                     }
 
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Comfort level in group settings (1–5)")
-                            .font(.powCaption)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereCaption)
+                            .foregroundStyle(Color.hereMuted)
                         HStack(spacing: 8) {
                             ForEach(1...5, id: \.self) { n in
                                 Button {
                                     groupComfort = n
                                 } label: {
                                     Text("\(n)")
-                                        .font(.powBody)
+                                        .font(.hereBody)
                                         .frame(width: 44, height: 44)
-                                        .background(groupComfort == n ? Color.powSage : Color.powSurface)
-                                        .foregroundStyle(groupComfort == n ? Color.white : Color.powForeground)
+                                        .background(groupComfort == n ? Color.hereSage : Color.hereSurface)
+                                        .foregroundStyle(groupComfort == n ? Color.white : Color.hereForeground)
                                         .clipShape(Circle())
-                                        .overlay(Circle().stroke(Color.powBorder, lineWidth: 1))
+                                        .overlay(Circle().stroke(Color.hereBorder, lineWidth: 1))
                                 }
                                 .accessibilityIdentifier("application.groupComfort.\(n)")
                             }
@@ -79,29 +79,29 @@ struct ApplyFormView: View {
 
                     Toggle(isOn: $agreementsAccepted) {
                         Text("I acknowledge the program agreements and community standards")
-                            .font(.powCallout)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereCallout)
+                            .foregroundStyle(Color.hereForeground)
                     }
-                    .tint(Color.powSage)
+                    .tint(Color.hereSage)
                     .accessibilityIdentifier("application.agreementsToggle")
 
                     Toggle(isOn: $safetyAcknowledged) {
                         Text("I understand this is not therapy, not medical care, and not a crisis service")
-                            .font(.powCallout)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereCallout)
+                            .foregroundStyle(Color.hereForeground)
                     }
-                    .tint(Color.powSage)
+                    .tint(Color.hereSage)
                     .accessibilityIdentifier("application.safetyToggle")
 
                     if let error {
                         Text(error)
-                            .font(.powCaption)
-                            .foregroundStyle(Color.powError)
+                            .font(.hereCaption)
+                            .foregroundStyle(Color.hereError)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .accessibilityIdentifier("application.errorText")
                     }
 
-                    POWButton(title: "Submit Application", isLoading: isLoading) {
+                    HereButton(title: "Submit Application", isLoading: isLoading) {
                         Task { await submit() }
                     }
                     .disabled(!isValid || isLoading)

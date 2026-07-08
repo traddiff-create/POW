@@ -23,7 +23,7 @@ struct ReportView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
 
                 if submitted {
                     submittedView
@@ -45,8 +45,8 @@ struct ReportView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
                 Text("What's the issue?")
-                    .font(.powLabel)
-                    .foregroundStyle(Color.powForeground)
+                    .font(.hereLabel)
+                    .foregroundStyle(Color.hereForeground)
 
                 VStack(spacing: 8) {
                     ForEach(reasons, id: \.self) { reason in
@@ -55,26 +55,26 @@ struct ReportView: View {
                         } label: {
                             HStack {
                                 Text(reason)
-                                    .font(.powBody)
-                                    .foregroundStyle(Color.powForeground)
+                                    .font(.hereBody)
+                                    .foregroundStyle(Color.hereForeground)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 if selectedReason == reason {
                                     Image(systemName: "checkmark.circle.fill")
-                                        .foregroundStyle(Color.powSage)
+                                        .foregroundStyle(Color.hereSage)
                                 } else {
                                     Image(systemName: "circle")
-                                        .foregroundStyle(Color.powBorder)
+                                        .foregroundStyle(Color.hereBorder)
                                 }
                             }
                             .padding(16)
                             .background(
-                                selectedReason == reason ? Color.powSageLight : Color.powSurface
+                                selectedReason == reason ? Color.hereSageLight : Color.hereSurface
                             )
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(
-                                        selectedReason == reason ? Color.powSage : Color.powBorder,
+                                        selectedReason == reason ? Color.hereSage : Color.hereBorder,
                                         lineWidth: 1
                                     )
                             )
@@ -83,7 +83,7 @@ struct ReportView: View {
                     }
                 }
 
-                POWTextField(
+                HereTextField(
                     label: "Additional details (optional)",
                     text: $details,
                     placeholder: "Share more context…",
@@ -93,11 +93,11 @@ struct ReportView: View {
 
                 if let error {
                     Text(error)
-                        .font(.powCaption)
-                        .foregroundStyle(Color.powError)
+                        .font(.hereCaption)
+                        .foregroundStyle(Color.hereError)
                 }
 
-                POWButton(title: "Submit Report", isLoading: isSubmitting) {
+                HereButton(title: "Submit Report", isLoading: isSubmitting) {
                     Task { await submit() }
                 }
                 .disabled(selectedReason == nil)
@@ -110,15 +110,15 @@ struct ReportView: View {
         VStack(spacing: 20) {
             Image(systemName: "checkmark.circle.fill")
                 .font(.system(size: 56))
-                .foregroundStyle(Color.powSage)
+                .foregroundStyle(Color.hereSage)
             Text("Report Submitted")
-                .font(.powTitle2)
-                .foregroundStyle(Color.powForeground)
+                .font(.hereTitle2)
+                .foregroundStyle(Color.hereForeground)
             Text("Thank you. Our team will review this content and take appropriate action.")
-                .font(.powBody)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereBody)
+                .foregroundStyle(Color.hereMuted)
                 .multilineTextAlignment(.center)
-            POWButton(title: "Done") { dismiss() }
+            HereButton(title: "Done") { dismiss() }
                 .padding(.top, 8)
         }
         .padding(28)

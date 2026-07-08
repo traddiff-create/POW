@@ -5,18 +5,18 @@ struct SpiralView: View {
     @State private var checkIns: [CheckIn] = []
     @State private var isLoading = true
 
-    private let layers: [(summary: POWLayerSummary, color: Color)] = [
-        (POWPhilosophy.layers[0], Color(hex: "#7A9E7E")),
-        (POWPhilosophy.layers[1], Color(hex: "#6B8F9E")),
-        (POWPhilosophy.layers[2], Color(hex: "#C4A882")),
-        (POWPhilosophy.layers[3], Color(hex: "#9E7A8C")),
-        (POWPhilosophy.layers[4], Color(hex: "#8E9E7A"))
+    private let layers: [(summary: HereLayerSummary, color: Color)] = [
+        (HerePhilosophy.layers[0], Color(hex: "#7A9E7E")),
+        (HerePhilosophy.layers[1], Color(hex: "#6B8F9E")),
+        (HerePhilosophy.layers[2], Color(hex: "#C4A882")),
+        (HerePhilosophy.layers[3], Color(hex: "#9E7A8C")),
+        (HerePhilosophy.layers[4], Color(hex: "#8E9E7A"))
     ]
 
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
                 ScrollView {
                     VStack(spacing: 32) {
                         spiralIntro
@@ -33,28 +33,28 @@ struct SpiralView: View {
     }
 
     private var spiralIntro: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 8) {
                 Label("Inside out", systemImage: "circle.hexagongrid")
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
-                Text(POWPhilosophy.signatureLine)
-                    .font(.powTitle2)
-                    .foregroundStyle(Color.powForeground)
-                Text(POWPhilosophy.spiralCopy)
-                    .font(.powBody)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
+                Text(HerePhilosophy.signatureLine)
+                    .font(.hereTitle2)
+                    .foregroundStyle(Color.hereForeground)
+                Text(HerePhilosophy.spiralCopy)
+                    .font(.hereBody)
+                    .foregroundStyle(Color.hereMuted)
             }
             .padding(20)
         }
     }
 
     private var spiralDiagram: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 16) {
                 Text("The Five Layers")
-                    .font(.powLabel)
-                    .foregroundStyle(Color.powForeground)
+                    .font(.hereLabel)
+                    .foregroundStyle(Color.hereForeground)
                     .padding(.horizontal, 20)
                     .padding(.top, 20)
 
@@ -71,22 +71,22 @@ struct SpiralView: View {
                             }
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(layer.summary.title)
-                                    .font(.powBody)
-                                    .foregroundStyle(isCurrentLayer(index) ? Color.powForeground : Color.powMuted)
+                                    .font(.hereBody)
+                                    .foregroundStyle(isCurrentLayer(index) ? Color.hereForeground : Color.hereMuted)
                                 Text(layer.summary.shortDescription)
-                                    .font(.powCaption)
-                                    .foregroundStyle(Color.powMuted)
+                                    .font(.hereCaption)
+                                    .foregroundStyle(Color.hereMuted)
                                 if isCurrentLayer(index) {
                                     Text("Current focus")
-                                        .font(.powCaption)
+                                        .font(.hereCaption)
                                         .foregroundStyle(layer.color)
                                 }
                             }
                             Spacer()
                             if isCurrentLayer(index) {
                                 Image(systemName: "chevron.right")
-                                    .font(.powCaption)
-                                    .foregroundStyle(Color.powMuted)
+                                    .font(.hereCaption)
+                                    .foregroundStyle(Color.hereMuted)
                             }
                         }
                         .padding(.horizontal, 20)
@@ -104,11 +104,11 @@ struct SpiralView: View {
     }
 
     private var weekGrid: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 16) {
                 Text("8-Week Journey")
-                    .font(.powLabel)
-                    .foregroundStyle(Color.powForeground)
+                    .font(.hereLabel)
+                    .foregroundStyle(Color.hereForeground)
 
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4), spacing: 12) {
                     ForEach(1...8, id: \.self) { week in
@@ -127,22 +127,22 @@ struct SpiralView: View {
         return VStack(spacing: 6) {
             ZStack {
                 Circle()
-                    .fill(completed ? Color.powSage : (isCurrent ? Color.powSage.opacity(0.15) : Color.powSurface))
+                    .fill(completed ? Color.hereSage : (isCurrent ? Color.hereSage.opacity(0.15) : Color.hereSurface))
                     .frame(width: 48, height: 48)
-                    .overlay(Circle().stroke(isCurrent ? Color.powSage : Color.powBorder, lineWidth: isCurrent ? 2 : 1))
+                    .overlay(Circle().stroke(isCurrent ? Color.hereSage : Color.hereBorder, lineWidth: isCurrent ? 2 : 1))
                 if completed {
                     Image(systemName: "checkmark")
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundStyle(Color.white)
                 } else {
                     Text("\(week)")
-                        .font(.powBody)
-                        .foregroundStyle(isCurrent ? Color.powSage : Color.powMuted)
+                        .font(.hereBody)
+                        .foregroundStyle(isCurrent ? Color.hereSage : Color.hereMuted)
                 }
             }
             Text("Wk \(week)")
-                .font(.powCaption)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereCaption)
+                .foregroundStyle(Color.hereMuted)
         }
     }
 

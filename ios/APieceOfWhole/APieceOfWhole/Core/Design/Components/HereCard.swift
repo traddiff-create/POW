@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct POWCard<Content: View>: View {
+struct HereCard<Content: View>: View {
     let content: () -> Content
 
     init(@ViewBuilder content: @escaping () -> Content) {
@@ -9,11 +9,11 @@ struct POWCard<Content: View>: View {
 
     var body: some View {
         content()
-            .background(Color.powSurface)
+            .background(Color.hereSurface)
             .clipShape(RoundedRectangle(cornerRadius: 16))
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color.powBorder, lineWidth: 1)
+                    .stroke(Color.hereBorder, lineWidth: 1)
             )
     }
 }

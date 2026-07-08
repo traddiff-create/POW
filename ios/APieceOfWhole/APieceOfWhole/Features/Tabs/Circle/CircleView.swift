@@ -10,7 +10,7 @@ struct CircleView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
 
                 if isLoading {
                     ProgressView()
@@ -43,7 +43,7 @@ struct CircleView: View {
                             showNewPost = true
                         } label: {
                             Image(systemName: "plus.circle")
-                                .foregroundStyle(Color.powSage)
+                                .foregroundStyle(Color.hereSage)
                         }
                     }
                 }
@@ -59,15 +59,15 @@ struct CircleView: View {
         VStack(spacing: 16) {
             Image(systemName: "person.3")
                 .font(.system(size: 48))
-                .foregroundStyle(Color.powMuted)
+                .foregroundStyle(Color.hereMuted)
             Text("Your circle is quiet")
-                .font(.powTitle2)
-                .foregroundStyle(Color.powForeground)
+                .font(.hereTitle2)
+                .foregroundStyle(Color.hereForeground)
             Text("Be the first to share something with your group.")
-                .font(.powBody)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereBody)
+                .foregroundStyle(Color.hereMuted)
                 .multilineTextAlignment(.center)
-            POWButton(title: "Share to Circle") { showNewPost = true }
+            HereButton(title: "Share to Circle") { showNewPost = true }
                 .padding(.top, 8)
         }
         .padding(28)
@@ -77,13 +77,13 @@ struct CircleView: View {
         VStack(spacing: 16) {
             Image(systemName: "person.3")
                 .font(.system(size: 48))
-                .foregroundStyle(Color.powMuted)
+                .foregroundStyle(Color.hereMuted)
             Text("Circle opens with a cohort")
-                .font(.powTitle2)
-                .foregroundStyle(Color.powForeground)
+                .font(.hereTitle2)
+                .foregroundStyle(Color.hereForeground)
             Text("Guest mode keeps your personal practice private. Join a cohort to share, comment, and participate in Circle.")
-                .font(.powBody)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereBody)
+                .foregroundStyle(Color.hereMuted)
                 .multilineTextAlignment(.center)
         }
         .padding(28)
@@ -91,8 +91,8 @@ struct CircleView: View {
 
     private func errorView(_ message: String) -> some View {
         VStack(spacing: 16) {
-            Text(message).font(.powBody).foregroundStyle(Color.powMuted)
-            POWButton(title: "Retry") { Task { await load() } }
+            Text(message).font(.hereBody).foregroundStyle(Color.hereMuted)
+            HereButton(title: "Retry") { Task { await load() } }
         }
         .padding(24)
     }
@@ -115,28 +115,28 @@ struct CirclePostCard: View {
     let post: CirclePost
 
     var body: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
                     Label(post.isAnonymous ? "Anonymous" : (post.authorName ?? "Member"),
                           systemImage: "person.circle")
-                        .font(.powCaption)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereCaption)
+                        .foregroundStyle(Color.hereMuted)
                     Spacer()
                     Text(formatDate(post.createdAt))
-                        .font(.powCaption)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereCaption)
+                        .foregroundStyle(Color.hereMuted)
                 }
 
                 Text(post.content)
-                    .font(.powBody)
-                    .foregroundStyle(Color.powForeground)
+                    .font(.hereBody)
+                    .foregroundStyle(Color.hereForeground)
                     .lineLimit(4)
 
                 if let count = post.commentCount, count > 0 {
                     Label("\(count) comment\(count == 1 ? "" : "s")", systemImage: "bubble.left")
-                        .font(.powCaption)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereCaption)
+                        .foregroundStyle(Color.hereMuted)
                 }
             }
             .padding(16)
@@ -163,28 +163,28 @@ struct NewCirclePostView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
                 VStack(spacing: 16) {
-                    POWTextField(label: "Share with your circle", text: $content,
+                    HereTextField(label: "Share with your circle", text: $content,
                                  placeholder: "What's on your mind?", axis: .vertical)
                         .frame(minHeight: 160, alignment: .top)
 
                     Toggle(isOn: $isAnonymous) {
                         Text("Post anonymously")
-                            .font(.powBody)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereBody)
+                            .foregroundStyle(Color.hereForeground)
                     }
-                    .tint(Color.powSage)
+                    .tint(Color.hereSage)
 
                     if let error {
                         Text(error)
-                            .font(.powCaption)
-                            .foregroundStyle(Color.powError)
+                            .font(.hereCaption)
+                            .foregroundStyle(Color.hereError)
                     }
 
                     Spacer()
 
-                    POWButton(title: "Post to Circle", isLoading: isLoading) {
+                    HereButton(title: "Post to Circle", isLoading: isLoading) {
                         Task { await submit() }
                     }
                     .disabled(content.trimmingCharacters(in: .whitespaces).isEmpty)

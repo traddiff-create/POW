@@ -15,29 +15,29 @@ struct CohortListView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
 
             if isLoading {
                 ProgressView()
             } else if let error {
                 VStack(spacing: 16) {
                     Text("Couldn't load cohorts")
-                        .font(.powTitle2)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereTitle2)
+                        .foregroundStyle(Color.hereForeground)
                     Text(error)
-                        .font(.powBody)
-                        .foregroundStyle(Color.powMuted)
-                    POWButton(title: "Retry") { Task { await load() } }
+                        .font(.hereBody)
+                        .foregroundStyle(Color.hereMuted)
+                    HereButton(title: "Retry") { Task { await load() } }
                 }
                 .padding(24)
             } else if cohorts.isEmpty {
                 VStack(spacing: 12) {
                     Text("No cohorts open right now")
-                        .font(.powTitle2)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereTitle2)
+                        .foregroundStyle(Color.hereForeground)
                     Text("Check back soon — new cohorts open periodically.")
-                        .font(.powBody)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereBody)
+                        .foregroundStyle(Color.hereMuted)
                         .multilineTextAlignment(.center)
                 }
                 .padding(24)
@@ -81,32 +81,32 @@ struct CohortCard: View {
     let onApply: () -> Void
 
     var body: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 16) {
                 VStack(alignment: .leading, spacing: 6) {
                     Text(cohort.name)
-                        .font(.powTitle2)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereTitle2)
+                        .foregroundStyle(Color.hereForeground)
                         .accessibilityIdentifier("cohort.card.\(cohort.id)")
 
                     if let description = cohort.description {
                         Text(description)
-                            .font(.powBody)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereBody)
+                            .foregroundStyle(Color.hereMuted)
                             .lineLimit(3)
                     }
                 }
 
                 HStack {
                     Label(cohort.formattedPrice, systemImage: "tag")
-                        .font(.powCallout)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereCallout)
+                        .foregroundStyle(Color.hereMuted)
 
                     if let startDate = cohort.startDate {
                         Spacer()
                         Label(formatDate(startDate), systemImage: "calendar")
-                            .font(.powCallout)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereCallout)
+                            .foregroundStyle(Color.hereMuted)
                     }
                 }
 
@@ -114,7 +114,7 @@ struct CohortCard: View {
                     ApplicationStatusBadge(status: app.status)
                         .accessibilityIdentifier("cohort.applicationStatus.\(cohort.id)")
                 } else {
-                    POWButton(title: "Apply", action: onApply)
+                    HereButton(title: "Apply", action: onApply)
                         .accessibilityIdentifier("cohort.applyButton.\(cohort.id)")
                 }
             }
@@ -139,7 +139,7 @@ struct ApplicationStatusBadge: View {
         HStack(spacing: 6) {
             Circle().fill(statusColor).frame(width: 8, height: 8)
             Text(statusLabel)
-                .font(.powCallout)
+                .font(.hereCallout)
                 .foregroundStyle(statusColor)
         }
         .padding(.horizontal, 12)
@@ -159,10 +159,10 @@ struct ApplicationStatusBadge: View {
 
     private var statusColor: Color {
         switch status {
-        case .pending: return .powStone
-        case .approved: return .powSage
-        case .rejected: return .powError
-        case .waitlisted: return .powMuted
+        case .pending: return .hereStone
+        case .approved: return .hereSage
+        case .rejected: return .hereError
+        case .waitlisted: return .hereMuted
         }
     }
 }

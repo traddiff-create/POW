@@ -15,38 +15,38 @@ struct CheckInFormView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
                 ScrollView {
                     VStack(spacing: 24) {
                         VStack(spacing: 8) {
                             Text("How are you arriving?")
-                                .font(.powTitle2)
-                                .foregroundStyle(Color.powForeground)
+                                .font(.hereTitle2)
+                                .foregroundStyle(Color.hereForeground)
                             Text("This is private — only you can see your check-ins.")
-                                .font(.powCallout)
-                                .foregroundStyle(Color.powMuted)
+                                .font(.hereCallout)
+                                .foregroundStyle(Color.hereMuted)
                                 .multilineTextAlignment(.center)
                         }
                         .padding(.top, 8)
 
-                        POWTextField(label: "Body sensation (optional)", text: $body_sensation,
+                        HereTextField(label: "Body sensation (optional)", text: $body_sensation,
                                      placeholder: "What do you notice in your body right now?", axis: .vertical)
 
                         ratingRow(label: "Mood", value: $mood)
                         ratingRow(label: "Stress level", value: $stressLevel)
                         ratingRow(label: "Capacity", value: $capacityLevel)
 
-                        POWTextField(label: "Private note (optional)", text: $privateNote,
+                        HereTextField(label: "Private note (optional)", text: $privateNote,
                                      placeholder: "Anything else you want to note...", axis: .vertical)
 
                         if let error {
                             Text(error)
-                                .font(.powCaption)
-                                .foregroundStyle(Color.powError)
+                                .font(.hereCaption)
+                                .foregroundStyle(Color.hereError)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
 
-                        POWButton(title: "Save Check-In", isLoading: isLoading) {
+                        HereButton(title: "Save Check-In", isLoading: isLoading) {
                             Task { await submit() }
                         }
                         .padding(.bottom, 32)
@@ -67,20 +67,20 @@ struct CheckInFormView: View {
     private func ratingRow(label: String, value: Binding<Int>) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(label)
-                .font(.powCaption)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereCaption)
+                .foregroundStyle(Color.hereMuted)
             HStack(spacing: 8) {
                 ForEach(1...5, id: \.self) { n in
                     Button {
                         value.wrappedValue = n
                     } label: {
                         Text("\(n)")
-                            .font(.powBody)
+                            .font(.hereBody)
                             .frame(width: 44, height: 44)
-                            .background(value.wrappedValue == n ? Color.powSage : Color.powSurface)
-                            .foregroundStyle(value.wrappedValue == n ? Color.white : Color.powForeground)
+                            .background(value.wrappedValue == n ? Color.hereSage : Color.hereSurface)
+                            .foregroundStyle(value.wrappedValue == n ? Color.white : Color.hereForeground)
                             .clipShape(Circle())
-                            .overlay(Circle().stroke(Color.powBorder, lineWidth: 1))
+                            .overlay(Circle().stroke(Color.hereBorder, lineWidth: 1))
                     }
                 }
             }

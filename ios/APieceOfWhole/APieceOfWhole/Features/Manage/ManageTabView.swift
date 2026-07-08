@@ -5,7 +5,7 @@ struct ManageTabView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
             if appState.role == .admin {
                 AdminDashboardView()
             } else {

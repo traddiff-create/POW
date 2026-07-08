@@ -10,7 +10,7 @@ struct CirclePostDetailView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
             VStack(spacing: 0) {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
@@ -32,7 +32,7 @@ struct CirclePostDetailView: View {
                     showReport = true
                 } label: {
                     Image(systemName: "flag")
-                        .foregroundStyle(Color.powMuted)
+                        .foregroundStyle(Color.hereMuted)
                 }
             }
         }
@@ -47,29 +47,29 @@ struct CirclePostDetailView: View {
             HStack {
                 Label(post.isAnonymous ? "Anonymous" : (post.authorName ?? "Member"),
                       systemImage: "person.circle")
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
                 Spacer()
                 Text(formatDate(post.createdAt))
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
             }
             Text(post.content)
-                .font(.powBody)
-                .foregroundStyle(Color.powForeground)
+                .font(.hereBody)
+                .foregroundStyle(Color.hereForeground)
         }
     }
 
     private var commentsSection: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Comments")
-                .font(.powLabel)
-                .foregroundStyle(Color.powForeground)
+                .font(.hereLabel)
+                .foregroundStyle(Color.hereForeground)
 
             if comments.isEmpty {
                 Text("No comments yet. Be the first to respond.")
-                    .font(.powBody)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereBody)
+                    .foregroundStyle(Color.hereMuted)
             } else {
                 ForEach(comments) { comment in
                     CommentRow(comment: comment)
@@ -81,11 +81,11 @@ struct CirclePostDetailView: View {
     private var commentInput: some View {
         HStack(spacing: 12) {
             TextField("Add a comment…", text: $newComment, axis: .vertical)
-                .font(.powBody)
+                .font(.hereBody)
                 .padding(12)
-                .background(Color.powSurface)
+                .background(Color.hereSurface)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
-                .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.powBorder, lineWidth: 1))
+                .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.hereBorder, lineWidth: 1))
                 .lineLimit(1...4)
 
             Button {
@@ -97,15 +97,15 @@ struct CirclePostDetailView: View {
                 } else {
                     Image(systemName: "arrow.up.circle.fill")
                         .font(.system(size: 36))
-                        .foregroundStyle(newComment.trimmingCharacters(in: .whitespaces).isEmpty ? Color.powMuted : Color.powSage)
+                        .foregroundStyle(newComment.trimmingCharacters(in: .whitespaces).isEmpty ? Color.hereMuted : Color.hereSage)
                 }
             }
             .disabled(newComment.trimmingCharacters(in: .whitespaces).isEmpty || isPosting)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
-        .background(Color.powSurface)
-        .overlay(Rectangle().frame(height: 1).foregroundStyle(Color.powBorder), alignment: .top)
+        .background(Color.hereSurface)
+        .overlay(Rectangle().frame(height: 1).foregroundStyle(Color.hereBorder), alignment: .top)
     }
 
     private func formatDate(_ iso: String) -> String {
@@ -137,16 +137,16 @@ struct CommentRow: View {
         VStack(alignment: .leading, spacing: 6) {
             HStack {
                 Label("Member", systemImage: "person.circle")
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
                 Spacer()
                 Text(formatDate(comment.createdAt))
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
             }
             Text(comment.content)
-                .font(.powCallout)
-                .foregroundStyle(Color.powForeground)
+                .font(.hereCallout)
+                .foregroundStyle(Color.hereForeground)
         }
         .padding(.vertical, 4)
     }

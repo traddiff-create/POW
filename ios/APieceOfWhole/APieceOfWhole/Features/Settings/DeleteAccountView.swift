@@ -11,39 +11,39 @@ struct DeleteAccountView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
                 ScrollView {
                     VStack(spacing: 24) {
                         Image(systemName: didSubmit ? "checkmark.circle" : "person.crop.circle.badge.minus")
                             .font(.system(size: 56))
-                            .foregroundStyle(didSubmit ? Color.powSage : Color.powMuted)
+                            .foregroundStyle(didSubmit ? Color.hereSage : Color.hereMuted)
 
                         Text(didSubmit ? "Request Received" : "Delete Account")
-                            .font(.powTitle2)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereTitle2)
+                            .foregroundStyle(Color.hereForeground)
 
                         if didSubmit {
                             Text("Your account deletion request has been recorded. We will process it within 30 days unless retention is legally required.")
-                                .font(.powBody)
-                                .foregroundStyle(Color.powMuted)
+                                .font(.hereBody)
+                                .foregroundStyle(Color.hereMuted)
                                 .multilineTextAlignment(.center)
-                            POWButton(title: "Done") {
+                            HereButton(title: "Done") {
                                 dismiss()
                             }
                         } else {
                             VStack(spacing: 12) {
                                 Text("You can request deletion of your account and associated personal data from inside the app. This removes your profile, cohort activity, check-ins, journal entries, and circle content unless we are legally required to retain a record.")
-                                    .font(.powBody)
-                                    .foregroundStyle(Color.powMuted)
+                                    .font(.hereBody)
+                                    .foregroundStyle(Color.hereMuted)
                                     .multilineTextAlignment(.center)
 
                                 Text("This action is reviewed by support before completion. You may be contacted at your account email if we need to confirm details.")
-                                    .font(.powCaption)
-                                    .foregroundStyle(Color.powMuted)
+                                    .font(.hereCaption)
+                                    .foregroundStyle(Color.hereMuted)
                                     .multilineTextAlignment(.center)
                             }
 
-                            POWTextField(
+                            HereTextField(
                                 label: "Reason (optional)",
                                 text: $reason,
                                 placeholder: "Anything you want support to know",
@@ -52,12 +52,12 @@ struct DeleteAccountView: View {
 
                             if let error {
                                 Text(error)
-                                    .font(.powCaption)
-                                    .foregroundStyle(Color.powError)
+                                    .font(.hereCaption)
+                                    .foregroundStyle(Color.hereError)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                             }
 
-                            POWButton(title: "Request Account Deletion", isLoading: isSubmitting) {
+                            HereButton(title: "Request Account Deletion", isLoading: isSubmitting) {
                                 Task { await submitRequest() }
                             }
                         }

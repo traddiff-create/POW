@@ -3,7 +3,7 @@ import SwiftUI
 struct PhilosophyView: View {
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
@@ -22,37 +22,37 @@ struct PhilosophyView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(POWPhilosophy.appName)
-                .font(.powLargeTitle)
-                .foregroundStyle(Color.powForeground)
+            Text(HerePhilosophy.appName)
+                .font(.hereLargeTitle)
+                .foregroundStyle(Color.hereForeground)
 
             Text("Self. Together. Community.")
-                .font(.powTitle2)
-                .foregroundStyle(Color.powSage)
+                .font(.hereTitle2)
+                .foregroundStyle(Color.hereSage)
 
-            Text(POWPhilosophy.thesis)
-                .font(.powBody)
-                .foregroundStyle(Color.powMuted)
+            Text(HerePhilosophy.thesis)
+                .font(.hereBody)
+                .foregroundStyle(Color.hereMuted)
 
             Text("This is a living philosophy, not doctrine. It begins with the body, practices peace together, and moves outward into local care.")
-                .font(.powBody)
-                .foregroundStyle(Color.powForeground)
+                .font(.hereBody)
+                .foregroundStyle(Color.hereForeground)
         }
     }
 
     private var workingLines: some View {
         VStack(alignment: .leading, spacing: 10) {
-            ForEach(POWPhilosophy.workingLines, id: \.self) { line in
+            ForEach(HerePhilosophy.workingLines, id: \.self) { line in
                 Text(line)
-                    .font(.powCallout)
-                    .foregroundStyle(Color.powForeground)
+                    .font(.hereCallout)
+                    .foregroundStyle(Color.hereForeground)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(14)
-                    .background(Color.powSurface)
+                    .background(Color.hereSurface)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.powBorder, lineWidth: 1)
+                            .stroke(Color.hereBorder, lineWidth: 1)
                     )
             }
         }
@@ -61,29 +61,29 @@ struct PhilosophyView: View {
     private var legsSection: some View {
         VStack(alignment: .leading, spacing: 14) {
             Text("The Three Legs")
-                .font(.powTitle2)
-                .foregroundStyle(Color.powForeground)
+                .font(.hereTitle2)
+                .foregroundStyle(Color.hereForeground)
 
             Text("Self is the foundation. Together is the soul. Community is the invitation outward.")
-                .font(.powBody)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereBody)
+                .foregroundStyle(Color.hereMuted)
 
             VStack(spacing: 12) {
                 ForEach(HereLeg.allCases) { leg in
-                    POWCard {
+                    HereCard {
                         HStack(alignment: .top, spacing: 14) {
                             Image(systemName: leg.systemImage)
                                 .font(.system(size: 22))
-                                .foregroundStyle(Color.powSage)
+                                .foregroundStyle(Color.hereSage)
                                 .frame(width: 34, height: 34)
 
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(leg.title)
-                                    .font(.powLabel)
-                                    .foregroundStyle(Color.powForeground)
+                                    .font(.hereLabel)
+                                    .foregroundStyle(Color.hereForeground)
                                 Text(detail(for: leg))
-                                    .font(.powCallout)
-                                    .foregroundStyle(Color.powMuted)
+                                    .font(.hereCallout)
+                                    .foregroundStyle(Color.hereMuted)
                             }
                         }
                         .padding(16)
@@ -96,28 +96,28 @@ struct PhilosophyView: View {
     private func detail(for leg: HereLeg) -> String {
         switch leg {
         case .selfFoundation:
-            return POWPhilosophy.selfCopy
+            return HerePhilosophy.selfCopy
         case .together:
-            return POWPhilosophy.togetherCopy
+            return HerePhilosophy.togetherCopy
         case .community:
-            return POWPhilosophy.communityCopy
+            return HerePhilosophy.communityCopy
         }
     }
 
     private var beliefsSection: some View {
         VStack(alignment: .leading, spacing: 14) {
             Text("Core Beliefs")
-                .font(.powTitle2)
-                .foregroundStyle(Color.powForeground)
+                .font(.hereTitle2)
+                .foregroundStyle(Color.hereForeground)
 
-            ForEach(POWPhilosophy.beliefs) { belief in
+            ForEach(HerePhilosophy.beliefs) { belief in
                 VStack(alignment: .leading, spacing: 4) {
                     Text(belief.title)
-                        .font(.powLabel)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereLabel)
+                        .foregroundStyle(Color.hereForeground)
                     Text(belief.body)
-                        .font(.powBody)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereBody)
+                        .foregroundStyle(Color.hereMuted)
                 }
             }
         }
@@ -126,20 +126,20 @@ struct PhilosophyView: View {
     private var closingSection: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("We are not selling transformation. We are building conditions.")
-                .font(.powTitle2)
-                .foregroundStyle(Color.powForeground)
+                .font(.hereTitle2)
+                .foregroundStyle(Color.hereForeground)
 
             Text("Safe enough to be honest. Connected enough to grow. Grounded enough to act.")
-                .font(.powBody)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereBody)
+                .foregroundStyle(Color.hereMuted)
 
             Text("You do not have to have it all figured out. Neither do we. That is part of the point.")
-                .font(.powBody)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereBody)
+                .foregroundStyle(Color.hereMuted)
 
-            Text(POWPhilosophy.attribution)
-                .font(.powCaption)
-                .foregroundStyle(Color.powMuted)
+            Text(HerePhilosophy.attribution)
+                .font(.hereCaption)
+                .foregroundStyle(Color.hereMuted)
                 .padding(.top, 8)
         }
     }

@@ -12,17 +12,17 @@ struct CreateAccountView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
 
             ScrollView {
                 VStack(spacing: 32) {
                     VStack(spacing: 8) {
                         Text("Create an account")
-                            .font(.powTitle)
-                            .foregroundStyle(Color.powForeground)
-                        Text(POWPhilosophy.onboardingCopy)
-                            .font(.powBody)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereTitle)
+                            .foregroundStyle(Color.hereForeground)
+                        Text(HerePhilosophy.onboardingCopy)
+                            .font(.hereBody)
+                            .foregroundStyle(Color.hereMuted)
                             .multilineTextAlignment(.center)
                     }
                     .padding(.top, 32)
@@ -40,36 +40,36 @@ struct CreateAccountView: View {
                     .disabled(isAppleSigningIn)
 
                     HStack {
-                        Rectangle().fill(Color.powBorder).frame(height: 1)
+                        Rectangle().fill(Color.hereBorder).frame(height: 1)
                         Text("or")
-                            .font(.powCaption)
-                            .foregroundStyle(Color.powMuted)
-                        Rectangle().fill(Color.powBorder).frame(height: 1)
+                            .font(.hereCaption)
+                            .foregroundStyle(Color.hereMuted)
+                        Rectangle().fill(Color.hereBorder).frame(height: 1)
                     }
 
                     VStack(spacing: 16) {
-                        POWTextField(label: "Email", text: $email, keyboardType: .emailAddress, accessibilityID: "create.emailField")
-                        POWTextField(label: "Password", text: $password, isSecure: true, accessibilityID: "create.passwordField")
-                        POWTextField(label: "Confirm Password", text: $confirmPassword, isSecure: true, accessibilityID: "create.confirmPasswordField")
+                        HereTextField(label: "Email", text: $email, keyboardType: .emailAddress, accessibilityID: "create.emailField")
+                        HereTextField(label: "Password", text: $password, isSecure: true, accessibilityID: "create.passwordField")
+                        HereTextField(label: "Confirm Password", text: $confirmPassword, isSecure: true, accessibilityID: "create.confirmPasswordField")
                     }
 
                     if let error {
                         Text(error)
-                            .font(.powCaption)
-                            .foregroundStyle(Color.powError)
+                            .font(.hereCaption)
+                            .foregroundStyle(Color.hereError)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .accessibilityIdentifier("create.errorText")
                     }
 
                     if let confirmationMessage {
                         Text(confirmationMessage)
-                            .font(.powCallout)
-                            .foregroundStyle(Color.powSage)
+                            .font(.hereCallout)
+                            .foregroundStyle(Color.hereSage)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .accessibilityIdentifier("create.confirmationText")
                     }
 
-                    POWButton(title: "Create Account", isLoading: isLoading) {
+                    HereButton(title: "Create Account", isLoading: isLoading) {
                         Task { await createAccount() }
                     }
                     .accessibilityIdentifier("create.submitButton")

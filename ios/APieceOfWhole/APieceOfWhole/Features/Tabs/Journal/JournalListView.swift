@@ -9,7 +9,7 @@ struct JournalListView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
 
                 if isLoading {
                     ProgressView()
@@ -21,11 +21,11 @@ struct JournalListView: View {
                             NavigationLink(destination: JournalEntryView(entry: entry) { await load() }) {
                                 JournalEntryRow(entry: entry)
                             }
-                            .listRowBackground(Color.powSurface)
+                            .listRowBackground(Color.hereSurface)
                         }
                     }
                     .listStyle(.plain)
-                    .background(Color.powBackground)
+                    .background(Color.hereBackground)
                     .scrollContentBackground(.hidden)
                 }
             }
@@ -37,7 +37,7 @@ struct JournalListView: View {
                         showNewEntry = true
                     } label: {
                         Image(systemName: "square.and.pencil")
-                            .foregroundStyle(Color.powSage)
+                            .foregroundStyle(Color.hereSage)
                     }
                 }
             }
@@ -52,15 +52,15 @@ struct JournalListView: View {
         VStack(spacing: 16) {
             Image(systemName: "book.closed")
                 .font(.system(size: 48))
-                .foregroundStyle(Color.powMuted)
+                .foregroundStyle(Color.hereMuted)
             Text("Your journal is empty")
-                .font(.powTitle2)
-                .foregroundStyle(Color.powForeground)
+                .font(.hereTitle2)
+                .foregroundStyle(Color.hereForeground)
             Text("Start writing to capture your reflections.")
-                .font(.powBody)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereBody)
+                .foregroundStyle(Color.hereMuted)
                 .multilineTextAlignment(.center)
-            POWButton(title: "New Entry") { showNewEntry = true }
+            HereButton(title: "New Entry") { showNewEntry = true }
                 .padding(.top, 8)
         }
         .padding(28)
@@ -80,27 +80,27 @@ struct JournalEntryRow: View {
         VStack(alignment: .leading, spacing: 6) {
             HStack {
                 Text(entry.title ?? "Untitled")
-                    .font(.powBody)
-                    .foregroundStyle(Color.powForeground)
+                    .font(.hereBody)
+                    .foregroundStyle(Color.hereForeground)
                     .lineLimit(1)
                 Spacer()
                 if entry.isShared {
                     Image(systemName: "person.2.circle")
-                        .font(.powCaption)
-                        .foregroundStyle(Color.powSage)
+                        .font(.hereCaption)
+                        .foregroundStyle(Color.hereSage)
                 } else {
                     Image(systemName: "lock")
-                        .font(.powCaption)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereCaption)
+                        .foregroundStyle(Color.hereMuted)
                 }
             }
             Text(entry.body ?? "")
-                .font(.powCallout)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereCallout)
+                .foregroundStyle(Color.hereMuted)
                 .lineLimit(2)
             Text(formatDate(entry.createdAt))
-                .font(.powCaption)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereCaption)
+                .foregroundStyle(Color.hereMuted)
         }
         .padding(.vertical, 4)
     }

@@ -10,17 +10,17 @@ struct SignInView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
 
             ScrollView {
                 VStack(spacing: 32) {
                     VStack(spacing: 8) {
                         Text("Welcome back")
-                            .font(.powTitle)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereTitle)
+                            .foregroundStyle(Color.hereForeground)
                         Text("Sign in to continue your journey")
-                            .font(.powBody)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereBody)
+                            .foregroundStyle(Color.hereMuted)
                     }
                     .padding(.top, 32)
 
@@ -37,27 +37,27 @@ struct SignInView: View {
                     .disabled(isAppleSigningIn)
 
                     HStack {
-                        Rectangle().fill(Color.powBorder).frame(height: 1)
+                        Rectangle().fill(Color.hereBorder).frame(height: 1)
                         Text("or")
-                            .font(.powCaption)
-                            .foregroundStyle(Color.powMuted)
-                        Rectangle().fill(Color.powBorder).frame(height: 1)
+                            .font(.hereCaption)
+                            .foregroundStyle(Color.hereMuted)
+                        Rectangle().fill(Color.hereBorder).frame(height: 1)
                     }
 
                     VStack(spacing: 16) {
-                        POWTextField(label: "Email", text: $email, keyboardType: .emailAddress, accessibilityID: "signIn.emailField")
-                        POWTextField(label: "Password", text: $password, isSecure: true, accessibilityID: "signIn.passwordField")
+                        HereTextField(label: "Email", text: $email, keyboardType: .emailAddress, accessibilityID: "signIn.emailField")
+                        HereTextField(label: "Password", text: $password, isSecure: true, accessibilityID: "signIn.passwordField")
                     }
 
                     if let error {
                         Text(error)
-                            .font(.powCaption)
-                            .foregroundStyle(Color.powError)
+                            .font(.hereCaption)
+                            .foregroundStyle(Color.hereError)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .accessibilityIdentifier("signIn.errorText")
                     }
 
-                    POWButton(title: "Sign In", isLoading: isLoading) {
+                    HereButton(title: "Sign In", isLoading: isLoading) {
                         Task { await signIn() }
                     }
                     .accessibilityIdentifier("signIn.submitButton")

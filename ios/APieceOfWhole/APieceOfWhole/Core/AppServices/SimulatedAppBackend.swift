@@ -11,7 +11,7 @@ final class SimulatedAppBackend: AuthProviding, AppDataProviding {
     static let email = "qa+join@example.test"
     static let password = "CorrectHorseBattery1!"
     static let displayName = "QA Joiner"
-    static let cohortName = "POW 8-Week Test Cohort"
+    static let cohortName = "Here 8-Week Test Cohort"
 
     private static let userUUID = UUID(uuidString: "11111111-1111-4111-8111-111111111111") ?? UUID()
     private static let cohortID = "22222222-2222-4222-8222-222222222222"
@@ -137,7 +137,7 @@ final class SimulatedAppBackend: AuthProviding, AppDataProviding {
             Cohort(
                 id: Self.cohortID,
                 name: Self.cohortName,
-                slug: "pow-8-week-test",
+                slug: "here-8-week-test",
                 description: "A safe simulated cohort for account setup and join flow testing.",
                 startDate: "2026-05-01",
                 endDate: "2026-06-26",

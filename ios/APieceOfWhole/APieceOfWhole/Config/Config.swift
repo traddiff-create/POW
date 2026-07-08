@@ -42,8 +42,8 @@ enum Config {
         return nil
     }
 
-    static let appURL = URL(string: "https://apieceofwhole.com") ?? URL(fileURLWithPath: "/")
-    static let supportEmail = "hello@apieceofwhole.com"
+    static let appURL = URL(string: "https://traddiff.com") ?? URL(fileURLWithPath: "/")
+    static let supportEmail = "rory@traddiff.com"
     static let storeKitProductID = "apow.cohort.8week"
     static let audioStorageBucket = "practice-audio"
 

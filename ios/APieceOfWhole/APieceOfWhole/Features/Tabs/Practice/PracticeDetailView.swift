@@ -6,30 +6,30 @@ struct PracticeDetailView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
                     VStack(alignment: .leading, spacing: 8) {
                         Text(practice.title)
-                            .font(.powTitle2)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereTitle2)
+                            .foregroundStyle(Color.hereForeground)
 
                         if let subtitle = practice.subtitle {
                             Text(subtitle)
-                                .font(.powBody)
-                                .foregroundStyle(Color.powMuted)
+                                .font(.hereBody)
+                                .foregroundStyle(Color.hereMuted)
                         }
 
                         HStack(spacing: 16) {
                             if let duration = practice.durationMinutes {
                                 Label("\(duration) min", systemImage: "clock")
-                                    .font(.powCallout)
-                                    .foregroundStyle(Color.powMuted)
+                                    .font(.hereCallout)
+                                    .foregroundStyle(Color.hereMuted)
                             }
                             if let layer = practice.layerValues.first {
                                 Label(layerLabel(layer), systemImage: "circle.hexagongrid")
-                                    .font(.powCallout)
-                                    .foregroundStyle(Color.powMuted)
+                                    .font(.hereCallout)
+                                    .foregroundStyle(Color.hereMuted)
                             }
                         }
 
@@ -53,15 +53,15 @@ struct PracticeDetailView: View {
                     if let body = practice.bodyText {
                         Divider()
                         Text(body)
-                            .font(.powBody)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereBody)
+                            .foregroundStyle(Color.hereForeground)
                     }
 
                     if let riskNote = practice.riskNote {
-                        POWCard {
+                        HereCard {
                             Text(riskNote)
-                                .font(.powCallout)
-                                .foregroundStyle(Color.powMuted)
+                                .font(.hereCallout)
+                                .foregroundStyle(Color.hereMuted)
                                 .padding(16)
                         }
                     }
@@ -78,7 +78,7 @@ struct PracticeDetailView: View {
                     UserDefaults.standard.set(isSaved, forKey: "saved_practice_\(practice.id)")
                 } label: {
                     Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
-                        .foregroundStyle(Color.powSage)
+                        .foregroundStyle(Color.hereSage)
                 }
             }
         }
@@ -115,13 +115,13 @@ struct PracticeDetailView: View {
 
     private func metadataPill(_ text: String) -> some View {
         Text(text)
-            .font(.powCaption)
-            .foregroundStyle(Color.powMuted)
+            .font(.hereCaption)
+            .foregroundStyle(Color.hereMuted)
             .padding(.horizontal, 10)
             .padding(.vertical, 5)
-            .background(Color.powSurface)
+            .background(Color.hereSurface)
             .clipShape(Capsule())
-            .overlay(Capsule().stroke(Color.powBorder, lineWidth: 1))
+            .overlay(Capsule().stroke(Color.hereBorder, lineWidth: 1))
     }
 
     private func sourceKindLabel(_ sourceKind: String) -> String {

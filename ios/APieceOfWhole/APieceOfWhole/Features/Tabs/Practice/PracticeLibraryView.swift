@@ -26,7 +26,7 @@ struct PracticeLibraryView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
 
                 VStack(spacing: 0) {
                     layerFilter
@@ -89,20 +89,20 @@ struct PracticeLibraryView: View {
     }
 
     private var philosophyIntro: some View {
-        POWCard {
+        HereCard {
             HStack(alignment: .top, spacing: 12) {
                 Image(systemName: "circle.hexagongrid")
                     .font(.system(size: 20))
-                    .foregroundStyle(Color.powSage)
+                    .foregroundStyle(Color.hereSage)
                     .frame(width: 28)
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Practice returning")
-                        .font(.powLabel)
-                        .foregroundStyle(Color.powForeground)
-                    Text(POWPhilosophy.practiceCopy)
-                        .font(.powCallout)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereLabel)
+                        .foregroundStyle(Color.hereForeground)
+                    Text(HerePhilosophy.practiceCopy)
+                        .font(.hereCallout)
+                        .foregroundStyle(Color.hereMuted)
                 }
             }
             .padding(16)
@@ -115,13 +115,13 @@ struct PracticeLibraryView: View {
             selectedLayer = value
         } label: {
             Text(label)
-                .font(.powCallout)
-                .foregroundStyle(isSelected ? Color.white : Color.powForeground)
+                .font(.hereCallout)
+                .foregroundStyle(isSelected ? Color.white : Color.hereForeground)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
-                .background(isSelected ? Color.powSage : Color.powSurface)
+                .background(isSelected ? Color.hereSage : Color.hereSurface)
                 .clipShape(Capsule())
-                .overlay(Capsule().stroke(isSelected ? Color.powSage : Color.powBorder, lineWidth: 1))
+                .overlay(Capsule().stroke(isSelected ? Color.hereSage : Color.hereBorder, lineWidth: 1))
         }
     }
 
@@ -129,10 +129,10 @@ struct PracticeLibraryView: View {
         VStack(spacing: 12) {
             Image(systemName: "waveform")
                 .font(.system(size: 48))
-                .foregroundStyle(Color.powMuted)
+                .foregroundStyle(Color.hereMuted)
             Text("No practices found")
-                .font(.powTitle2)
-                .foregroundStyle(Color.powForeground)
+                .font(.hereTitle2)
+                .foregroundStyle(Color.hereForeground)
         }
         .padding(48)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -141,10 +141,10 @@ struct PracticeLibraryView: View {
     private func errorView(_ message: String) -> some View {
         VStack(spacing: 16) {
             Text(message)
-                .font(.powBody)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereBody)
+                .foregroundStyle(Color.hereMuted)
                 .multilineTextAlignment(.center)
-            POWButton(title: "Retry") { Task { await load() } }
+            HereButton(title: "Retry") { Task { await load() } }
         }
         .padding(24)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -166,27 +166,27 @@ struct PracticeCard: View {
     let practice: Practice
 
     var body: some View {
-        POWCard {
+        HereCard {
             HStack(spacing: 16) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.powSage.opacity(0.12))
+                        .fill(Color.hereSage.opacity(0.12))
                         .frame(width: 56, height: 56)
                     Image(systemName: practice.iconName ?? (practice.audioPath != nil ? "waveform" : "text.alignleft"))
                         .font(.system(size: 24))
-                        .foregroundStyle(Color.powSage)
+                        .foregroundStyle(Color.hereSage)
                 }
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(practice.title)
-                        .font(.powBody)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereBody)
+                        .foregroundStyle(Color.hereForeground)
                         .lineLimit(2)
 
                     if let subtitle = practice.subtitle {
                         Text(subtitle)
-                            .font(.powCaption)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereCaption)
+                            .foregroundStyle(Color.hereMuted)
                             .lineLimit(1)
                     }
 
@@ -198,8 +198,8 @@ struct PracticeCard: View {
                             Label("Audio", systemImage: "waveform")
                         }
                     }
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
 
                     VStack(alignment: .leading, spacing: 4) {
                         if let sourceKind = practice.sourceKind {
@@ -212,15 +212,15 @@ struct PracticeCard: View {
                             Text("Risk: \(riskLabel(risk))")
                         }
                     }
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
                 }
 
                 Spacer()
 
                 Image(systemName: "chevron.right")
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
             }
             .padding(16)
         }

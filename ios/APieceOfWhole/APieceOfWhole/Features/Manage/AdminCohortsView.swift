@@ -7,7 +7,7 @@ struct AdminCohortsView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
             if isLoading {
                 ProgressView()
             } else {
@@ -17,22 +17,22 @@ struct AdminCohortsView: View {
                     }) {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(cohort.name)
-                                .font(.powLabel)
-                                .foregroundStyle(Color.powForeground)
+                                .font(.hereLabel)
+                                .foregroundStyle(Color.hereForeground)
                             HStack {
                                 Text(cohort.isOpen ? "Open" : "Closed")
-                                    .font(.powCaption)
-                                    .foregroundStyle(cohort.isOpen ? Color.powSage : Color.powMuted)
+                                    .font(.hereCaption)
+                                    .foregroundStyle(cohort.isOpen ? Color.hereSage : Color.hereMuted)
                                 Spacer()
                                 Text(cohort.formattedPrice)
-                                    .font(.powCaption)
-                                    .foregroundStyle(Color.powMuted)
+                                    .font(.hereCaption)
+                                    .foregroundStyle(Color.hereMuted)
                             }
                         }
                     }
                 }
                 .scrollContentBackground(.hidden)
-                .background(Color.powBackground)
+                .background(Color.hereBackground)
             }
         }
         .navigationTitle("Cohorts")
@@ -43,7 +43,7 @@ struct AdminCohortsView: View {
                     showNew = true
                 } label: {
                     Image(systemName: "plus")
-                        .foregroundStyle(Color.powSage)
+                        .foregroundStyle(Color.hereSage)
                 }
             }
         }
@@ -74,20 +74,20 @@ struct CohortEditView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
                 VStack(spacing: 20) {
-                    POWTextField(label: "Name", text: $name, placeholder: "Spring 2025 Cohort")
-                    POWTextField(label: "Description", text: $description, placeholder: "Optional", axis: .vertical)
-                    POWTextField(label: "StoreKit Product ID", text: $storeKitProductID, placeholder: "apow.cohort.8week")
+                    HereTextField(label: "Name", text: $name, placeholder: "Spring 2025 Cohort")
+                    HereTextField(label: "Description", text: $description, placeholder: "Optional", axis: .vertical)
+                    HereTextField(label: "StoreKit Product ID", text: $storeKitProductID, placeholder: "apow.cohort.8week")
                     Toggle(isOn: $isOpen) {
                         Text("Open for applications")
-                            .font(.powBody)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereBody)
+                            .foregroundStyle(Color.hereForeground)
                     }
-                    .tint(Color.powSage)
-                    if let error { Text(error).font(.powCaption).foregroundStyle(Color.powError) }
+                    .tint(Color.hereSage)
+                    if let error { Text(error).font(.hereCaption).foregroundStyle(Color.hereError) }
                     Spacer()
-                    POWButton(title: cohort == nil ? "Create Cohort" : "Save Changes", isLoading: isSaving) {
+                    HereButton(title: cohort == nil ? "Create Cohort" : "Save Changes", isLoading: isSaving) {
                         Task { await save() }
                     }
                     .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)

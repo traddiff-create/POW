@@ -7,7 +7,7 @@ struct LegalView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
                 VStack(spacing: 0) {
                     Picker("Document", selection: $selectedTab) {
                         Text("Terms").tag(0)
@@ -19,8 +19,8 @@ struct LegalView: View {
 
                     ScrollView {
                         Text(documentText)
-                            .font(.powBody)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereBody)
+                            .foregroundStyle(Color.hereForeground)
                             .padding(24)
                     }
                 }
@@ -59,7 +59,7 @@ struct LegalView: View {
 
             Cohort access may require an in-app purchase. Apple handles purchase processing. Refund requests are handled under Apple's App Store policies unless a separate written agreement applies.
 
-            We may update the app, program content, or these terms. Continued use after updates means you accept the updated terms. Questions can be sent to hello@apieceofwhole.com.
+            We may update the app, program content, or these terms. Continued use after updates means you accept the updated terms. Questions can be sent to rory@traddiff.com.
             """
         case 1:
             return """
@@ -75,7 +75,7 @@ struct LegalView: View {
 
             We use your data to provide app functionality, manage cohorts, process entitlements, support safety and moderation, respond to requests, and maintain the service. We retain data while your account is active and as needed for security, legal, operational, or dispute-resolution purposes.
 
-            You can request account deletion in Settings. We will process deletion requests within 30 days unless limited retention is legally required. Privacy questions can be sent to hello@apieceofwhole.com.
+            You can request account deletion in Settings. We will process deletion requests within 30 days unless limited retention is legally required. Privacy questions can be sent to rory@traddiff.com.
             """
         default:
             return """

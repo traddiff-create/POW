@@ -178,11 +178,11 @@ enum TestData {
         )
     }
 
-    static func cohort(id: String = cohortID, name: String = "POW Test Cohort") -> Cohort {
+    static func cohort(id: String = cohortID, name: String = "Here Test Cohort") -> Cohort {
         Cohort(
             id: id,
             name: name,
-            slug: "pow-test-cohort",
+            slug: "here-test-cohort",
             description: "A test cohort.",
             startDate: "2026-05-01",
             endDate: "2026-06-26",

@@ -7,12 +7,12 @@ struct AdminModerationView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
             if isLoading {
                 ProgressView()
             } else if reports.isEmpty {
                 Text("No reports.")
-                    .font(.powBody).foregroundStyle(Color.powMuted)
+                    .font(.hereBody).foregroundStyle(Color.hereMuted)
             } else {
                 List(reports) { report in
                     ReportRow(report: report)
@@ -20,15 +20,15 @@ struct AdminModerationView: View {
                             Button("Resolve") {
                                 Task { await resolve(report, status: "resolved") }
                             }
-                            .tint(Color.powSage)
+                            .tint(Color.hereSage)
                             Button("Dismiss") {
                                 Task { await resolve(report, status: "dismissed") }
                             }
-                            .tint(Color.powMuted)
+                            .tint(Color.hereMuted)
                         }
                 }
                 .scrollContentBackground(.hidden)
-                .background(Color.powBackground)
+                .background(Color.hereBackground)
             }
         }
         .navigationTitle("Moderation")
@@ -56,12 +56,12 @@ struct ReportRow: View {
         VStack(alignment: .leading, spacing: 6) {
             HStack {
                 Text(report.reportedContentType ?? "content")
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
                     .textCase(.uppercase)
                 Spacer()
                 Text(report.status)
-                    .font(.powCaption)
+                    .font(.hereCaption)
                     .foregroundStyle(statusColor)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 2)
@@ -70,23 +70,23 @@ struct ReportRow: View {
             }
             if let reason = report.reason {
                 Text(reason)
-                    .font(.powBody)
-                    .foregroundStyle(Color.powForeground)
+                    .font(.hereBody)
+                    .foregroundStyle(Color.hereForeground)
                     .lineLimit(2)
             }
             Text(formatDate(report.createdAt))
-                .font(.powCaption)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereCaption)
+                .foregroundStyle(Color.hereMuted)
         }
         .padding(.vertical, 4)
     }
 
     private var statusColor: Color {
         switch report.status {
-        case "resolved": return Color.powSage
-        case "dismissed": return Color.powMuted
-        case "reviewing": return Color.powStone
-        default: return Color.powError
+        case "resolved": return Color.hereSage
+        case "dismissed": return Color.hereMuted
+        case "reviewing": return Color.hereStone
+        default: return Color.hereError
         }
     }
 

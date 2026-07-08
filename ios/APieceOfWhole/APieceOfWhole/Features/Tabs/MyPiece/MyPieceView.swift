@@ -15,7 +15,7 @@ struct MyPieceView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
                 ScrollView {
                     VStack(spacing: 20) {
                         introCard
@@ -32,17 +32,17 @@ struct MyPieceView: View {
     }
 
     private var introCard: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 8) {
                 Label("Your contribution to the whole", systemImage: "puzzle.piece")
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
-                Text(POWPhilosophy.myPieceCopy)
-                    .font(.powBody)
-                    .foregroundStyle(Color.powForeground)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
+                Text(HerePhilosophy.myPieceCopy)
+                    .font(.hereBody)
+                    .foregroundStyle(Color.hereForeground)
                 Text("These reflections are private and help you stay grounded in your honest capacity.")
-                    .font(.powCallout)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCallout)
+                    .foregroundStyle(Color.hereMuted)
             }
             .padding(20)
         }
@@ -50,42 +50,42 @@ struct MyPieceView: View {
 
     private var fieldsSection: some View {
         VStack(spacing: 16) {
-            POWTextField(
+            HereTextField(
                 label: "My Values",
                 text: $values,
                 placeholder: "What do you stand for?",
                 axis: .vertical
             )
 
-            POWTextField(
+            HereTextField(
                 label: "Gifts & Skills",
                 text: $giftsSkills,
                 placeholder: "What do you bring to this space?",
                 axis: .vertical
             )
 
-            POWTextField(
+            HereTextField(
                 label: "Current Capacity",
                 text: $currentCapacity,
                 placeholder: "How much can you give right now?",
                 axis: .vertical
             )
 
-            POWTextField(
+            HereTextField(
                 label: "My Edges & Boundaries",
                 text: $boundaries,
                 placeholder: "What needs protecting right now?",
                 axis: .vertical
             )
 
-            POWTextField(
+            HereTextField(
                 label: "Current Contribution",
                 text: $currentContribution,
                 placeholder: "What are you actively contributing?",
                 axis: .vertical
             )
 
-            POWTextField(
+            HereTextField(
                 label: "One Small Action",
                 text: $smallAction,
                 placeholder: "What's one thing you can do this week?",
@@ -98,15 +98,15 @@ struct MyPieceView: View {
         VStack(spacing: 8) {
             if let error = saveError {
                 Text(error)
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powError)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereError)
             }
             if let saved = savedAt {
                 Text("Saved \(saved.formatted(date: .omitted, time: .shortened))")
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
             }
-            POWButton(title: "Save My Piece", isLoading: isSaving) {
+            HereButton(title: "Save My Piece", isLoading: isSaving) {
                 Task { await save() }
             }
         }

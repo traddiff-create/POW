@@ -38,16 +38,16 @@ struct FacilitatorDashboardView: View {
     private func sectionHeader(_ title: String, systemImage: String) -> some View {
         HStack {
             Label(title, systemImage: systemImage)
-                .font(.powLabel)
-                .foregroundStyle(Color.powForeground)
+                .font(.hereLabel)
+                .foregroundStyle(Color.hereForeground)
             Spacer()
         }
     }
 
     private func emptyState(_ text: String) -> some View {
         Text(text)
-            .font(.powBody)
-            .foregroundStyle(Color.powMuted)
+            .font(.hereBody)
+            .foregroundStyle(Color.hereMuted)
             .frame(maxWidth: .infinity, alignment: .leading)
     }
 

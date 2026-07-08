@@ -83,7 +83,7 @@ struct AudioPlayerView: View {
     @State private var model = AudioPlayerModel()
 
     var body: some View {
-        POWCard {
+        HereCard {
             VStack(spacing: 16) {
                 HStack(spacing: 16) {
                     Button {
@@ -91,7 +91,7 @@ struct AudioPlayerView: View {
                     } label: {
                         ZStack {
                             Circle()
-                                .fill(Color.powSage)
+                                .fill(Color.hereSage)
                                 .frame(width: 52, height: 52)
                             if model.isLoading {
                                 ProgressView().tint(.white)
@@ -109,24 +109,24 @@ struct AudioPlayerView: View {
                             get: { model.progress },
                             set: { model.seek(to: $0) }
                         ))
-                        .tint(Color.powSage)
+                        .tint(Color.hereSage)
 
                         HStack {
                             Text(formatTime(model.progress * model.duration))
-                                .font(.powCaption)
-                                .foregroundStyle(Color.powMuted)
+                                .font(.hereCaption)
+                                .foregroundStyle(Color.hereMuted)
                             Spacer()
                             Text(formatTime(model.duration))
-                                .font(.powCaption)
-                                .foregroundStyle(Color.powMuted)
+                                .font(.hereCaption)
+                                .foregroundStyle(Color.hereMuted)
                         }
                     }
                 }
 
                 if let error = model.error {
                     Text(error)
-                        .font(.powCaption)
-                        .foregroundStyle(Color.powError)
+                        .font(.hereCaption)
+                        .foregroundStyle(Color.hereError)
                 }
             }
             .padding(16)

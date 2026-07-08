@@ -31,7 +31,7 @@ struct LearnView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
 
                 VStack(spacing: 0) {
                     layerFilter
@@ -84,27 +84,27 @@ struct LearnView: View {
 
     private var philosophyLink: some View {
         NavigationLink(destination: PhilosophyView()) {
-            POWCard {
+            HereCard {
                 HStack(alignment: .top, spacing: 12) {
                     Image(systemName: "text.book.closed")
                         .font(.system(size: 20))
-                        .foregroundStyle(Color.powSage)
+                        .foregroundStyle(Color.hereSage)
                         .frame(width: 28)
 
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Working Philosophy")
-                            .font(.powLabel)
-                            .foregroundStyle(Color.powForeground)
-                        Text(POWPhilosophy.learnCopy)
-                            .font(.powCallout)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereLabel)
+                            .foregroundStyle(Color.hereForeground)
+                        Text(HerePhilosophy.learnCopy)
+                            .font(.hereCallout)
+                            .foregroundStyle(Color.hereMuted)
                     }
 
                     Spacer()
 
                     Image(systemName: "chevron.right")
-                        .font(.powCaption)
-                        .foregroundStyle(Color.powMuted)
+                        .font(.hereCaption)
+                        .foregroundStyle(Color.hereMuted)
                 }
                 .padding(16)
             }
@@ -118,13 +118,13 @@ struct LearnView: View {
             selectedLayer = value
         } label: {
             Text(label)
-                .font(.powCallout)
-                .foregroundStyle(isSelected ? Color.white : Color.powForeground)
+                .font(.hereCallout)
+                .foregroundStyle(isSelected ? Color.white : Color.hereForeground)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
-                .background(isSelected ? Color.powSage : Color.powSurface)
+                .background(isSelected ? Color.hereSage : Color.hereSurface)
                 .clipShape(Capsule())
-                .overlay(Capsule().stroke(isSelected ? Color.powSage : Color.powBorder, lineWidth: 1))
+                .overlay(Capsule().stroke(isSelected ? Color.hereSage : Color.hereBorder, lineWidth: 1))
         }
     }
 
@@ -132,13 +132,13 @@ struct LearnView: View {
         VStack(spacing: 12) {
             Image(systemName: "text.book.closed")
                 .font(.system(size: 48))
-                .foregroundStyle(Color.powMuted)
+                .foregroundStyle(Color.hereMuted)
             Text("No readings found")
-                .font(.powTitle2)
-                .foregroundStyle(Color.powForeground)
+                .font(.hereTitle2)
+                .foregroundStyle(Color.hereForeground)
             Text("Try a different layer or search.")
-                .font(.powBody)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereBody)
+                .foregroundStyle(Color.hereMuted)
         }
         .padding(48)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -147,10 +147,10 @@ struct LearnView: View {
     private func errorView(_ message: String) -> some View {
         VStack(spacing: 16) {
             Text(message)
-                .font(.powBody)
-                .foregroundStyle(Color.powMuted)
+                .font(.hereBody)
+                .foregroundStyle(Color.hereMuted)
                 .multilineTextAlignment(.center)
-            POWButton(title: "Retry") { Task { await load() } }
+            HereButton(title: "Retry") { Task { await load() } }
         }
         .padding(24)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -172,27 +172,27 @@ struct LearningResourceCard: View {
     let resource: LearningResource
 
     var body: some View {
-        POWCard {
+        HereCard {
             HStack(alignment: .top, spacing: 16) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.powSage.opacity(0.12))
+                        .fill(Color.hereSage.opacity(0.12))
                         .frame(width: 54, height: 54)
                     Image(systemName: iconName)
                         .font(.system(size: 23))
-                        .foregroundStyle(Color.powSage)
+                        .foregroundStyle(Color.hereSage)
                 }
 
                 VStack(alignment: .leading, spacing: 6) {
                     Text(resource.title)
-                        .font(.powBody)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereBody)
+                        .foregroundStyle(Color.hereForeground)
                         .lineLimit(2)
 
                     if let subtitle = resource.subtitle {
                         Text(subtitle)
-                            .font(.powCaption)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereCaption)
+                            .foregroundStyle(Color.hereMuted)
                             .lineLimit(2)
                     }
 
@@ -202,21 +202,21 @@ struct LearningResourceCard: View {
                         }
                         Label(statusLabel, systemImage: resource.hasFullText ? "doc.text" : "info.circle")
                     }
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
 
                     if let layer = resource.layerValues.first {
                         Text(labelize(layer))
-                            .font(.powCaption)
-                            .foregroundStyle(Color.powMuted)
+                            .font(.hereCaption)
+                            .foregroundStyle(Color.hereMuted)
                     }
                 }
 
                 Spacer()
 
                 Image(systemName: "chevron.right")
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
                     .padding(.top, 4)
             }
             .padding(16)
@@ -256,7 +256,7 @@ struct LearnResourceDetailView: View {
 
     var body: some View {
         ZStack {
-            Color.powBackground.ignoresSafeArea()
+            Color.hereBackground.ignoresSafeArea()
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
@@ -267,15 +267,15 @@ struct LearnResourceDetailView: View {
                             .frame(maxWidth: .infinity)
                     } else if let error {
                         Text(error)
-                            .font(.powCallout)
-                            .foregroundStyle(Color.powError)
+                            .font(.hereCallout)
+                            .foregroundStyle(Color.hereError)
                     }
 
                     if let bodyMarkdown = currentResource.bodyMarkdown, currentResource.hasFullText {
                         Divider()
                         markdownText(bodyMarkdown)
-                            .font(.powBody)
-                            .foregroundStyle(Color.powForeground)
+                            .font(.hereBody)
+                            .foregroundStyle(Color.hereForeground)
                     } else {
                         excerptOnlyView
                     }
@@ -305,19 +305,19 @@ struct LearnResourceDetailView: View {
     private var header: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(currentResource.title)
-                .font(.powTitle)
-                .foregroundStyle(Color.powForeground)
+                .font(.hereTitle)
+                .foregroundStyle(Color.hereForeground)
 
             if let subtitle = currentResource.subtitle {
                 Text(subtitle)
-                    .font(.powBody)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereBody)
+                    .foregroundStyle(Color.hereMuted)
             }
 
             if let summary = currentResource.summary {
                 Text(summary)
-                    .font(.powCallout)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCallout)
+                    .foregroundStyle(Color.hereMuted)
             }
 
             VStack(alignment: .leading, spacing: 8) {
@@ -335,33 +335,33 @@ struct LearnResourceDetailView: View {
     }
 
     private var excerptOnlyView: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 8) {
                 Label("Available in summary for v1", systemImage: "info.circle")
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
                 Text("This source is part of the reviewed Alexandria shelf, but the full document is not included in the app until rights, formatting, and privacy review are complete.")
-                    .font(.powCallout)
-                    .foregroundStyle(Color.powForeground)
+                    .font(.hereCallout)
+                    .foregroundStyle(Color.hereForeground)
             }
             .padding(16)
         }
     }
 
     private var reflectionSection: some View {
-        POWCard {
+        HereCard {
             VStack(alignment: .leading, spacing: 14) {
                 Label("Reflect", systemImage: "square.and.pencil")
-                    .font(.powCaption)
-                    .foregroundStyle(Color.powMuted)
+                    .font(.hereCaption)
+                    .foregroundStyle(Color.hereMuted)
 
                 if let prompt = currentResource.reflectionPrompt {
                     Text(prompt)
-                        .font(.powBody)
-                        .foregroundStyle(Color.powForeground)
+                        .font(.hereBody)
+                        .foregroundStyle(Color.hereForeground)
                 }
 
-                POWButton(title: "Save Journal Reflection") {
+                HereButton(title: "Save Journal Reflection") {
                     showReflection = true
                 }
 
@@ -370,8 +370,8 @@ struct LearnResourceDetailView: View {
                         shareEntry = savedEntry
                     } label: {
                         Label("Share Saved Reflection to Circle", systemImage: "person.3")
-                            .font(.powCallout)
-                            .foregroundStyle(Color.powSage)
+                            .font(.hereCallout)
+                            .foregroundStyle(Color.hereSage)
                     }
                 }
             }
@@ -392,13 +392,13 @@ struct LearnResourceDetailView: View {
 
     private func metadataPill(_ text: String) -> some View {
         Text(text)
-            .font(.powCaption)
-            .foregroundStyle(Color.powMuted)
+            .font(.hereCaption)
+            .foregroundStyle(Color.hereMuted)
             .padding(.horizontal, 10)
             .padding(.vertical, 5)
-            .background(Color.powSurface)
+            .background(Color.hereSurface)
             .clipShape(Capsule())
-            .overlay(Capsule().stroke(Color.powBorder, lineWidth: 1))
+            .overlay(Capsule().stroke(Color.hereBorder, lineWidth: 1))
     }
 
     private func statusLabel(_ resource: LearningResource) -> String {
@@ -432,25 +432,25 @@ struct LearnReflectionView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.powBackground.ignoresSafeArea()
+                Color.hereBackground.ignoresSafeArea()
                 VStack(spacing: 0) {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 16) {
                             if let prompt = resource.reflectionPrompt {
-                                POWCard {
+                                HereCard {
                                     VStack(alignment: .leading, spacing: 8) {
                                         Label("Prompt", systemImage: "bubble.left.and.quote.bubble.right")
-                                            .font(.powCaption)
-                                            .foregroundStyle(Color.powMuted)
+                                            .font(.hereCaption)
+                                            .foregroundStyle(Color.hereMuted)
                                         Text(prompt)
-                                            .font(.powBody)
-                                            .foregroundStyle(Color.powForeground)
+                                            .font(.hereBody)
+                                            .foregroundStyle(Color.hereForeground)
                                     }
                                     .padding(16)
                                 }
                             }
 
-                            POWTextField(
+                            HereTextField(
                                 label: "Your reflection",
                                 text: $bodyText,
                                 placeholder: "What does this reading open up for you?",
@@ -460,14 +460,14 @@ struct LearnReflectionView: View {
 
                             if let error {
                                 Text(error)
-                                    .font(.powCaption)
-                                    .foregroundStyle(Color.powError)
+                                    .font(.hereCaption)
+                                    .foregroundStyle(Color.hereError)
                             }
                         }
                         .padding(24)
                     }
 
-                    POWButton(title: "Save to Journal", isLoading: isLoading) {
+                    HereButton(title: "Save to Journal", isLoading: isLoading) {
                         Task { await save() }
                     }
                     .disabled(bodyText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)

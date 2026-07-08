@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0A1100010000000000000001 /* LearningResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1000010000000000000001 /* LearningResource.swift */; };
 		0A1300010000000000000001 /* LearnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1200010000000000000001 /* LearnView.swift */; };
-		0B1100010000000000000001 /* POWPhilosophy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1000010000000000000001 /* POWPhilosophy.swift */; };
+		0B1100010000000000000001 /* HerePhilosophy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1000010000000000000001 /* HerePhilosophy.swift */; };
 		0B1400010000000000000001 /* PhilosophyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1300010000000000000001 /* PhilosophyView.swift */; };
 		0C1100010000000000000001 /* AppServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1000010000000000000001 /* AppServices.swift */; };
 		0C1100020000000000000001 /* SimulatedAppBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1000020000000000000001 /* SimulatedAppBackend.swift */; };
@@ -35,7 +35,7 @@
 		15588FF66447834082BD1DA0 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB0C822702FCC002AECE5DD /* AudioPlayerView.swift */; };
 		18968DA0118F71AF5B2C4BF2 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8949FF2A5E69393985FF7C50 /* Profile.swift */; };
 		190E80AD74CC846D83425214 /* SafetyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB53C20B87BA0F27D336E85 /* SafetyView.swift */; };
-		19320FC6E42D0479088EDE53 /* APieceOfWholeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76BE6845A1E0989C335804B /* APieceOfWholeApp.swift */; };
+		19320FC6E42D0479088EDE53 /* HereApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76BE6845A1E0989C335804B /* HereApp.swift */; };
 		221CE40B098BB33F70A3913A /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DF4CF392FFB0D6CCA31CF2 /* AppState.swift */; };
 		269590B52FA45AA083BD4903 /* ApplicationStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711E9343C3C661DD4FFF5E57 /* ApplicationStatusView.swift */; };
 		2D56B5CBB900E2041F4DABA5 /* SupabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C1CDBA3A9CD2DC43B08709 /* SupabaseService.swift */; };
@@ -62,7 +62,7 @@
 		9490D50B47C78AEF982E4113 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93E4A90AED2FCBE68D4E5A8 /* CreateAccountView.swift */; };
 		9FF83EEF1795BC1D69B1BB2F /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17019CDFC5C5F5B98778A99D /* DeleteAccountView.swift */; };
 		A0EBBA4B03F280582223D362 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8449C7EDC8BB7CEB5C63C0E /* Enums.swift */; };
-		A492FD5FA6918FA036057C2B /* POWCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753102265EBC94FA73DF5377 /* POWCard.swift */; };
+		A492FD5FA6918FA036057C2B /* HereCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753102265EBC94FA73DF5377 /* HereCard.swift */; };
 		A6492EAC701949B6CC6A332C /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CC486E803F79225E055F19 /* SignInView.swift */; };
 		AD6C761E9BAE63F44380F8DB /* ApplicationNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66AE772CB1C5857A01338B7B /* ApplicationNavigationView.swift */; };
 		B7740576E62551C2EFE31F15 /* JournalEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05231603F36DCB33902ECB1 /* JournalEntryView.swift */; };
@@ -76,7 +76,7 @@
 		C96753B74F29065FA4FADE71 /* AdminDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46A8FC6E4F27FF948DB2F23 /* AdminDashboardView.swift */; };
 		CBC5FB0D836E7F45561C230F /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691DF91948C510C23E0A3BEC /* CircleView.swift */; };
 		CF10AB18B21BC65220917457 /* CohortApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B385598E03AB160E6C886A8 /* CohortApplication.swift */; };
-		CF9C83ACE0AB62C9AC8E7553 /* POWButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299806D42DF4DC7310C10052 /* POWButton.swift */; };
+		CF9C83ACE0AB62C9AC8E7553 /* HereButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299806D42DF4DC7310C10052 /* HereButton.swift */; };
 		D800698104EA3564AB1237DF /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D5E5D9E4E1660F334D1615 /* AuthService.swift */; };
 		A1B2C3D400000000A0010001 /* SignInWithAppleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D400000000A0010002 /* SignInWithAppleService.swift */; };
 		A1B2C3D400000000A0020001 /* AppleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D400000000A0020002 /* AppleSignInButton.swift */; };
@@ -89,7 +89,7 @@
 		ED0A1C5F2DECD27F25957452 /* AdminApplicationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F87571CA77FF1AC16977DB2 /* AdminApplicationsView.swift */; };
 		EDC7F8757909F0EDCB4401FB /* SpiralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285F95883ED6C9C2B7734658 /* SpiralView.swift */; };
 		F2551E996F4C71B07663E603 /* CirclePostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E9C06F3B924635F164B8EC /* CirclePostDetailView.swift */; };
-		F4373A519859D8627B06BC7D /* POWTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87C1E1E280353F426D107E9 /* POWTextField.swift */; };
+		F4373A519859D8627B06BC7D /* HereTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87C1E1E280353F426D107E9 /* HereTextField.swift */; };
 		F815AA625156BDEE4FFEDEDD /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5228828B0C5F62323CB891 /* SupportView.swift */; };
 		F98C24D7D64BFC7AED2C9913 /* CohortMembership.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A7FC4FAC53C7991745EA5D /* CohortMembership.swift */; };
 		FA8DE92252D2FB6A59222203 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1734AD681400E822CB11EA08 /* TodayView.swift */; };
@@ -127,7 +127,7 @@
 /* Begin PBXFileReference section */
 		0A1000010000000000000001 /* LearningResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningResource.swift; sourceTree = "<group>"; };
 		0A1200010000000000000001 /* LearnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnView.swift; sourceTree = "<group>"; };
-		0B1000010000000000000001 /* POWPhilosophy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POWPhilosophy.swift; sourceTree = "<group>"; };
+		0B1000010000000000000001 /* HerePhilosophy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HerePhilosophy.swift; sourceTree = "<group>"; };
 		0B1300010000000000000001 /* PhilosophyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhilosophyView.swift; sourceTree = "<group>"; };
 		0C1000010000000000000001 /* AppServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppServices.swift; sourceTree = "<group>"; };
 		0C1000020000000000000001 /* SimulatedAppBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatedAppBackend.swift; sourceTree = "<group>"; };
@@ -159,7 +159,7 @@
 		201BEFD0F3D16DAE87BAACDA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		278A6A974DEE25F2CBBEF5C4 /* Practice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Practice.swift; sourceTree = "<group>"; };
 		285F95883ED6C9C2B7734658 /* SpiralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiralView.swift; sourceTree = "<group>"; };
-		299806D42DF4DC7310C10052 /* POWButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POWButton.swift; sourceTree = "<group>"; };
+		299806D42DF4DC7310C10052 /* HereButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HereButton.swift; sourceTree = "<group>"; };
 		2D748531797F471B5E0C4D9F /* SupabaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseClient.swift; sourceTree = "<group>"; };
 		317E0A4F134EFD44EC17277F /* AdminModerationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminModerationView.swift; sourceTree = "<group>"; };
 		36182B8535B538ED71405586 /* LegalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalView.swift; sourceTree = "<group>"; };
@@ -182,7 +182,7 @@
 		691DF91948C510C23E0A3BEC /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		711E9343C3C661DD4FFF5E57 /* ApplicationStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationStatusView.swift; sourceTree = "<group>"; };
 		74A7FC4FAC53C7991745EA5D /* CohortMembership.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CohortMembership.swift; sourceTree = "<group>"; };
-		753102265EBC94FA73DF5377 /* POWCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POWCard.swift; sourceTree = "<group>"; };
+		753102265EBC94FA73DF5377 /* HereCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HereCard.swift; sourceTree = "<group>"; };
 		75D9EFAA23F7D93D77D098C9 /* PurchaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseService.swift; sourceTree = "<group>"; };
 		766FC6FAD13ACA0E1DB172F0 /* PracticeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeDetailView.swift; sourceTree = "<group>"; };
 		77D378B736ABFDC9F5EC94CA /* MyPieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPieceView.swift; sourceTree = "<group>"; };
@@ -208,13 +208,13 @@
 		AA7BCE219828BDB668B69899 /* APieceOfWhole.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = APieceOfWhole.entitlements; sourceTree = "<group>"; };
 		B46A8FC6E4F27FF948DB2F23 /* AdminDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminDashboardView.swift; sourceTree = "<group>"; };
 		B8449C7EDC8BB7CEB5C63C0E /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
-		B87C1E1E280353F426D107E9 /* POWTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POWTextField.swift; sourceTree = "<group>"; };
+		B87C1E1E280353F426D107E9 /* HereTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HereTextField.swift; sourceTree = "<group>"; };
 		C02416764188F24ACD542A37 /* CivicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CivicView.swift; sourceTree = "<group>"; };
 		C2C4AE3C2068B0B4B71924B8 /* AdminNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminNotificationsView.swift; sourceTree = "<group>"; };
 		C5E8508C2B0A190B037A1616 /* AdminUsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminUsersView.swift; sourceTree = "<group>"; };
 		CA356B59F5439659EBD5615A /* JournalEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntry.swift; sourceTree = "<group>"; };
 		CAC45012646B944A819C88C6 /* PublicNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicNavigationView.swift; sourceTree = "<group>"; };
-		D76BE6845A1E0989C335804B /* APieceOfWholeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APieceOfWholeApp.swift; sourceTree = "<group>"; };
+		D76BE6845A1E0989C335804B /* HereApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HereApp.swift; sourceTree = "<group>"; };
 		D8CC486E803F79225E055F19 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		DCB53C20B87BA0F27D336E85 /* SafetyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyView.swift; sourceTree = "<group>"; };
 		EA87B489507C370FBCDF94CB /* Cohort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cohort.swift; sourceTree = "<group>"; };
@@ -317,7 +317,7 @@
 		0B1200010000000000000001 /* Content */ = {
 			isa = PBXGroup;
 			children = (
-				0B1000010000000000000001 /* POWPhilosophy.swift */,
+				0B1000010000000000000001 /* HerePhilosophy.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -383,7 +383,7 @@
 		3D776136C8C2A0435F2CB8C5 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				D76BE6845A1E0989C335804B /* APieceOfWholeApp.swift */,
+				D76BE6845A1E0989C335804B /* HereApp.swift */,
 				44DF4CF392FFB0D6CCA31CF2 /* AppState.swift */,
 				0E53774A5E2A2FA697951F4C /* RootView.swift */,
 			);
@@ -482,9 +482,9 @@
 		94F26DED411910A0B7CC0F9A /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				299806D42DF4DC7310C10052 /* POWButton.swift */,
-				753102265EBC94FA73DF5377 /* POWCard.swift */,
-				B87C1E1E280353F426D107E9 /* POWTextField.swift */,
+				299806D42DF4DC7310C10052 /* HereButton.swift */,
+				753102265EBC94FA73DF5377 /* HereCard.swift */,
+				B87C1E1E280353F426D107E9 /* HereTextField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -844,7 +844,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				19320FC6E42D0479088EDE53 /* APieceOfWholeApp.swift in Sources */,
+				19320FC6E42D0479088EDE53 /* HereApp.swift in Sources */,
 				ED0A1C5F2DECD27F25957452 /* AdminApplicationsView.swift in Sources */,
 				E52EAED8BD4929E4C3DB4E81 /* AdminCohortsView.swift in Sources */,
 				45255D28D88B5F5D93B13BF9 /* AdminContentView.swift in Sources */,
@@ -897,10 +897,10 @@
 				1DA03796B4F94FD8A4BA6C51 /* MeditationTimerView.swift in Sources */,
 				427CDBCE6B4A681379A4443E /* MyPieceView.swift in Sources */,
 				D8C9848030F969FE92D9A75D /* OnboardingView.swift in Sources */,
-				0B1100010000000000000001 /* POWPhilosophy.swift in Sources */,
-				CF9C83ACE0AB62C9AC8E7553 /* POWButton.swift in Sources */,
-				A492FD5FA6918FA036057C2B /* POWCard.swift in Sources */,
-				F4373A519859D8627B06BC7D /* POWTextField.swift in Sources */,
+				0B1100010000000000000001 /* HerePhilosophy.swift in Sources */,
+				CF9C83ACE0AB62C9AC8E7553 /* HereButton.swift in Sources */,
+				A492FD5FA6918FA036057C2B /* HereCard.swift in Sources */,
+				F4373A519859D8627B06BC7D /* HereTextField.swift in Sources */,
 				8D983403B31D29A30672ABF7 /* PaymentScreenView.swift in Sources */,
 				0B1400010000000000000001 /* PhilosophyView.swift in Sources */,
 				BE90459E4C1C37165A7B179B /* Practice.swift in Sources */,
@@ -953,7 +953,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = SP854VZ979;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -981,7 +981,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = SP854VZ979;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1010,7 +1010,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = SP854VZ979;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1040,7 +1040,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = SP854VZ979;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1094,7 +1094,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_PREVIEWS = YES;
@@ -1107,7 +1107,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1174,7 +1174,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1193,7 +1193,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
