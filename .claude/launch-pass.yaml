@@ -1,9 +1,10 @@
-# POW (A Piece of Whole) iOS launch-pass config
+# Here (formerly POW / A Piece of Whole) iOS launch-pass config
 app:
-  name: APieceOfWhole
-  bundle_id: com.traddiff.APieceOfWhole  # confirm from pbxproj if non-default
+  name: APieceOfWhole  # Xcode project/scheme/module keep original name; display name "Here", ASC listing "Here by Dharma"
+  bundle_id: com.traddifftech.apieceofwhole
+  asc_app_id: "6763727066"
   marketing_version: "1.0"
-  build_number: 1
+  build_number: 7
   xcodeproj: ios/APieceOfWhole/APieceOfWhole.xcodeproj
   scheme: APieceOfWhole
 devices:
